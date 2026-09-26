@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useTheme } from "next-themes"
 
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
@@ -16,7 +17,20 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { ComputerTerminalIcon, RoboticIcon, BookOpen02Icon, Settings05Icon, ChartRingIcon, SentIcon, CropIcon, PieChartIcon, MapsIcon, CommandIcon } from "@hugeicons/core-free-icons"
+import {
+  ComputerTerminalIcon,
+  RoboticIcon,
+  BookOpen02Icon,
+  Settings05Icon,
+  ChartRingIcon,
+  SentIcon,
+  CropIcon,
+  PieChartIcon,
+  MapsIcon,
+  CommandIcon,
+  Sun01Icon,
+  Moon01Icon,
+} from "@hugeicons/core-free-icons"
 
 const data = {
   user: {
@@ -159,6 +173,43 @@ const data = {
     },
   ],
 }
+function SidebarThemeToggle() {
+  const { resolvedTheme, setTheme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const isDark = mounted && resolvedTheme === "dark"
+
+  const toggleTheme = () => {
+    setTheme(isDark ? "light" : "dark")
+  }
+
+  return (
+    <SidebarMenu>
+      <SidebarMenuItem>
+        <SidebarMenuButton
+          tooltip={isDark ? "Switch to light mode (Press D)" : "Switch to dark mode (Press D)"}
+          onClick={toggleTheme}
+          aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+        >
+          {isDark ? (
+            <HugeiconsIcon icon={Sun01Icon} strokeWidth={2} />
+          ) : (
+            <HugeiconsIcon icon={Moon01Icon} strokeWidth={2} />
+          )}
+          <span>{isDark ? "Light Mode" : "Dark Mode"}</span>
+          <kbd className="ml-auto pointer-events-none hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 group-data-[collapsible=icon]:hidden sm:inline-flex">
+            D
+          </kbd>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+    </SidebarMenu>
+  )
+}
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar variant="inset" {...props}>
@@ -183,6 +234,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
+        <SidebarThemeToggle />
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>
