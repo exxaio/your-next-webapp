@@ -1,5 +1,6 @@
 "use client"
 
+import { useTranslations } from "next-intl"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   Activity01Icon,
@@ -130,6 +131,8 @@ const chartConfig = {
 }
 
 export default function DashboardPage() {
+  const t = useTranslations("Dashboard")
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -144,11 +147,13 @@ export default function DashboardPage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">Dashboard</BreadcrumbLink>
+                  <BreadcrumbLink href="#">
+                    {t("analyticsHeading")}
+                  </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Analytics</BreadcrumbPage>
+                  <BreadcrumbPage>{t("analyticsHeading")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -159,13 +164,11 @@ export default function DashboardPage() {
           {/* Alert Banner */}
           <Alert>
             <HugeiconsIcon icon={Activity01Icon} className="h-4 w-4" />
-            <AlertTitle>System Status: All systems operational</AlertTitle>
-            <AlertDescription>
-              Your dashboard is up to date. Last sync: 2 minutes ago.
-            </AlertDescription>
+            <AlertTitle>{t("systemStatus")}</AlertTitle>
+            <AlertDescription>{t("dashboardUpToDate")}</AlertDescription>
             <AlertAction>
               <Button variant="ghost" size="sm">
-                Refresh
+                {t("refresh")}
               </Button>
             </AlertAction>
           </Alert>
@@ -174,7 +177,9 @@ export default function DashboardPage() {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <Card className="p-6">
               <div className="flex items-center justify-between">
-                <p className="text-xs text-muted-foreground">Total Revenue</p>
+                <p className="text-xs text-muted-foreground">
+                  {t("totalRevenue")}
+                </p>
                 <HugeiconsIcon
                   icon={DollarCircleIcon}
                   className="h-4 w-4 text-muted-foreground"
@@ -188,13 +193,15 @@ export default function DashboardPage() {
                 </Badge>
               </div>
               <p className="mt-1 text-xs text-muted-foreground">
-                +$4,500 from last month
+                +$4,500 {t("lastMonth")}
               </p>
             </Card>
 
             <Card className="p-6">
               <div className="flex items-center justify-between">
-                <p className="text-xs text-muted-foreground">Active Users</p>
+                <p className="text-xs text-muted-foreground">
+                  {t("activeUsers")}
+                </p>
                 <HugeiconsIcon
                   icon={UsersIcon}
                   className="h-4 w-4 text-muted-foreground"
@@ -208,13 +215,15 @@ export default function DashboardPage() {
                 </Badge>
               </div>
               <p className="mt-1 text-xs text-muted-foreground">
-                +180 since last week
+                +180 {t("lastWeek")}
               </p>
             </Card>
 
             <Card className="p-6">
               <div className="flex items-center justify-between">
-                <p className="text-xs text-muted-foreground">Transactions</p>
+                <p className="text-xs text-muted-foreground">
+                  {t("transactions")}
+                </p>
                 <HugeiconsIcon
                   icon={CreditCardIcon}
                   className="h-4 w-4 text-muted-foreground"
@@ -228,13 +237,15 @@ export default function DashboardPage() {
                 </Badge>
               </div>
               <p className="mt-1 text-xs text-muted-foreground">
-                -573 from last month
+                -573 {t("lastMonth")}
               </p>
             </Card>
 
             <Card className="p-6">
               <div className="flex items-center justify-between">
-                <p className="text-xs text-muted-foreground">Conversion Rate</p>
+                <p className="text-xs text-muted-foreground">
+                  {t("conversionRate")}
+                </p>
                 <HugeiconsIcon
                   icon={Activity01Icon}
                   className="h-4 w-4 text-muted-foreground"
@@ -248,7 +259,7 @@ export default function DashboardPage() {
                 </Badge>
               </div>
               <p className="mt-1 text-xs text-muted-foreground">
-                +0.3% from last week
+                +0.3% {t("lastWeek")}
               </p>
             </Card>
           </div>
@@ -257,9 +268,11 @@ export default function DashboardPage() {
           <div className="grid gap-4 md:grid-cols-2">
             <Card className="p-6">
               <div className="mb-4">
-                <h3 className="text-lg font-semibold">Revenue vs Expenses</h3>
+                <h3 className="text-lg font-semibold">
+                  {t("revenueVsExpenses")}
+                </h3>
                 <p className="text-xs text-muted-foreground">
-                  Monthly comparison for 2024
+                  {t("monthlyComparison")}
                 </p>
               </div>
               <ChartContainer config={chartConfig} className="h-[300px] w-full">
@@ -294,9 +307,11 @@ export default function DashboardPage() {
 
             <Card className="p-6">
               <div className="mb-4">
-                <h3 className="text-lg font-semibold">Weekly Performance</h3>
+                <h3 className="text-lg font-semibold">
+                  {t("weeklyPerformance")}
+                </h3>
                 <p className="text-xs text-muted-foreground">
-                  Daily activity this week
+                  {t("dailyActivityThisWeek")}
                 </p>
               </div>
               <ChartContainer config={chartConfig} className="h-[300px] w-full">
@@ -321,22 +336,22 @@ export default function DashboardPage() {
 
           {/* Progress Indicators */}
           <Card className="p-6">
-            <h3 className="mb-4 text-lg font-semibold">Project Goals</h3>
+            <h3 className="mb-4 text-lg font-semibold">{t("projectGoals")}</h3>
             <div className="space-y-4">
               <Progress value={75}>
-                <ProgressLabel>Q1 Sales Target</ProgressLabel>
+                <ProgressLabel>{t("q1SalesTarget")}</ProgressLabel>
                 <ProgressValue />
               </Progress>
               <Progress value={45}>
-                <ProgressLabel>Product Launch</ProgressLabel>
+                <ProgressLabel>{t("productLaunch")}</ProgressLabel>
                 <ProgressValue />
               </Progress>
               <Progress value={90}>
-                <ProgressLabel>Customer Satisfaction</ProgressLabel>
+                <ProgressLabel>{t("customerSatisfaction")}</ProgressLabel>
                 <ProgressValue />
               </Progress>
               <Progress value={60}>
-                <ProgressLabel>Team Hiring</ProgressLabel>
+                <ProgressLabel>{t("teamHiring")}</ProgressLabel>
                 <ProgressValue />
               </Progress>
             </div>
@@ -346,11 +361,13 @@ export default function DashboardPage() {
           <Card className="p-6">
             <Tabs defaultValue="recent">
               <div className="mb-4 flex items-center justify-between">
-                <h3 className="text-lg font-semibold">Transactions</h3>
+                <h3 className="text-lg font-semibold">
+                  {t("transactionsTab")}
+                </h3>
                 <TabsList>
-                  <TabsTrigger value="recent">Recent</TabsTrigger>
-                  <TabsTrigger value="pending">Pending</TabsTrigger>
-                  <TabsTrigger value="completed">Completed</TabsTrigger>
+                  <TabsTrigger value="recent">{t("recent")}</TabsTrigger>
+                  <TabsTrigger value="pending">{t("pending")}</TabsTrigger>
+                  <TabsTrigger value="completed">{t("completed")}</TabsTrigger>
                 </TabsList>
               </div>
 
@@ -358,11 +375,13 @@ export default function DashboardPage() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Invoice</TableHead>
-                      <TableHead>Customer</TableHead>
-                      <TableHead>Email</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead className="text-right">Amount</TableHead>
+                      <TableHead>{t("invoice")}</TableHead>
+                      <TableHead>{t("customer")}</TableHead>
+                      <TableHead>{t("email")}</TableHead>
+                      <TableHead>{t("status")}</TableHead>
+                      <TableHead className="text-right">
+                        {t("amount")}
+                      </TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -385,7 +404,11 @@ export default function DashboardPage() {
                                   : "destructive"
                             }
                           >
-                            {transaction.status}
+                            {transaction.status === "Paid"
+                              ? t("paid")
+                              : transaction.status === "Pending"
+                                ? t("pendingStatus")
+                                : t("failedStatus")}
                           </Badge>
                         </TableCell>
                         <TableCell className="text-right font-medium">
@@ -399,13 +422,13 @@ export default function DashboardPage() {
 
               <TabsContent value="pending">
                 <div className="py-8 text-center text-sm text-muted-foreground">
-                  No pending transactions
+                  {t("noPendingTransactions")}
                 </div>
               </TabsContent>
 
               <TabsContent value="completed">
                 <div className="py-8 text-center text-sm text-muted-foreground">
-                  Showing completed transactions from the last 30 days
+                  {t("completedTransactionsLastThirtyDays")}
                 </div>
               </TabsContent>
             </Tabs>
