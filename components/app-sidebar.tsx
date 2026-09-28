@@ -93,9 +93,14 @@ function SidebarLanguagePicker() {
   const locale = useLocale()
   const router = useRouter()
   const pathname = usePathname()
+  const [isPending, startTransition] = React.useTransition()
 
   const handleLanguageChange = (nextLocale: "en" | "zh-CN") => {
-    router.replace(pathname, { locale: nextLocale })
+    startTransition(() => {
+      // Use window.location for a hard refresh to avoid hydration issues
+      const newPath = `/${nextLocale}${pathname === "/" ? "" : pathname}`
+      window.location.href = newPath
+    })
   }
 
   return (
@@ -125,6 +130,7 @@ function SidebarLanguagePicker() {
           <DropdownMenuItem
             onClick={() => handleLanguageChange("en")}
             className="flex items-center justify-between"
+            disabled={isPending}
           >
             <span>{tCommon("english")}</span>
             {locale === "en" && (
@@ -138,6 +144,7 @@ function SidebarLanguagePicker() {
           <DropdownMenuItem
             onClick={() => handleLanguageChange("zh-CN")}
             className="flex items-center justify-between"
+            disabled={isPending}
           >
             <span>{tCommon("chinese")}</span>
             {locale === "zh-CN" && (
