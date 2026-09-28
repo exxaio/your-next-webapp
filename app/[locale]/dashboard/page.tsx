@@ -147,9 +147,7 @@ export default function DashboardPage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    {t("dashboard")}
-                  </BreadcrumbLink>
+                  <BreadcrumbLink href="#">{t("dashboard")}</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
