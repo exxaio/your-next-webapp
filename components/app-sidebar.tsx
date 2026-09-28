@@ -66,15 +66,11 @@ function SidebarThemeToggle() {
     <SidebarMenuItem>
       <SidebarMenuButton
         tooltip={
-          isDark
-            ? tSidebar("switchToLightMode")
-            : tSidebar("switchToDarkMode")
+          isDark ? tSidebar("switchToLightMode") : tSidebar("switchToDarkMode")
         }
         onClick={toggleTheme}
         aria-label={
-          isDark
-            ? tSidebar("switchToLightMode")
-            : tSidebar("switchToDarkMode")
+          isDark ? tSidebar("switchToLightMode") : tSidebar("switchToDarkMode")
         }
       >
         {isDark ? (
@@ -303,7 +299,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">Acme Inc</span>
+                <span className="truncate font-medium">NextWebapp</span>
                 <span className="truncate text-xs">Enterprise</span>
               </div>
             </SidebarMenuButton>
