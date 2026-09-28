@@ -1,0 +1,56 @@
+{
+  "Navigation": {
+    "playground": "Playground",
+    "models": "Models",
+    "documentation": "Documentation",
+    "settings": "Settings",
+    "support": "Support",
+    "feedback": "Feedback"
+  },
+  "Sidebar": {
+    "history": "History",
+    "starred": "Starred",
+    "general": "General",
+    "team": "Team",
+    "billing": "Billing",
+    "limits": "Limits",
+    "introduction": "Introduction",
+    "getStarted": "Get Started",
+    "tutorials": "Tutorials",
+    "changelog": "Changelog",
+    "genesis": "Genesis",
+    "explorer": "Explorer",
+    "quantum": "Quantum",
+    "designEngineering": "Design Engineering",
+    "salesMarketing": "Sales & Marketing",
+    "travel": "Travel",
+    "lightMode": "Light Mode",
+    "darkMode": "Dark Mode",
+    "switchToLightMode": "Switch to light mode (Press D)",
+    "switchToDarkMode": "Switch to dark mode (Press D)"
+  },
+  "Login": {
+    "signIn": "Sign In",
+    "description": "Login with your Apple or Google account",
+    "loginWithApple": "Login with Apple",
+    "loginWithGoogle": "Login with Google",
+    "orContinueWith": "Or continue with",
+    "email": "Email",
+    "password": "Password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot your password?",
+    "submit": "Sign in",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up"
+  },
+  "Dashboard": {
+    "buildYourApplication": "Build Your Application",
+    "dataFetching": "Data Fetching"
+  },
+  "Common": {
+    "language": "Language",
+    "english": "English",
+    "chinese": "中文",
+    "logout": "Logout"
+  }
+}
