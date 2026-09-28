@@ -53,11 +53,11 @@ export default async function DashboardPage({
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div className="aspect-video rounded-xl bg-card border border-border" />
-            <div className="aspect-video rounded-xl bg-card border border-border" />
-            <div className="aspect-video rounded-xl bg-card border border-border" />
+            <div className="aspect-video rounded-xl border border-border bg-card" />
+            <div className="aspect-video rounded-xl border border-border bg-card" />
+            <div className="aspect-video rounded-xl border border-border bg-card" />
           </div>
-          <div className="min-h-screen flex-1 rounded-xl bg-card border border-border md:min-h-min" />
+          <div className="min-h-screen flex-1 rounded-xl border border-border bg-card md:min-h-min" />
         </div>
       </SidebarInset>
     </SidebarProvider>
