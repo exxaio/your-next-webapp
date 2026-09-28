@@ -2,12 +2,18 @@
 
 import * as React from "react"
 import { useTheme } from "next-themes"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import {
   Sidebar,
   SidebarContent,
@@ -16,7 +22,9 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar"
+import { usePathname, useRouter } from "@/i18n/routing"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   ComputerTerminalIcon,
@@ -31,16 +39,22 @@ import {
   CommandIcon,
   Sun01Icon,
   Moon01Icon,
+  GlobeIcon,
+  Tick02Icon,
 } from "@hugeicons/core-free-icons"
+
+function useIsMounted() {
+  return React.useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  )
+}
 
 function SidebarThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme()
-  const [mounted, setMounted] = React.useState(false)
+  const mounted = useIsMounted()
   const tSidebar = useTranslations("Sidebar")
-
-  React.useEffect(() => {
-    setMounted(true)
-  }, [])
 
   const isDark = mounted && resolvedTheme === "dark"
 
@@ -49,33 +63,98 @@ function SidebarThemeToggle() {
   }
 
   return (
-    <SidebarMenu>
-      <SidebarMenuItem>
-        <SidebarMenuButton
-          tooltip={
-            isDark
-              ? tSidebar("switchToLightMode")
-              : tSidebar("switchToDarkMode")
-          }
-          onClick={toggleTheme}
-          aria-label={
-            isDark
-              ? tSidebar("switchToLightMode")
-              : tSidebar("switchToDarkMode")
+    <SidebarMenuItem>
+      <SidebarMenuButton
+        tooltip={
+          isDark
+            ? tSidebar("switchToLightMode")
+            : tSidebar("switchToDarkMode")
+        }
+        onClick={toggleTheme}
+        aria-label={
+          isDark
+            ? tSidebar("switchToLightMode")
+            : tSidebar("switchToDarkMode")
+        }
+      >
+        {isDark ? (
+          <HugeiconsIcon icon={Sun01Icon} strokeWidth={2} />
+        ) : (
+          <HugeiconsIcon icon={Moon01Icon} strokeWidth={2} />
+        )}
+        <span>{isDark ? tSidebar("lightMode") : tSidebar("darkMode")}</span>
+        <kbd className="pointer-events-none ml-auto hidden h-5 items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 select-none group-data-[collapsible=icon]:hidden sm:inline-flex">
+          D
+        </kbd>
+      </SidebarMenuButton>
+    </SidebarMenuItem>
+  )
+}
+
+function SidebarLanguagePicker() {
+  const { isMobile } = useSidebar()
+  const tCommon = useTranslations("Common")
+  const locale = useLocale()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const handleLanguageChange = (nextLocale: "en" | "zh-CN") => {
+    router.replace(pathname, { locale: nextLocale })
+  }
+
+  return (
+    <SidebarMenuItem>
+      <DropdownMenu>
+        <DropdownMenuTrigger
+          render={
+            <SidebarMenuButton
+              className="aria-expanded:bg-muted"
+              aria-label={tCommon("language")}
+              title={tCommon("language")}
+            />
           }
         >
-          {isDark ? (
-            <HugeiconsIcon icon={Sun01Icon} strokeWidth={2} />
-          ) : (
-            <HugeiconsIcon icon={Moon01Icon} strokeWidth={2} />
-          )}
-          <span>{isDark ? tSidebar("lightMode") : tSidebar("darkMode")}</span>
-          <kbd className="pointer-events-none ml-auto hidden h-5 items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 select-none group-data-[collapsible=icon]:hidden sm:inline-flex">
-            D
-          </kbd>
-        </SidebarMenuButton>
-      </SidebarMenuItem>
-    </SidebarMenu>
+          <HugeiconsIcon icon={GlobeIcon} strokeWidth={2} />
+          <span>{tCommon("language")}</span>
+          <span className="pointer-events-none ml-auto hidden h-5 items-center rounded border bg-muted px-1.5 font-sans text-[10px] font-medium opacity-100 select-none group-data-[collapsible=icon]:hidden sm:inline-flex">
+            {locale === "zh-CN" ? "中文" : "EN"}
+          </span>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          className="min-w-36 rounded-lg"
+          side={isMobile ? "bottom" : "right"}
+          align="end"
+          sideOffset={4}
+        >
+          <DropdownMenuItem
+            onClick={() => handleLanguageChange("en")}
+            className="flex items-center justify-between"
+          >
+            <span>{tCommon("english")}</span>
+            {locale === "en" && (
+              <HugeiconsIcon
+                icon={Tick02Icon}
+                strokeWidth={2}
+                className="size-3.5"
+              />
+            )}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => handleLanguageChange("zh-CN")}
+            className="flex items-center justify-between"
+          >
+            <span>{tCommon("chinese")}</span>
+            {locale === "zh-CN" && (
+              <HugeiconsIcon
+                icon={Tick02Icon}
+                strokeWidth={2}
+                className="size-3.5"
+              />
+            )}
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </SidebarMenuItem>
   )
 }
 
@@ -237,7 +316,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <SidebarThemeToggle />
+        <SidebarMenu>
+          <SidebarThemeToggle />
+          <SidebarLanguagePicker />
+        </SidebarMenu>
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>

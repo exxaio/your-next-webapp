@@ -23,7 +23,7 @@ export default async function LoginPage({
               className="size-4"
             />
           </div>
-          Acme Inc.
+          NextWebapp
         </a>
         <LoginForm />
       </div>
