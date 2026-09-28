@@ -1,5 +1,7 @@
 "use client"
 
+import { useLocale, useTranslations } from "next-intl"
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   DropdownMenu,
@@ -8,6 +10,9 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {
@@ -16,6 +21,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { usePathname, useRouter } from "@/i18n/routing"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   UnfoldMoreIcon,
@@ -24,6 +30,8 @@ import {
   CreditCardIcon,
   NotificationIcon,
   LogoutIcon,
+  GlobeIcon,
+  Tick02Icon,
 } from "@hugeicons/core-free-icons"
 
 export function NavUser({
@@ -36,6 +44,15 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
+  const t = useTranslations("Common")
+  const locale = useLocale()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const handleLanguageChange = (nextLocale: "en" | "zh-CN") => {
+    router.replace(pathname, { locale: nextLocale })
+  }
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -102,9 +119,46 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                  <HugeiconsIcon icon={GlobeIcon} strokeWidth={2} />
+                  <span>{t("language")}</span>
+                </DropdownMenuSubTrigger>
+                <DropdownMenuSubContent>
+                  <DropdownMenuItem
+                    onClick={() => handleLanguageChange("en")}
+                    className="flex items-center justify-between"
+                  >
+                    <span>{t("english")}</span>
+                    {locale === "en" && (
+                      <HugeiconsIcon
+                        icon={Tick02Icon}
+                        strokeWidth={2}
+                        className="size-3.5"
+                      />
+                    )}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => handleLanguageChange("zh-CN")}
+                    className="flex items-center justify-between"
+                  >
+                    <span>{t("chinese")}</span>
+                    {locale === "zh-CN" && (
+                      <HugeiconsIcon
+                        icon={Tick02Icon}
+                        strokeWidth={2}
+                        className="size-3.5"
+                      />
+                    )}
+                  </DropdownMenuItem>
+                </DropdownMenuSubContent>
+              </DropdownMenuSub>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
             <DropdownMenuItem>
               <HugeiconsIcon icon={LogoutIcon} strokeWidth={2} />
-              Log out
+              {t("logout")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

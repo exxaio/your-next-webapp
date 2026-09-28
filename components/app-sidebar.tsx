@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { useTheme } from "next-themes"
+import { useTranslations } from "next-intl"
 
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
@@ -32,132 +33,10 @@ import {
   Moon01Icon,
 } from "@hugeicons/core-free-icons"
 
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  navMain: [
-    {
-      title: "Playground",
-      url: "#",
-      icon: <HugeiconsIcon icon={ComputerTerminalIcon} strokeWidth={2} />,
-      isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: <HugeiconsIcon icon={RoboticIcon} strokeWidth={2} />,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: <HugeiconsIcon icon={BookOpen02Icon} strokeWidth={2} />,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: <HugeiconsIcon icon={Settings05Icon} strokeWidth={2} />,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Support",
-      url: "#",
-      icon: <HugeiconsIcon icon={ChartRingIcon} strokeWidth={2} />,
-    },
-    {
-      title: "Feedback",
-      url: "#",
-      icon: <HugeiconsIcon icon={SentIcon} strokeWidth={2} />,
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: <HugeiconsIcon icon={CropIcon} strokeWidth={2} />,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: <HugeiconsIcon icon={PieChartIcon} strokeWidth={2} />,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: <HugeiconsIcon icon={MapsIcon} strokeWidth={2} />,
-    },
-  ],
-}
 function SidebarThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme()
   const [mounted, setMounted] = React.useState(false)
+  const tSidebar = useTranslations("Sidebar")
 
   React.useEffect(() => {
     setMounted(true)
@@ -175,18 +54,22 @@ function SidebarThemeToggle() {
         <SidebarMenuButton
           tooltip={
             isDark
-              ? "Switch to light mode (Press D)"
-              : "Switch to dark mode (Press D)"
+              ? tSidebar("switchToLightMode")
+              : tSidebar("switchToDarkMode")
           }
           onClick={toggleTheme}
-          aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+          aria-label={
+            isDark
+              ? tSidebar("switchToLightMode")
+              : tSidebar("switchToDarkMode")
+          }
         >
           {isDark ? (
             <HugeiconsIcon icon={Sun01Icon} strokeWidth={2} />
           ) : (
             <HugeiconsIcon icon={Moon01Icon} strokeWidth={2} />
           )}
-          <span>{isDark ? "Light Mode" : "Dark Mode"}</span>
+          <span>{isDark ? tSidebar("lightMode") : tSidebar("darkMode")}</span>
           <kbd className="pointer-events-none ml-auto hidden h-5 items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 select-none group-data-[collapsible=icon]:hidden sm:inline-flex">
             D
           </kbd>
@@ -197,6 +80,136 @@ function SidebarThemeToggle() {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const tNav = useTranslations("Navigation")
+  const tSidebar = useTranslations("Sidebar")
+
+  const data = React.useMemo(
+    () => ({
+      user: {
+        name: "shadcn",
+        email: "m@example.com",
+        avatar: "/avatars/shadcn.jpg",
+      },
+      navMain: [
+        {
+          title: tNav("playground"),
+          url: "#",
+          icon: <HugeiconsIcon icon={ComputerTerminalIcon} strokeWidth={2} />,
+          isActive: true,
+          items: [
+            {
+              title: tSidebar("history"),
+              url: "#",
+            },
+            {
+              title: tSidebar("starred"),
+              url: "#",
+            },
+            {
+              title: tNav("settings"),
+              url: "#",
+            },
+          ],
+        },
+        {
+          title: tNav("models"),
+          url: "#",
+          icon: <HugeiconsIcon icon={RoboticIcon} strokeWidth={2} />,
+          items: [
+            {
+              title: tSidebar("genesis"),
+              url: "#",
+            },
+            {
+              title: tSidebar("explorer"),
+              url: "#",
+            },
+            {
+              title: tSidebar("quantum"),
+              url: "#",
+            },
+          ],
+        },
+        {
+          title: tNav("documentation"),
+          url: "#",
+          icon: <HugeiconsIcon icon={BookOpen02Icon} strokeWidth={2} />,
+          items: [
+            {
+              title: tSidebar("introduction"),
+              url: "#",
+            },
+            {
+              title: tSidebar("getStarted"),
+              url: "#",
+            },
+            {
+              title: tSidebar("tutorials"),
+              url: "#",
+            },
+            {
+              title: tSidebar("changelog"),
+              url: "#",
+            },
+          ],
+        },
+        {
+          title: tNav("settings"),
+          url: "#",
+          icon: <HugeiconsIcon icon={Settings05Icon} strokeWidth={2} />,
+          items: [
+            {
+              title: tSidebar("general"),
+              url: "#",
+            },
+            {
+              title: tSidebar("team"),
+              url: "#",
+            },
+            {
+              title: tSidebar("billing"),
+              url: "#",
+            },
+            {
+              title: tSidebar("limits"),
+              url: "#",
+            },
+          ],
+        },
+      ],
+      navSecondary: [
+        {
+          title: tNav("support"),
+          url: "#",
+          icon: <HugeiconsIcon icon={ChartRingIcon} strokeWidth={2} />,
+        },
+        {
+          title: tNav("feedback"),
+          url: "#",
+          icon: <HugeiconsIcon icon={SentIcon} strokeWidth={2} />,
+        },
+      ],
+      projects: [
+        {
+          name: tSidebar("designEngineering"),
+          url: "#",
+          icon: <HugeiconsIcon icon={CropIcon} strokeWidth={2} />,
+        },
+        {
+          name: tSidebar("salesMarketing"),
+          url: "#",
+          icon: <HugeiconsIcon icon={PieChartIcon} strokeWidth={2} />,
+        },
+        {
+          name: tSidebar("travel"),
+          url: "#",
+          icon: <HugeiconsIcon icon={MapsIcon} strokeWidth={2} />,
+        },
+      ],
+    }),
+    [tNav, tSidebar]
+  )
+
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
