@@ -1,5 +1,6 @@
 {
   "Navigation": {
+    "dashboard": "Dashboard",
     "playground": "Playground",
     "models": "Models",
     "documentation": "Documentation",
@@ -8,6 +9,7 @@
     "feedback": "Feedback"
   },
   "Sidebar": {
+    "analytics": "Analytics",
     "history": "History",
     "starred": "Starred",
     "general": "General",

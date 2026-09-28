@@ -1,5 +1,6 @@
 {
   "Navigation": {
+    "dashboard": "仪表板",
     "playground": "工作台",
     "models": "模型",
     "documentation": "文档",
@@ -8,6 +9,7 @@
     "feedback": "反馈"
   },
   "Sidebar": {
+    "analytics": "分析",
     "history": "历史记录",
     "starred": "星标",
     "general": "通用",

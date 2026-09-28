@@ -174,10 +174,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       },
       navMain: [
         {
+          title: tNav("dashboard"),
+          url: "#",
+          icon: <HugeiconsIcon icon={ChartRingIcon} strokeWidth={2} />,
+          isActive: true,
+          items: [
+            {
+              title: tSidebar("analytics"),
+              url: "#",
+            },
+          ],
+        },
+        {
           title: tNav("playground"),
           url: "#",
           icon: <HugeiconsIcon icon={ComputerTerminalIcon} strokeWidth={2} />,
-          isActive: true,
           items: [
             {
               title: tSidebar("history"),
@@ -263,7 +274,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {
           title: tNav("support"),
           url: "#",
-          icon: <HugeiconsIcon icon={ChartRingIcon} strokeWidth={2} />,
+          icon: <HugeiconsIcon icon={CommandIcon} strokeWidth={2} />,
         },
         {
           title: tNav("feedback"),
