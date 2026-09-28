@@ -48,6 +48,7 @@
   "Dashboard": {
     "buildYourApplication": "Build Your Application",
     "dataFetching": "Data Fetching",
+    "dashboard": "Dashboard",
     "analyticsHeading": "Analytics",
     "systemStatus": "System Status: All systems operational",
     "dashboardUpToDate": "Your dashboard is up to date. Last sync: 2 minutes ago.",

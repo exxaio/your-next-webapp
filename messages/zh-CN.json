@@ -48,6 +48,7 @@
   "Dashboard": {
     "buildYourApplication": "构建您的应用程序",
     "dataFetching": "数据获取",
+    "dashboard": "仪表板",
     "analyticsHeading": "分析",
     "systemStatus": "系统状态：所有系统运行正常",
     "dashboardUpToDate": "您的仪表板已更新。最后同步：2 分钟前。",

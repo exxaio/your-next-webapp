@@ -148,7 +148,7 @@ export default function DashboardPage() {
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbLink href="#">
-                    {t("analyticsHeading")}
+                    {t("dashboard")}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
@@ -177,7 +177,7 @@ export default function DashboardPage() {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <Card className="p-6">
               <div className="flex items-center justify-between">
-                <p className="text-xs text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   {t("totalRevenue")}
                 </p>
                 <HugeiconsIcon
@@ -186,20 +186,20 @@ export default function DashboardPage() {
                 />
               </div>
               <div className="mt-3 flex items-baseline gap-2">
-                <h3 className="text-2xl font-bold">$45,231</h3>
+                <h3 className="text-3xl font-bold">$45,231</h3>
                 <Badge variant="secondary" className="gap-1">
                   <HugeiconsIcon icon={ArrowUp01Icon} className="h-3 w-3" />
                   20.1%
                 </Badge>
               </div>
-              <p className="mt-1 text-xs text-muted-foreground">
+              <p className="mt-1 text-sm text-muted-foreground">
                 +$4,500 {t("lastMonth")}
               </p>
             </Card>
 
             <Card className="p-6">
               <div className="flex items-center justify-between">
-                <p className="text-xs text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   {t("activeUsers")}
                 </p>
                 <HugeiconsIcon
@@ -208,20 +208,20 @@ export default function DashboardPage() {
                 />
               </div>
               <div className="mt-3 flex items-baseline gap-2">
-                <h3 className="text-2xl font-bold">2,350</h3>
+                <h3 className="text-3xl font-bold">2,350</h3>
                 <Badge variant="secondary" className="gap-1">
                   <HugeiconsIcon icon={ArrowUp01Icon} className="h-3 w-3" />
                   15.3%
                 </Badge>
               </div>
-              <p className="mt-1 text-xs text-muted-foreground">
+              <p className="mt-1 text-sm text-muted-foreground">
                 +180 {t("lastWeek")}
               </p>
             </Card>
 
             <Card className="p-6">
               <div className="flex items-center justify-between">
-                <p className="text-xs text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   {t("transactions")}
                 </p>
                 <HugeiconsIcon
@@ -230,20 +230,20 @@ export default function DashboardPage() {
                 />
               </div>
               <div className="mt-3 flex items-baseline gap-2">
-                <h3 className="text-2xl font-bold">12,234</h3>
+                <h3 className="text-3xl font-bold">12,234</h3>
                 <Badge variant="destructive" className="gap-1">
                   <HugeiconsIcon icon={ArrowDown01Icon} className="h-3 w-3" />
                   5.2%
                 </Badge>
               </div>
-              <p className="mt-1 text-xs text-muted-foreground">
+              <p className="mt-1 text-sm text-muted-foreground">
                 -573 {t("lastMonth")}
               </p>
             </Card>
 
             <Card className="p-6">
               <div className="flex items-center justify-between">
-                <p className="text-xs text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   {t("conversionRate")}
                 </p>
                 <HugeiconsIcon
@@ -252,13 +252,13 @@ export default function DashboardPage() {
                 />
               </div>
               <div className="mt-3 flex items-baseline gap-2">
-                <h3 className="text-2xl font-bold">3.42%</h3>
+                <h3 className="text-3xl font-bold">3.42%</h3>
                 <Badge variant="secondary" className="gap-1">
                   <HugeiconsIcon icon={ArrowUp01Icon} className="h-3 w-3" />
                   2.1%
                 </Badge>
               </div>
-              <p className="mt-1 text-xs text-muted-foreground">
+              <p className="mt-1 text-sm text-muted-foreground">
                 +0.3% {t("lastWeek")}
               </p>
             </Card>
@@ -268,10 +268,10 @@ export default function DashboardPage() {
           <div className="grid gap-4 md:grid-cols-2">
             <Card className="p-6">
               <div className="mb-4">
-                <h3 className="text-lg font-semibold">
+                <h3 className="text-xl font-semibold">
                   {t("revenueVsExpenses")}
                 </h3>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   {t("monthlyComparison")}
                 </p>
               </div>
@@ -307,10 +307,10 @@ export default function DashboardPage() {
 
             <Card className="p-6">
               <div className="mb-4">
-                <h3 className="text-lg font-semibold">
+                <h3 className="text-xl font-semibold">
                   {t("weeklyPerformance")}
                 </h3>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   {t("dailyActivityThisWeek")}
                 </p>
               </div>
@@ -336,7 +336,7 @@ export default function DashboardPage() {
 
           {/* Progress Indicators */}
           <Card className="p-6">
-            <h3 className="mb-4 text-lg font-semibold">{t("projectGoals")}</h3>
+            <h3 className="mb-4 text-xl font-semibold">{t("projectGoals")}</h3>
             <div className="space-y-4">
               <Progress value={75}>
                 <ProgressLabel>{t("q1SalesTarget")}</ProgressLabel>
@@ -361,7 +361,7 @@ export default function DashboardPage() {
           <Card className="p-6">
             <Tabs defaultValue="recent">
               <div className="mb-4 flex items-center justify-between">
-                <h3 className="text-lg font-semibold">
+                <h3 className="text-xl font-semibold">
                   {t("transactionsTab")}
                 </h3>
                 <TabsList>
@@ -421,13 +421,13 @@ export default function DashboardPage() {
               </TabsContent>
 
               <TabsContent value="pending">
-                <div className="py-8 text-center text-sm text-muted-foreground">
+                <div className="py-8 text-center text-base text-muted-foreground">
                   {t("noPendingTransactions")}
                 </div>
               </TabsContent>
 
               <TabsContent value="completed">
-                <div className="py-8 text-center text-sm text-muted-foreground">
+                <div className="py-8 text-center text-base text-muted-foreground">
                   {t("completedTransactionsLastThirtyDays")}
                 </div>
               </TabsContent>

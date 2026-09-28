@@ -38,7 +38,7 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">{t("signIn")}</CardTitle>
+          <CardTitle className="text-2xl">{t("signIn")}</CardTitle>
           <CardDescription>{t("description")}</CardDescription>
         </CardHeader>
         <CardContent>
@@ -89,7 +89,7 @@ export function LoginForm({
                   <FieldLabel htmlFor="password">{t("password")}</FieldLabel>
                   <a
                     href="#"
-                    className="ml-auto text-sm underline-offset-4 hover:underline"
+                    className="ml-auto text-base underline-offset-4 hover:underline"
                   >
                     {t("forgotPassword")}
                   </a>

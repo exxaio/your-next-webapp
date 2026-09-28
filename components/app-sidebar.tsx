@@ -79,7 +79,7 @@ function SidebarThemeToggle() {
           <HugeiconsIcon icon={Moon01Icon} strokeWidth={2} />
         )}
         <span>{isDark ? tSidebar("lightMode") : tSidebar("darkMode")}</span>
-        <kbd className="pointer-events-none ml-auto hidden h-5 items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 select-none group-data-[collapsible=icon]:hidden sm:inline-flex">
+        <kbd className="pointer-events-none ml-auto hidden h-5 items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[11px] font-medium opacity-100 select-none group-data-[collapsible=icon]:hidden sm:inline-flex">
           D
         </kbd>
       </SidebarMenuButton>
@@ -117,7 +117,7 @@ function SidebarLanguagePicker() {
         >
           <HugeiconsIcon icon={GlobeIcon} strokeWidth={2} />
           <span>{tCommon("language")}</span>
-          <span className="pointer-events-none ml-auto hidden h-5 items-center rounded border bg-muted px-1.5 font-sans text-[10px] font-medium opacity-100 select-none group-data-[collapsible=icon]:hidden sm:inline-flex">
+          <span className="pointer-events-none ml-auto hidden h-5 items-center rounded border bg-muted px-1.5 font-sans text-[11px] font-medium opacity-100 select-none group-data-[collapsible=icon]:hidden sm:inline-flex">
             {locale === "zh-CN" ? "中文" : "EN"}
           </span>
         </DropdownMenuTrigger>
@@ -316,9 +316,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   className="size-4"
                 />
               </div>
-              <div className="grid flex-1 text-left text-sm leading-tight">
+              <div className="grid flex-1 text-left text-base leading-tight">
                 <span className="truncate font-medium">NextWebapp</span>
-                <span className="truncate text-xs">Enterprise</span>
+                <span className="truncate text-sm">Enterprise</span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
