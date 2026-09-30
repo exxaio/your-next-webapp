@@ -28,7 +28,6 @@ import {
   CreditCardIcon,
   NotificationIcon,
   LogoutIcon,
-  ChartRingIcon,
 } from "@hugeicons/core-free-icons"
 
 export function NavUser({

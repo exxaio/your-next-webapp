@@ -25,7 +25,6 @@ import { Link } from "@/i18n/routing"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   UserIcon,
-  Link01Icon,
   Shield01Icon,
   AlertCircleIcon,
   CheckmarkBadgeIcon,
@@ -58,13 +57,6 @@ export default function AccountPage() {
 
   const linkedCount = user?.providerData?.length ?? 0
   const initials = getInitials(user?.displayName, user?.email)
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" })
-    }
-  }
 
   return (
     <ProtectedRoute>
@@ -143,8 +135,9 @@ export default function AccountPage() {
 
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <span className="rounded-md border border-border bg-muted/40 px-2.5 py-1">
-                    {linkedCount} {linkedCount === 1 ? "provider" : "providers"}{" "}
-                    connected
+                    {linkedCount}
+                    {" Sign-in "}
+                    {linkedCount === 1 ? "Provider" : "Providers"}
                   </span>
                 </div>
               </div>

@@ -8,7 +8,6 @@ import {
   ArrowUp01Icon,
   CreditCardIcon,
   DollarCircleIcon,
-  TrendingUpIcon,
   UsersIcon,
 } from "@hugeicons/core-free-icons"
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis } from "recharts"
