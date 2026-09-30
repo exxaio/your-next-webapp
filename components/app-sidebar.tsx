@@ -46,7 +46,7 @@ import {
 
 function useIsMounted() {
   return React.useSyncExternalStore(
-    () => () => { },
+    () => () => {},
     () => true,
     () => false
   )

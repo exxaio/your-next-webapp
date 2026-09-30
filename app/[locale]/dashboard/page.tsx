@@ -15,6 +15,7 @@ import { Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 import { ProtectedRoute } from "@/components/protected-route"
 import { AppSidebar } from "@/components/app-sidebar"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { LanguageSwitcher } from "@/components/language-switcher"
 import { Link } from "@/i18n/routing"
 import {
   Alert,
@@ -160,14 +161,21 @@ export default function DashboardPage() {
                   </BreadcrumbItem>
                 </BreadcrumbList>
               </Breadcrumb>
-              <ThemeToggle className="ml-auto" />
+              <div className="ml-auto flex items-center gap-1">
+                <LanguageSwitcher />
+                <div className="h-4 w-px bg-border" />
+                <ThemeToggle />
+              </div>
             </div>
           </header>
 
           <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
             {/* Alert Banner */}
             <Alert className="border-l-4 border-l-primary">
-              <HugeiconsIcon icon={Activity01Icon} className="h-4 w-4 text-primary" />
+              <HugeiconsIcon
+                icon={Activity01Icon}
+                className="h-4 w-4 text-primary"
+              />
               <AlertTitle>{t("systemStatus")}</AlertTitle>
               <AlertDescription>{t("dashboardUpToDate")}</AlertDescription>
               <AlertAction>
@@ -191,7 +199,10 @@ export default function DashboardPage() {
                 </div>
                 <div className="mt-3 flex items-baseline gap-2">
                   <h3 className="text-3xl font-bold">$45,231</h3>
-                  <Badge variant="outline" className="gap-1 border-primary/30 bg-primary/5 text-primary">
+                  <Badge
+                    variant="outline"
+                    className="gap-1 border-primary/30 bg-primary/5 text-primary"
+                  >
                     <HugeiconsIcon icon={ArrowUp01Icon} className="h-3 w-3" />
                     20.1%
                   </Badge>
@@ -213,7 +224,10 @@ export default function DashboardPage() {
                 </div>
                 <div className="mt-3 flex items-baseline gap-2">
                   <h3 className="text-3xl font-bold">2,350</h3>
-                  <Badge variant="outline" className="gap-1 border-primary/30 bg-primary/5 text-primary">
+                  <Badge
+                    variant="outline"
+                    className="gap-1 border-primary/30 bg-primary/5 text-primary"
+                  >
                     <HugeiconsIcon icon={ArrowUp01Icon} className="h-3 w-3" />
                     15.3%
                   </Badge>
@@ -257,7 +271,10 @@ export default function DashboardPage() {
                 </div>
                 <div className="mt-3 flex items-baseline gap-2">
                   <h3 className="text-3xl font-bold">3.42%</h3>
-                  <Badge variant="outline" className="gap-1 border-primary/30 bg-primary/5 text-primary">
+                  <Badge
+                    variant="outline"
+                    className="gap-1 border-primary/30 bg-primary/5 text-primary"
+                  >
                     <HugeiconsIcon icon={ArrowUp01Icon} className="h-3 w-3" />
                     2.1%
                   </Badge>
