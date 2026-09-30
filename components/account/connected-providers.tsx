@@ -142,14 +142,14 @@ export function ConnectedProviders() {
         </Alert>
       )}
       {successMsg && (
-        <Alert>
-          <AlertDescription className="text-green-600 dark:text-green-400">
+        <Alert className="border-emerald-500/30 bg-emerald-500/5 text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-400">
+          <AlertDescription>
             {successMsg}
           </AlertDescription>
         </Alert>
       )}
 
-      <div className="divide-y divide-border rounded-lg border border-border">
+      <div className="divide-y divide-border rounded-lg border border-border/80 bg-card/75 dark:bg-card/50 backdrop-blur-xs">
         {PROVIDERS.map((provider) => {
           const isLinked = linkedIds.has(provider.id)
           const canUnlink = isLinked && linkedCount > 1
@@ -178,7 +178,7 @@ export function ConnectedProviders() {
 
               <div className="flex items-center gap-2">
                 {isLinked && (
-                  <span className="rounded-full bg-green-500/10 px-2 py-0.5 text-xs font-medium text-green-700 dark:text-green-400">
+                  <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/15 dark:text-emerald-400">
                     Connected
                   </span>
                 )}

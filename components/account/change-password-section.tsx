@@ -128,8 +128,8 @@ export function ChangePasswordSection() {
         </Alert>
       )}
       {successMsg && (
-        <Alert className="max-w-sm">
-          <AlertDescription className="text-green-600 dark:text-green-400">
+        <Alert className="max-w-sm border-emerald-500/30 bg-emerald-500/5 text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-400">
+          <AlertDescription>
             {successMsg}
           </AlertDescription>
         </Alert>
