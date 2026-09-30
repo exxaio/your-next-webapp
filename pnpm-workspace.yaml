@@ -6,3 +6,5 @@ allowBuilds:
   msw: false
   '@parcel/watcher': true
   '@swc/core': true
+  '@firebase/util': true
+  protobufjs: true
