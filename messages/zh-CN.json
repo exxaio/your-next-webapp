@@ -42,6 +42,7 @@
     "rememberMe": "记住我",
     "forgotPassword": "忘记密码？",
     "submit": "登录",
+    "loading": "登录中...",
     "noAccount": "没有账户？",
     "signUp": "注册"
   },

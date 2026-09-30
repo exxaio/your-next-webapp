@@ -42,6 +42,7 @@
     "rememberMe": "Remember me",
     "forgotPassword": "Forgot your password?",
     "submit": "Sign in",
+    "loading": "Signing in...",
     "noAccount": "Don't have an account?",
     "signUp": "Sign up"
   },
