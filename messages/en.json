@@ -6,9 +6,11 @@
     "documentation": "Documentation",
     "settings": "Settings",
     "support": "Support",
-    "feedback": "Feedback"
+    "feedback": "Feedback",
+    "account": "Account"
   },
   "Sidebar": {
+    "account": "Account",
     "analytics": "Analytics",
     "history": "History",
     "starred": "Starred",

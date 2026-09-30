@@ -25,7 +25,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { useAuth } from "@/hooks/use-auth"
-import { usePathname, useRouter } from "@/i18n/routing"
+import { Link, usePathname, useRouter } from "@/i18n/routing"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   ComputerTerminalIcon,
@@ -166,6 +166,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const tNav = useTranslations("Navigation")
   const tSidebar = useTranslations("Sidebar")
   const { user: authUser } = useAuth()
+  const pathname = usePathname()
 
   const data = React.useMemo(
     () => ({
@@ -177,13 +178,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       navMain: [
         {
           title: tNav("dashboard"),
-          url: "#",
+          url: "/dashboard",
           icon: <HugeiconsIcon icon={ChartRingIcon} strokeWidth={2} />,
-          isActive: true,
+          isActive: pathname === "/dashboard",
           items: [
             {
               title: tSidebar("analytics"),
-              url: "#",
+              url: "/dashboard",
             },
           ],
         },
@@ -250,9 +251,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         },
         {
           title: tNav("settings"),
-          url: "#",
+          url: "/account",
           icon: <HugeiconsIcon icon={Settings05Icon} strokeWidth={2} />,
+          isActive: pathname === "/account",
           items: [
+            {
+              title: tSidebar("account"),
+              url: "/account",
+            },
             {
               title: tSidebar("general"),
               url: "#",
@@ -302,7 +308,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         },
       ],
     }),
-    [tNav, tSidebar, authUser]
+    [tNav, tSidebar, authUser, pathname]
   )
 
   return (
@@ -310,7 +316,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" render={<a href="#" />}>
+            <SidebarMenuButton size="lg" render={<Link href="/dashboard" />}>
               <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                 <HugeiconsIcon
                   icon={CommandIcon}

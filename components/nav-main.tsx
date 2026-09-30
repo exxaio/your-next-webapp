@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/sidebar"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
+import { Link } from "@/i18n/routing"
 
 export function NavMain({
   items,
@@ -45,7 +46,13 @@ export function NavMain({
           >
             <SidebarMenuButton
               tooltip={item.title}
-              render={<a href={item.url} />}
+              render={
+                item.url && item.url !== "#" ? (
+                  <Link href={item.url} />
+                ) : (
+                  <a href="#" />
+                )
+              }
             >
               {item.icon}
               <span>{item.title}</span>
@@ -64,7 +71,15 @@ export function NavMain({
                   <SidebarMenuSub>
                     {item.items?.map((subItem) => (
                       <SidebarMenuSubItem key={subItem.title}>
-                        <SidebarMenuSubButton render={<a href={subItem.url} />}>
+                        <SidebarMenuSubButton
+                          render={
+                            subItem.url && subItem.url !== "#" ? (
+                              <Link href={subItem.url} />
+                            ) : (
+                              <a href="#" />
+                            )
+                          }
+                        >
                           <span>{subItem.title}</span>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>

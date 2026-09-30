@@ -15,6 +15,7 @@ import { Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 import { ProtectedRoute } from "@/components/protected-route"
 import { AppSidebar } from "@/components/app-sidebar"
+import { Link } from "@/i18n/routing"
 import {
   Alert,
   AlertDescription,
@@ -149,7 +150,9 @@ export default function DashboardPage() {
               <Breadcrumb>
                 <BreadcrumbList>
                   <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink href="#">{t("dashboard")}</BreadcrumbLink>
+                    <BreadcrumbLink render={<Link href="/dashboard" />}>
+                      {t("dashboard")}
+                    </BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbSeparator className="hidden md:block" />
                   <BreadcrumbItem>
