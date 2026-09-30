@@ -25,17 +25,19 @@ This guide will help you set up Firebase Authentication in your Next.js applicat
 2. Enable the authentication providers you want to use:
    - **Email/Password**: Click "Email/Password" → Enable → Save
    - **Google**: Click "Google" → Enable → Add support email → Save
-   - **Apple**: Click "Apple" → Enable → Configure (requires Apple Developer account)
+   - **GitHub**: Click "GitHub" → Enable → Configure (requires GitHub OAuth App)
 
 ### For Google Sign-In:
 - No additional configuration needed for development
 - For production, add your domain to authorized domains
 
-### For Apple Sign-In:
-1. You need an Apple Developer account
-2. Configure your Apple Service ID in Firebase
-3. Add authorized domains
-4. Set up the Return URL in your Apple Developer console
+### For GitHub Sign-In:
+1. Create a GitHub OAuth App:
+   - Go to GitHub Settings → Developer settings → OAuth Apps → New OAuth App
+   - Set Authorization callback URL to: `https://your-project-id.firebaseapp.com/__/auth/handler`
+2. Copy the Client ID and Client Secret
+3. In Firebase Console, paste these credentials
+4. Add authorized domains for production
 
 ## Step 4: Configure Environment Variables
 
@@ -77,12 +79,15 @@ hooks/
   use-auth.ts             # Authentication hook with all methods
 components/
   login-form.tsx          # Login form with Firebase integration
+  signup-form.tsx         # Signup form with Firebase integration
   auth-provider.tsx       # Auth context provider (optional)
   protected-route.tsx     # HOC for protecting routes
 app/
   [locale]/
     login/
       page.tsx            # Login page
+    signup/
+      page.tsx            # Signup page
     dashboard/
       page.tsx            # Protected dashboard page
 ```
@@ -101,7 +106,7 @@ const {
   signInWithEmail,         // (email, password) => Promise
   signUpWithEmail,         // (email, password, displayName?) => Promise
   signInWithGoogle,        // () => Promise
-  signInWithApple,         // () => Promise
+  signInWithGithub,        // () => Promise
   logout,                  // () => Promise
   resetPassword,           // (email) => Promise
   clearError,              // () => void

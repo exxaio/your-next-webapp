@@ -24,6 +24,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { useAuth } from "@/hooks/use-auth"
 import { usePathname, useRouter } from "@/i18n/routing"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
@@ -164,13 +165,14 @@ function SidebarLanguagePicker() {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const tNav = useTranslations("Navigation")
   const tSidebar = useTranslations("Sidebar")
+  const { user: authUser } = useAuth()
 
   const data = React.useMemo(
     () => ({
       user: {
-        name: "shadcn",
-        email: "m@example.com",
-        avatar: "/avatars/shadcn.jpg",
+        name: authUser?.displayName ?? authUser?.email ?? "Guest",
+        email: authUser?.email ?? "",
+        avatar: authUser?.photoURL ?? "",
       },
       navMain: [
         {
@@ -300,7 +302,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         },
       ],
     }),
-    [tNav, tSidebar]
+    [tNav, tSidebar, authUser]
   )
 
   return (
