@@ -12,6 +12,11 @@ import {
 } from "@/components/ui/field"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 
+import {
+  Collapsible,
+  CollapsibleContent,
+} from "@/components/ui/collapsible"
+
 function PasswordStrengthBar({ password }: { password: string }) {
   const strength = React.useMemo(() => {
     if (!password) return 0
@@ -44,9 +49,8 @@ function PasswordStrengthBar({ password }: { password: string }) {
         {[1, 2, 3, 4].map((i) => (
           <div
             key={i}
-            className={`h-1 flex-1 rounded-full transition-colors duration-200 ${
-              i <= strength ? colors[strength] : "bg-muted"
-            }`}
+            className={`h-1 flex-1 rounded-full transition-colors duration-200 ${i <= strength ? colors[strength] : "bg-muted"
+              }`}
           />
         ))}
       </div>
@@ -55,7 +59,13 @@ function PasswordStrengthBar({ password }: { password: string }) {
   )
 }
 
-export function ChangePasswordSection() {
+interface ChangePasswordSectionProps {
+  defaultOpen?: boolean
+}
+
+export function ChangePasswordSection({
+  defaultOpen = false,
+}: ChangePasswordSectionProps = {}) {
   const {
     user,
     changePassword,
@@ -65,6 +75,8 @@ export function ChangePasswordSection() {
 
   const hasPassword =
     user?.providerData.some((p) => p.providerId === "password") ?? false
+
+  const [isOpen, setIsOpen] = React.useState(defaultOpen)
 
   const [currentPw, setCurrentPw] = React.useState("")
   const [newPw, setNewPw] = React.useState("")
@@ -109,89 +121,121 @@ export function ChangePasswordSection() {
     }
   }
 
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open)
+    if (!open) {
+      setLocalError(null)
+    }
+  }
+
   return (
-    <section aria-labelledby="password-section-heading" className="space-y-6">
-      <div>
-        <h2 id="password-section-heading" className="text-base font-semibold">
-          {hasPassword ? "Change Password" : "Set a Password"}
-        </h2>
-        <p className="text-sm text-muted-foreground">
-          {hasPassword
-            ? "Update your account password. You'll need your current password to confirm."
-            : "Add email & password sign-in to your account."}
-        </p>
-      </div>
+    <section aria-labelledby="password-section-heading">
+      <Collapsible open={isOpen} onOpenChange={handleOpenChange}>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="space-y-1">
+            <h2 id="password-section-heading" className="text-base font-semibold">
+              {hasPassword ? "Change Password" : "Set a Password"}
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              {hasPassword
+                ? "Update your account password."
+                : "Add email & password sign-in to your account."}
+            </p>
+          </div>
 
-      {localError && (
-        <Alert variant="destructive" className="max-w-sm">
-          <AlertDescription>{localError}</AlertDescription>
-        </Alert>
-      )}
-      {successMsg && (
-        <Alert className="max-w-sm border-emerald-500/30 bg-emerald-500/5 text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-400">
-          <AlertDescription>
-            {successMsg}
-          </AlertDescription>
-        </Alert>
-      )}
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => handleOpenChange(!isOpen)}
+            className="shrink-0 self-start sm:self-center"
+          >
+            {isOpen ? "Cancel" : hasPassword ? "Change" : "Set password"}
+          </Button>
+        </div>
 
-      <form onSubmit={handleSubmit} className="max-w-sm space-y-4">
-        {hasPassword && (
-          <Field>
-            <FieldLabel htmlFor="current-password">Current Password</FieldLabel>
-            <Input
-              id="current-password"
-              type="password"
-              value={currentPw}
-              onChange={(e) => setCurrentPw(e.target.value)}
-              disabled={loading}
-              autoComplete="current-password"
-              placeholder="••••••••"
-            />
-          </Field>
-        )}
-
-        <Field>
-          <FieldLabel htmlFor="new-password">
-            {hasPassword ? "New Password" : "Password"}
-          </FieldLabel>
-          <Input
-            id="new-password"
-            type="password"
-            value={newPw}
-            onChange={(e) => setNewPw(e.target.value)}
-            disabled={loading}
-            autoComplete="new-password"
-            placeholder="••••••••"
-          />
-          <PasswordStrengthBar password={newPw} />
-          <FieldDescription>Minimum 8 characters.</FieldDescription>
-        </Field>
-
-        <Field>
-          <FieldLabel htmlFor="confirm-password">Confirm Password</FieldLabel>
-          <Input
-            id="confirm-password"
-            type="password"
-            value={confirmPw}
-            onChange={(e) => setConfirmPw(e.target.value)}
-            disabled={loading}
-            autoComplete="new-password"
-            placeholder="••••••••"
-          />
-          {confirmPw && newPw !== confirmPw && (
-            <FieldError>Passwords do not match.</FieldError>
+        <CollapsibleContent className="space-y-6 pt-6">
+          {localError && (
+            <Alert variant="destructive" className="max-w-sm">
+              <AlertDescription>{localError}</AlertDescription>
+            </Alert>
           )}
-        </Field>
+          {successMsg && (
+            <Alert className="max-w-sm border-emerald-500/30 bg-emerald-500/5 text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-400">
+              <AlertDescription>{successMsg}</AlertDescription>
+            </Alert>
+          )}
 
-        <Button type="submit" size="sm" disabled={loading}>
-          {loading
-            ? "Saving…"
-            : hasPassword
-              ? "Change Password"
-              : "Set Password"}
-        </Button>
-      </form>
+          <form onSubmit={handleSubmit} className="max-w-sm space-y-4">
+            {hasPassword && (
+              <Field>
+                <FieldLabel htmlFor="current-password">Current Password</FieldLabel>
+                <Input
+                  id="current-password"
+                  type="password"
+                  value={currentPw}
+                  onChange={(e) => setCurrentPw(e.target.value)}
+                  disabled={loading}
+                  autoComplete="current-password"
+                  placeholder="••••••••"
+                />
+              </Field>
+            )}
+
+            <Field>
+              <FieldLabel htmlFor="new-password">
+                {hasPassword ? "New Password" : "Password"}
+              </FieldLabel>
+              <Input
+                id="new-password"
+                type="password"
+                value={newPw}
+                onChange={(e) => setNewPw(e.target.value)}
+                disabled={loading}
+                autoComplete="new-password"
+                placeholder="••••••••"
+              />
+              <PasswordStrengthBar password={newPw} />
+              <FieldDescription>Minimum 8 characters.</FieldDescription>
+            </Field>
+
+            <Field>
+              <FieldLabel htmlFor="confirm-password">Confirm Password</FieldLabel>
+              <Input
+                id="confirm-password"
+                type="password"
+                value={confirmPw}
+                onChange={(e) => setConfirmPw(e.target.value)}
+                disabled={loading}
+                autoComplete="new-password"
+                placeholder="••••••••"
+              />
+              {confirmPw && newPw !== confirmPw && (
+                <FieldError>Passwords do not match.</FieldError>
+              )}
+            </Field>
+
+            <div className="flex items-center gap-2 pt-1">
+              <Button type="submit" size="sm" disabled={loading}>
+                {loading
+                  ? "Saving…"
+                  : hasPassword
+                    ? "Change Password"
+                    : "Set Password"}
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={() => handleOpenChange(false)}
+                disabled={loading}
+              >
+                Cancel
+              </Button>
+            </div>
+          </form>
+        </CollapsibleContent>
+      </Collapsible>
     </section>
   )
 }

@@ -79,7 +79,7 @@ export function DangerZone() {
         </p>
       </div>
 
-      <div className="divide-y divide-destructive/15 rounded-lg border border-destructive/30 bg-card/75 dark:bg-card/50 backdrop-blur-xs">
+      <div className="divide-y divide-destructive/15 rounded-lg border border-destructive/30 bg-card/75 backdrop-blur-xs dark:bg-card/50">
         {/* Sign out all devices */}
         <div className="flex flex-col gap-2 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
           <div>

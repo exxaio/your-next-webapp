@@ -143,13 +143,11 @@ export function ConnectedProviders() {
       )}
       {successMsg && (
         <Alert className="border-emerald-500/30 bg-emerald-500/5 text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-400">
-          <AlertDescription>
-            {successMsg}
-          </AlertDescription>
+          <AlertDescription>{successMsg}</AlertDescription>
         </Alert>
       )}
 
-      <div className="divide-y divide-border rounded-lg border border-border/80 bg-card/75 dark:bg-card/50 backdrop-blur-xs">
+      <div className="divide-y divide-border rounded-lg border border-border/80 bg-card/75 backdrop-blur-xs dark:bg-card/50">
         {PROVIDERS.map((provider) => {
           const isLinked = linkedIds.has(provider.id)
           const canUnlink = isLinked && linkedCount > 1
