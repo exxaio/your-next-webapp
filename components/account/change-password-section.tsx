@@ -12,10 +12,7 @@ import {
 } from "@/components/ui/field"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 
-import {
-  Collapsible,
-  CollapsibleContent,
-} from "@/components/ui/collapsible"
+import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible"
 
 function PasswordStrengthBar({ password }: { password: string }) {
   const strength = React.useMemo(() => {
@@ -49,8 +46,9 @@ function PasswordStrengthBar({ password }: { password: string }) {
         {[1, 2, 3, 4].map((i) => (
           <div
             key={i}
-            className={`h-1 flex-1 rounded-full transition-colors duration-200 ${i <= strength ? colors[strength] : "bg-muted"
-              }`}
+            className={`h-1 flex-1 rounded-full transition-colors duration-200 ${
+              i <= strength ? colors[strength] : "bg-muted"
+            }`}
           />
         ))}
       </div>
@@ -133,7 +131,10 @@ export function ChangePasswordSection({
       <Collapsible open={isOpen} onOpenChange={handleOpenChange}>
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-1">
-            <h2 id="password-section-heading" className="text-base font-semibold">
+            <h2
+              id="password-section-heading"
+              className="text-base font-semibold"
+            >
               {hasPassword ? "Change Password" : "Set a Password"}
             </h2>
             <p className="text-sm text-muted-foreground">
@@ -169,7 +170,9 @@ export function ChangePasswordSection({
           <form onSubmit={handleSubmit} className="max-w-sm space-y-4">
             {hasPassword && (
               <Field>
-                <FieldLabel htmlFor="current-password">Current Password</FieldLabel>
+                <FieldLabel htmlFor="current-password">
+                  Current Password
+                </FieldLabel>
                 <Input
                   id="current-password"
                   type="password"
@@ -200,7 +203,9 @@ export function ChangePasswordSection({
             </Field>
 
             <Field>
-              <FieldLabel htmlFor="confirm-password">Confirm Password</FieldLabel>
+              <FieldLabel htmlFor="confirm-password">
+                Confirm Password
+              </FieldLabel>
               <Input
                 id="confirm-password"
                 type="password"

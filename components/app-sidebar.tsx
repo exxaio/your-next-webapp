@@ -190,20 +190,22 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         },
         {
           title: tNav("playground"),
-          url: "#",
+          url: "/playground",
           icon: <HugeiconsIcon icon={ComputerTerminalIcon} strokeWidth={2} />,
+          isActive:
+            pathname === "/playground" || pathname?.startsWith("/playground"),
           items: [
             {
               title: tSidebar("history"),
-              url: "#",
+              url: "/playground?tab=history",
             },
             {
               title: tSidebar("starred"),
-              url: "#",
+              url: "/playground?tab=starred",
             },
             {
               title: tNav("settings"),
-              url: "#",
+              url: "/playground?tab=parameters",
             },
           ],
         },
