@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl"
 import { cn } from "cn"
 
 import { useRouter } from "@/i18n/routing"
+import { useAuth } from "@/hooks/use-auth"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -21,6 +22,7 @@ import {
   FieldSeparator,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { Alert, AlertDescription } from "@/components/ui/alert"
 
 export function LoginForm({
   className,
@@ -28,10 +30,48 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
   const router = useRouter()
   const t = useTranslations("Login")
+  const {
+    signInWithEmail,
+    signInWithGoogle,
+    signInWithApple,
+    error,
+    loading,
+    clearError,
+  } = useAuth()
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [email, setEmail] = React.useState("")
+  const [password, setPassword] = React.useState("")
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    router.push("/dashboard")
+    clearError()
+
+    try {
+      await signInWithEmail(email, password)
+      router.push("/dashboard")
+    } catch (err) {
+      console.error("Sign in error:", err)
+    }
+  }
+
+  const handleGoogleSignIn = async () => {
+    clearError()
+    try {
+      await signInWithGoogle()
+      router.push("/dashboard")
+    } catch (err) {
+      console.error("Google sign in error:", err)
+    }
+  }
+
+  const handleAppleSignIn = async () => {
+    clearError()
+    try {
+      await signInWithApple()
+      router.push("/dashboard")
+    } catch (err) {
+      console.error("Apple sign in error:", err)
+    }
   }
 
   return (
@@ -44,11 +84,17 @@ export function LoginForm({
         <CardContent>
           <form onSubmit={handleSubmit}>
             <FieldGroup>
+              {error && (
+                <Alert variant="destructive">
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
+              )}
               <Field>
                 <Button
                   variant="outline"
                   type="button"
-                  onClick={() => router.push("/dashboard")}
+                  onClick={handleAppleSignIn}
+                  disabled={loading}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path
@@ -61,7 +107,8 @@ export function LoginForm({
                 <Button
                   variant="outline"
                   type="button"
-                  onClick={() => router.push("/dashboard")}
+                  onClick={handleGoogleSignIn}
+                  disabled={loading}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path
@@ -81,6 +128,9 @@ export function LoginForm({
                   id="email"
                   type="email"
                   placeholder="m@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={loading}
                   required
                 />
               </Field>
@@ -94,10 +144,19 @@ export function LoginForm({
                     {t("forgotPassword")}
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  disabled={loading}
+                  required
+                />
               </Field>
               <Field>
-                <Button type="submit">{t("submit")}</Button>
+                <Button type="submit" disabled={loading}>
+                  {loading ? t("loading") || "Loading..." : t("submit")}
+                </Button>
                 <FieldDescription className="text-center">
                   {t("noAccount")}{" "}
                   <a href="#" className="underline-offset-4 hover:underline">

@@ -1,6 +1,8 @@
 "use client"
 
 import { useTranslations } from "next-intl"
+import { useRouter } from "@/i18n/routing"
+import { useAuth } from "@/hooks/use-auth"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -39,6 +41,17 @@ export function NavUser({
 }) {
   const { isMobile } = useSidebar()
   const t = useTranslations("Common")
+  const router = useRouter()
+  const { logout } = useAuth()
+
+  const handleLogout = async () => {
+    try {
+      await logout()
+      router.push("/login")
+    } catch (error) {
+      console.error("Logout error:", error)
+    }
+  }
 
   return (
     <SidebarMenu>
@@ -107,7 +120,7 @@ export function NavUser({
             </DropdownMenuGroup>
 
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
               <HugeiconsIcon icon={LogoutIcon} strokeWidth={2} />
               {t("logout")}
             </DropdownMenuItem>
