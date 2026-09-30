@@ -28,6 +28,7 @@ import {
   ProgressIndicator,
   ProgressTrack,
 } from "@/components/ui/progress"
+import { LinkAccountDialog } from "@/components/link-account-dialog"
 
 export function SignupForm({
   className,
@@ -39,6 +40,10 @@ export function SignupForm({
     signUpWithEmail,
     signInWithGoogle,
     signInWithGithub,
+    linkWithOAuthProvider,
+    linkWithPassword,
+    pendingLinkState,
+    clearPendingLink,
     error,
     loading,
     clearError,
@@ -125,8 +130,10 @@ export function SignupForm({
     clearError()
     setValidationError("")
     try {
-      await signInWithGoogle()
-      router.push("/dashboard")
+      const res = await signInWithGoogle()
+      if (res) {
+        router.push("/dashboard")
+      }
     } catch (err) {
       console.error("Google sign in error:", err)
     }
@@ -136,8 +143,10 @@ export function SignupForm({
     clearError()
     setValidationError("")
     try {
-      await signInWithGithub()
-      router.push("/dashboard")
+      const res = await signInWithGithub()
+      if (res) {
+        router.push("/dashboard")
+      }
     } catch (err) {
       console.error("GitHub sign in error:", err)
     }
@@ -349,6 +358,17 @@ export function SignupForm({
           </form>
         </CardContent>
       </Card>
+
+      <LinkAccountDialog
+        open={!!pendingLinkState}
+        pendingLinkState={pendingLinkState}
+        onLinkWithOAuth={linkWithOAuthProvider}
+        onLinkWithPassword={linkWithPassword}
+        onSuccess={() => router.push("/dashboard")}
+        onCancel={clearPendingLink}
+        loading={loading}
+        error={error}
+      />
     </div>
   )
 }

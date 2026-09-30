@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import { LinkAccountDialog } from "@/components/link-account-dialog"
 
 export function LoginForm({
   className,
@@ -34,6 +35,10 @@ export function LoginForm({
     signInWithEmail,
     signInWithGoogle,
     signInWithGithub,
+    linkWithOAuthProvider,
+    linkWithPassword,
+    pendingLinkState,
+    clearPendingLink,
     error,
     loading,
     clearError,
@@ -57,8 +62,10 @@ export function LoginForm({
   const handleGoogleSignIn = async () => {
     clearError()
     try {
-      await signInWithGoogle()
-      router.push("/dashboard")
+      const res = await signInWithGoogle()
+      if (res) {
+        router.push("/dashboard")
+      }
     } catch (err) {
       console.error("Google sign in error:", err)
     }
@@ -67,8 +74,10 @@ export function LoginForm({
   const handleGithubSignIn = async () => {
     clearError()
     try {
-      await signInWithGithub()
-      router.push("/dashboard")
+      const res = await signInWithGithub()
+      if (res) {
+        router.push("/dashboard")
+      }
     } catch (err) {
       console.error("GitHub sign in error:", err)
     }
@@ -176,6 +185,17 @@ export function LoginForm({
         By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
         and <a href="#">Privacy Policy</a>.
       </FieldDescription>
+
+      <LinkAccountDialog
+        open={!!pendingLinkState}
+        pendingLinkState={pendingLinkState}
+        onLinkWithOAuth={linkWithOAuthProvider}
+        onLinkWithPassword={linkWithPassword}
+        onSuccess={() => router.push("/dashboard")}
+        onCancel={clearPendingLink}
+        loading={loading}
+        error={error}
+      />
     </div>
   )
 }
