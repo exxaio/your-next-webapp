@@ -15,6 +15,7 @@ import { Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 import { ProtectedRoute } from "@/components/protected-route"
 import { AppSidebar } from "@/components/app-sidebar"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { Link } from "@/i18n/routing"
 import {
   Alert,
@@ -141,7 +142,7 @@ export default function DashboardPage() {
         <AppSidebar />
         <SidebarInset>
           <header className="flex h-16 shrink-0 items-center gap-2">
-            <div className="flex items-center gap-2 px-4">
+            <div className="flex flex-1 items-center gap-2 px-4">
               <SidebarTrigger className="-ml-1" />
               <Separator
                 orientation="vertical"
@@ -160,6 +161,7 @@ export default function DashboardPage() {
                   </BreadcrumbItem>
                 </BreadcrumbList>
               </Breadcrumb>
+              <ThemeToggle className="ml-auto" />
             </div>
           </header>
 
