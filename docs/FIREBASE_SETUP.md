@@ -103,15 +103,22 @@ const {
   user,                    // Current user object or null
   loading,                 // Loading state
   error,                   // Error message
-  signInWithEmail,         // (email, password) => Promise
-  signUpWithEmail,         // (email, password, displayName?) => Promise
-  signInWithGoogle,        // () => Promise
-  signInWithGithub,        // () => Promise
-  logout,                  // () => Promise
-  resetPassword,           // (email) => Promise
+  pendingLinkState,        // Non-null during OAuth account conflict
+  signInWithEmail,         // (email, password) => Promise<UserCredential>
+  signUpWithEmail,         // (email, password, displayName?) => Promise<UserCredential>
+  signInWithGoogle,        // () => Promise<UserCredential | undefined>
+  signInWithGithub,        // () => Promise<UserCredential | undefined>
+  linkWithOAuthProvider,   // () => Promise<UserCredential>
+  linkWithPassword,        // (password: string) => Promise<UserCredential>
+  clearPendingLink,        // () => void
+  logout,                  // () => Promise<void>
+  resetPassword,           // (email) => Promise<void>
   clearError,              // () => void
 } = useAuth()
 ```
+
+> For details on automatic OAuth credential resolution and account linking, see [OAuth Account Linking Documentation](file:///Users/aa/git/github_exxaio/your-next-webapp/docs/OAUTH_ACCOUNT_LINKING.md).
+
 
 ### Example Usage
 
