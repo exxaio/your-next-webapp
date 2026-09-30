@@ -25,7 +25,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { useAuth } from "@/hooks/use-auth"
-import { Link, usePathname, useRouter } from "@/i18n/routing"
+import { Link, usePathname } from "@/i18n/routing"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   ComputerTerminalIcon,
@@ -46,7 +46,7 @@ import {
 
 function useIsMounted() {
   return React.useSyncExternalStore(
-    () => () => {},
+    () => () => { },
     () => true,
     () => false
   )
@@ -92,7 +92,6 @@ function SidebarLanguagePicker() {
   const { isMobile } = useSidebar()
   const tCommon = useTranslations("Common")
   const locale = useLocale()
-  const router = useRouter()
   const pathname = usePathname()
   const [isPending, startTransition] = React.useTransition()
 
