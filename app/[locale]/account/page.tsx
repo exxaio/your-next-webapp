@@ -52,7 +52,7 @@ export default function AccountPage() {
             </div>
           </header>
 
-          <main className="flex w-full max-w-4xl flex-1 flex-col gap-6 p-4 pt-0">
+          <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-6 p-4 pt-0">
             <div>
               <h1 className="text-2xl font-bold tracking-tight">
                 Account Settings

@@ -1,7 +1,7 @@
 "use client"
 
 import { useTranslations } from "next-intl"
-import { useRouter } from "@/i18n/routing"
+import { Link, useRouter } from "@/i18n/routing"
 import { useAuth } from "@/hooks/use-auth"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -28,6 +28,7 @@ import {
   CreditCardIcon,
   NotificationIcon,
   LogoutIcon,
+  ChartRingIcon,
 } from "@hugeicons/core-free-icons"
 
 export function NavUser({
@@ -41,6 +42,7 @@ export function NavUser({
 }) {
   const { isMobile } = useSidebar()
   const t = useTranslations("Common")
+  const tNav = useTranslations("Navigation")
   const router = useRouter()
   const { logout } = useAuth()
 
@@ -105,9 +107,9 @@ export function NavUser({
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem render={<Link href="/account" />}>
                 <HugeiconsIcon icon={CheckmarkBadgeIcon} strokeWidth={2} />
-                Account
+                {tNav("account")}
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <HugeiconsIcon icon={CreditCardIcon} strokeWidth={2} />
