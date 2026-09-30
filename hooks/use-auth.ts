@@ -27,7 +27,7 @@ export interface UseAuthReturn {
     displayName?: string
   ) => Promise<UserCredential>
   signInWithGoogle: () => Promise<UserCredential>
-  signInWithApple: () => Promise<UserCredential>
+  signInWithGithub: () => Promise<UserCredential>
   logout: () => Promise<void>
   resetPassword: (email: string) => Promise<void>
   clearError: () => void
@@ -115,17 +115,16 @@ export function useAuth(): UseAuthReturn {
     }
   }
 
-  const signInWithApple = async () => {
+  const signInWithGithub = async () => {
     setError(null)
     setLoading(true)
     try {
-      const provider = new OAuthProvider("apple.com")
-      provider.addScope("email")
-      provider.addScope("name")
+      const provider = new OAuthProvider("github.com")
+      provider.addScope("user:email")
       const result = await signInWithPopup(auth, provider)
       return result
     } catch (err: any) {
-      setError(err.message || "Failed to sign in with Apple")
+      setError(err.message || "Failed to sign in with GitHub")
       throw err
     } finally {
       setLoading(false)
@@ -161,7 +160,7 @@ export function useAuth(): UseAuthReturn {
     signInWithEmail,
     signUpWithEmail,
     signInWithGoogle,
-    signInWithApple,
+    signInWithGithub,
     logout,
     resetPassword,
     clearError,
