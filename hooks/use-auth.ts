@@ -14,6 +14,12 @@ import {
   updateProfile,
   fetchSignInMethodsForEmail,
   linkWithCredential,
+  linkWithPopup,
+  unlink,
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+  deleteUser,
   type OAuthCredential,
   type UserCredential,
 } from "firebase/auth"
@@ -35,6 +41,12 @@ function getAuthErrorMessage(err: any): string {
       return "An account with this email already exists. Try signing in instead."
     case "auth/weak-password":
       return "Password is too weak. Please choose a stronger password."
+    case "auth/requires-recent-login":
+      return "This action is sensitive and requires recent authentication. Please sign in again before retrying."
+    case "auth/provider-already-linked":
+      return "This provider is already linked to your account."
+    case "auth/credential-already-in-use":
+      return "This account is already linked to another user."
     case "auth/popup-closed-by-user":
     case "auth/cancelled-popup-request":
       return ""
@@ -69,6 +81,17 @@ export interface UseAuthReturn {
   logout: () => Promise<void>
   resetPassword: (email: string) => Promise<void>
   clearError: () => void
+  updateDisplayName: (displayName: string) => Promise<void>
+  updateAvatar: (photoURL: string | null) => Promise<void>
+  linkProvider: (provider: "google" | "github") => Promise<UserCredential>
+  unlinkProvider: (providerId: string) => Promise<User>
+  changePassword: (
+    currentPassword: string,
+    newPassword: string
+  ) => Promise<void>
+  setPassword: (newPassword: string) => Promise<void>
+  deleteAccount: (currentPassword?: string) => Promise<void>
+  refreshUser: () => Promise<void>
 }
 
 export function useAuth(): UseAuthReturn {
@@ -293,6 +316,163 @@ export function useAuth(): UseAuthReturn {
 
   const clearError = () => setError(null)
 
+  const refreshUser = async () => {
+    if (!auth?.currentUser) return
+    try {
+      await auth.currentUser.reload()
+      const refreshed = Object.assign(
+        Object.create(Object.getPrototypeOf(auth.currentUser)),
+        auth.currentUser
+      )
+      setUser(refreshed)
+    } catch (err) {
+      console.error("Failed to refresh user:", err)
+    }
+  }
+
+  const updateDisplayName = async (displayName: string) => {
+    if (!auth.currentUser) throw new Error("No authenticated user")
+    setError(null)
+    setLoading(true)
+    try {
+      await updateProfile(auth.currentUser, { displayName })
+      await refreshUser()
+    } catch (err: any) {
+      const msg = getAuthErrorMessage(err)
+      if (msg) setError(msg)
+      throw err
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const updateAvatar = async (photoURL: string | null) => {
+    if (!auth.currentUser) throw new Error("No authenticated user")
+    setError(null)
+    setLoading(true)
+    try {
+      await updateProfile(auth.currentUser, { photoURL: photoURL ?? "" })
+      await refreshUser()
+    } catch (err: any) {
+      const msg = getAuthErrorMessage(err)
+      if (msg) setError(msg)
+      throw err
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const linkProvider = async (
+    provider: "google" | "github"
+  ): Promise<UserCredential> => {
+    if (!auth.currentUser) throw new Error("No authenticated user")
+    setError(null)
+    setLoading(true)
+    try {
+      const authProvider =
+        provider === "google"
+          ? new GoogleAuthProvider()
+          : new GithubAuthProvider()
+      if (provider === "google") {
+        authProvider.addScope("profile")
+        authProvider.addScope("email")
+      } else {
+        authProvider.addScope("user:email")
+      }
+      const result = await linkWithPopup(auth.currentUser, authProvider)
+      await refreshUser()
+      return result
+    } catch (err: any) {
+      const msg = getAuthErrorMessage(err)
+      if (msg) setError(msg)
+      throw err
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const unlinkProvider = async (providerId: string): Promise<User> => {
+    if (!auth.currentUser) throw new Error("No authenticated user")
+    setError(null)
+    setLoading(true)
+    try {
+      const updatedUser = await unlink(auth.currentUser, providerId)
+      await refreshUser()
+      return updatedUser
+    } catch (err: any) {
+      const msg = getAuthErrorMessage(err)
+      if (msg) setError(msg)
+      throw err
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const changePassword = async (
+    currentPassword: string,
+    newPassword: string
+  ) => {
+    if (!auth.currentUser || !auth.currentUser.email) {
+      throw new Error("No authenticated user with email")
+    }
+    setError(null)
+    setLoading(true)
+    try {
+      const credential = EmailAuthProvider.credential(
+        auth.currentUser.email,
+        currentPassword
+      )
+      await reauthenticateWithCredential(auth.currentUser, credential)
+      await updatePassword(auth.currentUser, newPassword)
+      await refreshUser()
+    } catch (err: any) {
+      const msg = getAuthErrorMessage(err)
+      if (msg) setError(msg)
+      throw err
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const setPassword = async (newPassword: string) => {
+    if (!auth.currentUser) throw new Error("No authenticated user")
+    setError(null)
+    setLoading(true)
+    try {
+      await updatePassword(auth.currentUser, newPassword)
+      await refreshUser()
+    } catch (err: any) {
+      const msg = getAuthErrorMessage(err)
+      if (msg) setError(msg)
+      throw err
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const deleteAccount = async (currentPassword?: string) => {
+    if (!auth.currentUser) throw new Error("No authenticated user")
+    setError(null)
+    setLoading(true)
+    try {
+      if (currentPassword && auth.currentUser.email) {
+        const credential = EmailAuthProvider.credential(
+          auth.currentUser.email,
+          currentPassword
+        )
+        await reauthenticateWithCredential(auth.currentUser, credential)
+      }
+      await deleteUser(auth.currentUser)
+      setUser(null)
+    } catch (err: any) {
+      const msg = getAuthErrorMessage(err)
+      if (msg) setError(msg)
+      throw err
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return {
     user,
     loading,
@@ -308,5 +488,13 @@ export function useAuth(): UseAuthReturn {
     logout,
     resetPassword,
     clearError,
+    updateDisplayName,
+    updateAvatar,
+    linkProvider,
+    unlinkProvider,
+    changePassword,
+    setPassword,
+    deleteAccount,
+    refreshUser,
   }
 }
