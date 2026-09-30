@@ -118,7 +118,7 @@ export default function AccountPage() {
                       </span>
                       <Badge
                         variant="secondary"
-                        className="gap-1 border-emerald-500/30 bg-emerald-500/10 text-[11px] font-medium text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-400"
+                        className="gap-1 border-success/30 bg-success/5 text-[11px] font-medium text-success"
                       >
                         <HugeiconsIcon
                           icon={CheckmarkBadgeIcon}
@@ -161,7 +161,7 @@ export default function AccountPage() {
             {/* Group 2: Authentication & Security */}
             <div className="space-y-6">
               <div className="flex items-center gap-2 px-1">
-                <span className="flex size-6 items-center justify-center rounded-md border border-violet-500/20 bg-violet-500/10 text-violet-700 dark:text-violet-300">
+                <span className="flex size-6 items-center justify-center rounded-md border border-primary/20 bg-primary/5 text-primary">
                   <HugeiconsIcon icon={Shield01Icon} className="size-3.5" />
                 </span>
                 <span className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
@@ -171,14 +171,14 @@ export default function AccountPage() {
 
               {/* Section Card: Connected Sign-In Methods (Active/Violet Surface) */}
               <div id="connected-providers-section" className="scroll-mt-6">
-                <Card className="border border-violet-500/25 bg-violet-50/40 p-6 shadow-xs sm:p-7 dark:border-violet-500/30 dark:bg-violet-500/[0.06]">
+                <Card className="border border-primary/25 bg-primary/5 p-6 shadow-xs sm:p-7">
                   <ConnectedProviders />
                 </Card>
               </div>
 
               {/* Section Card: Password & Credentials (Warning/Amber Surface) */}
               <div id="security-section" className="scroll-mt-6">
-                <Card className="border border-amber-500/25 bg-amber-50/40 p-6 shadow-xs sm:p-7 dark:border-amber-500/30 dark:bg-amber-500/[0.06]">
+                <Card className="border border-warning/30 bg-warning/10 p-6 shadow-xs sm:p-7">
                   <ChangePasswordSection defaultOpen={false} />
                 </Card>
               </div>
@@ -190,14 +190,14 @@ export default function AccountPage() {
               className="scroll-mt-6 space-y-3 pb-8"
             >
               <div className="flex items-center gap-2 px-1">
-                <span className="flex size-6 items-center justify-center rounded-md border border-red-500/20 bg-red-500/10 text-red-700 dark:text-red-400">
+                <span className="flex size-6 items-center justify-center rounded-md border border-danger/20 bg-danger/10 text-danger">
                   <HugeiconsIcon icon={AlertCircleIcon} className="size-3.5" />
                 </span>
-                <span className="text-xs font-semibold tracking-wider text-red-700 uppercase dark:text-red-400">
+                <span className="text-xs font-semibold tracking-wider text-danger uppercase">
                   Critical Actions
                 </span>
               </div>
-              <Card className="border border-red-500/25 bg-red-50/40 p-6 shadow-xs sm:p-7 dark:border-red-500/30 dark:bg-red-500/[0.06]">
+              <Card className="border border-danger/25 bg-danger/10 p-6 shadow-xs sm:p-7">
                 <DangerZone />
               </Card>
             </div>
