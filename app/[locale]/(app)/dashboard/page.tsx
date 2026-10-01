@@ -118,7 +118,8 @@ export default function DashboardPage() {
   const t = useTranslations("Dashboard")
 
   return (
-    <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+    <main className="flex flex-1 flex-col gap-4 p-4 pt-0 md:p-6 md:pt-0">
+      <h1 className="sr-only">{t("dashboard")}</h1>
       {/* Alert Banner */}
       <Alert className="border-l-4 border-l-accent bg-card text-card-foreground">
         <HugeiconsIcon icon={Activity01Icon} className="h-4 w-4 text-accent" />
@@ -408,6 +409,6 @@ export default function DashboardPage() {
           </TabsContent>
         </Tabs>
       </Card>
-    </div>
+    </main>
   )
 }

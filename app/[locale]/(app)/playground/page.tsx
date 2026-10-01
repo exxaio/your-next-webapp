@@ -488,7 +488,8 @@ main();`
       </NavbarActions>
 
       {/* Main Container */}
-      <main className="flex flex-1 flex-col gap-4 p-4 md:p-6">
+      <main className="flex flex-1 flex-col gap-4 p-4 pt-0 md:p-6 md:pt-0">
+        <h1 className="sr-only">{tPlayground("title")}</h1>
         {/* Presets and Mode Selector Bar */}
         <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border bg-card p-3 shadow-xs">
           <div className="flex items-center gap-3">
