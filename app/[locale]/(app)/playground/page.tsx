@@ -367,853 +367,827 @@ main();`
     <>
       <NavbarActions>
         <div className="flex items-center gap-2">
-              {showShareNotification && (
-                <Badge
-                  variant="secondary"
-                  className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+          {showShareNotification && (
+            <Badge
+              variant="secondary"
+              className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+            >
+              <HugeiconsIcon icon={Tick02Icon} className="mr-1 size-3" />
+              Link copied to clipboard
+            </Badge>
+          )}
+
+          {/* View Code Dialog */}
+          <Dialog>
+            <DialogTrigger
+              render={
+                <Button variant="outline" size="sm" className="gap-1.5">
+                  <HugeiconsIcon icon={SourceCodeIcon} className="size-3.5" />
+                  <span className="hidden sm:inline">
+                    {tPlayground("viewCode")}
+                  </span>
+                </Button>
+              }
+            />
+            <DialogContent className="max-w-2xl">
+              <DialogHeader>
+                <DialogTitle>{tPlayground("viewCode")}</DialogTitle>
+                <DialogDescription>
+                  Export this playground session to your Node.js or Python
+                  backend.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="relative mt-2 rounded-lg bg-muted/80 p-4 font-mono text-xs">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => handleCopy(generatedCode, "modal-code")}
+                  className="absolute top-2 right-2 h-7 px-2"
                 >
-                  <HugeiconsIcon icon={Tick02Icon} className="mr-1 size-3" />
-                  Link copied to clipboard
-                </Badge>
-              )}
-
-              {/* View Code Dialog */}
-              <Dialog>
-                <DialogTrigger
+                  {copiedId === "modal-code" ? (
+                    <HugeiconsIcon icon={Tick02Icon} className="size-3.5" />
+                  ) : (
+                    <HugeiconsIcon icon={Copy01Icon} className="size-3.5" />
+                  )}
+                </Button>
+                <pre className="max-h-96 overflow-x-auto whitespace-pre">
+                  {generatedCode}
+                </pre>
+              </div>
+              <DialogFooter>
+                <DialogClose
                   render={
-                    <Button variant="outline" size="sm" className="gap-1.5">
-                      <HugeiconsIcon
-                        icon={SourceCodeIcon}
-                        className="size-3.5"
-                      />
-                      <span className="hidden sm:inline">
-                        {tPlayground("viewCode")}
-                      </span>
+                    <Button variant="secondary" size="sm">
+                      Close
                     </Button>
                   }
                 />
-                <DialogContent className="max-w-2xl">
-                  <DialogHeader>
-                    <DialogTitle>{tPlayground("viewCode")}</DialogTitle>
-                    <DialogDescription>
-                      Export this playground session to your Node.js or Python
-                      backend.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="relative mt-2 rounded-lg bg-muted/80 p-4 font-mono text-xs">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleCopy(generatedCode, "modal-code")}
-                      className="absolute top-2 right-2 h-7 px-2"
-                    >
-                      {copiedId === "modal-code" ? (
-                        <HugeiconsIcon icon={Tick02Icon} className="size-3.5" />
-                      ) : (
-                        <HugeiconsIcon icon={Copy01Icon} className="size-3.5" />
-                      )}
-                    </Button>
-                    <pre className="max-h-96 overflow-x-auto whitespace-pre">
-                      {generatedCode}
-                    </pre>
-                  </div>
-                  <DialogFooter>
-                    <DialogClose
-                      render={
-                        <Button variant="secondary" size="sm">
-                          Close
-                        </Button>
-                      }
-                    />
-                  </DialogFooter>
-                </DialogContent>
-              </Dialog>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
 
-              {/* Save Preset Dialog */}
-              <Dialog>
-                <DialogTrigger
-                  render={
-                    <Button variant="outline" size="sm" className="gap-1.5">
-                      <HugeiconsIcon icon={StarIcon} className="size-3.5" />
-                      <span className="hidden sm:inline">
-                        {tPlayground("savePreset")}
-                      </span>
-                    </Button>
-                  }
-                />
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>{tPlayground("savePreset")}</DialogTitle>
-                    <DialogDescription>
-                      Save your current configuration, model parameters, and
-                      system prompts.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="grid gap-4 py-2">
-                    <div className="grid gap-1.5">
-                      <Label htmlFor="preset-name">Preset Name</Label>
-                      <Input
-                        id="preset-name"
-                        placeholder="e.g. Production API Validator"
-                      />
-                    </div>
-                    <div className="grid gap-1.5">
-                      <Label htmlFor="preset-desc">Description</Label>
-                      <Input
-                        id="preset-desc"
-                        placeholder="Brief summary of this prompt template"
-                      />
-                    </div>
-                  </div>
-                  <DialogFooter>
-                    <DialogClose
-                      render={
-                        <Button variant="default" size="sm">
-                          Save Configuration
-                        </Button>
-                      }
-                    />
-                  </DialogFooter>
-                </DialogContent>
-              </Dialog>
-
-              {/* Share Button */}
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleShare}
-                className="gap-1.5"
-              >
-                <HugeiconsIcon icon={Share03Icon} className="size-3.5" />
-                <span className="hidden sm:inline">{tPlayground("share")}</span>
-              </Button>
-            </div>
-          </NavbarActions>
-
-          {/* Main Container */}
-          <main className="flex flex-1 flex-col gap-4 p-4 md:p-6">
-            {/* Presets and Mode Selector Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border bg-card p-3 shadow-xs">
-              <div className="flex items-center gap-3">
-                <span className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
-                  {tPlayground("presets")}:
-                </span>
-                <div className="flex flex-wrap gap-1.5">
-                  {PRESETS.map((p) => (
-                    <Button
-                      key={p.id}
-                      variant={selectedPreset === p.id ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => handlePresetChange(p.id)}
-                      className="h-7 text-xs"
-                    >
-                      {p.name}
-                    </Button>
-                  ))}
+          {/* Save Preset Dialog */}
+          <Dialog>
+            <DialogTrigger
+              render={
+                <Button variant="outline" size="sm" className="gap-1.5">
+                  <HugeiconsIcon icon={StarIcon} className="size-3.5" />
+                  <span className="hidden sm:inline">
+                    {tPlayground("savePreset")}
+                  </span>
+                </Button>
+              }
+            />
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>{tPlayground("savePreset")}</DialogTitle>
+                <DialogDescription>
+                  Save your current configuration, model parameters, and system
+                  prompts.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-4 py-2">
+                <div className="grid gap-1.5">
+                  <Label htmlFor="preset-name">Preset Name</Label>
+                  <Input
+                    id="preset-name"
+                    placeholder="e.g. Production API Validator"
+                  />
+                </div>
+                <div className="grid gap-1.5">
+                  <Label htmlFor="preset-desc">Description</Label>
+                  <Input
+                    id="preset-desc"
+                    placeholder="Brief summary of this prompt template"
+                  />
                 </div>
               </div>
+              <DialogFooter>
+                <DialogClose
+                  render={
+                    <Button variant="default" size="sm">
+                      Save Configuration
+                    </Button>
+                  }
+                />
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
 
-              {/* Mode Tabs Switcher */}
-              <Tabs
-                value={activeTab}
-                onValueChange={setActiveTab}
-                className="w-auto"
-              >
-                <TabsList className="h-8">
-                  <TabsTrigger value="chat" className="text-xs">
-                    {tPlayground("modeChat")}
-                  </TabsTrigger>
-                  <TabsTrigger value="complete" className="text-xs">
-                    {tPlayground("modeComplete")}
-                  </TabsTrigger>
-                  <TabsTrigger value="compare" className="text-xs">
-                    {tPlayground("modeCompare")}
-                  </TabsTrigger>
-                  <TabsTrigger value="history" className="text-xs">
-                    {tPlayground("history")}
-                  </TabsTrigger>
-                  <TabsTrigger value="starred" className="text-xs">
-                    {tPlayground("starred")}
-                  </TabsTrigger>
-                </TabsList>
-              </Tabs>
+          {/* Share Button */}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleShare}
+            className="gap-1.5"
+          >
+            <HugeiconsIcon icon={Share03Icon} className="size-3.5" />
+            <span className="hidden sm:inline">{tPlayground("share")}</span>
+          </Button>
+        </div>
+      </NavbarActions>
+
+      {/* Main Container */}
+      <main className="flex flex-1 flex-col gap-4 p-4 md:p-6">
+        {/* Presets and Mode Selector Bar */}
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border bg-card p-3 shadow-xs">
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
+              {tPlayground("presets")}:
+            </span>
+            <div className="flex flex-wrap gap-1.5">
+              {PRESETS.map((p) => (
+                <Button
+                  key={p.id}
+                  variant={selectedPreset === p.id ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => handlePresetChange(p.id)}
+                  className="h-7 text-xs"
+                >
+                  {p.name}
+                </Button>
+              ))}
             </div>
+          </div>
 
-            {/* Split Grid: Canvas on Left/Center, Parameters on Right */}
-            <div className="grid flex-1 items-start gap-4 lg:grid-cols-[1fr_320px]">
-              {/* Left / Center Canvas */}
+          {/* Mode Tabs Switcher */}
+          <Tabs
+            value={activeTab}
+            onValueChange={setActiveTab}
+            className="w-auto"
+          >
+            <TabsList className="h-8">
+              <TabsTrigger value="chat" className="text-xs">
+                {tPlayground("modeChat")}
+              </TabsTrigger>
+              <TabsTrigger value="complete" className="text-xs">
+                {tPlayground("modeComplete")}
+              </TabsTrigger>
+              <TabsTrigger value="compare" className="text-xs">
+                {tPlayground("modeCompare")}
+              </TabsTrigger>
+              <TabsTrigger value="history" className="text-xs">
+                {tPlayground("history")}
+              </TabsTrigger>
+              <TabsTrigger value="starred" className="text-xs">
+                {tPlayground("starred")}
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
+
+        {/* Split Grid: Canvas on Left/Center, Parameters on Right */}
+        <div className="grid flex-1 items-start gap-4 lg:grid-cols-[1fr_320px]">
+          {/* Left / Center Canvas */}
+          <div className="flex flex-col gap-4">
+            {/* CHAT MODE */}
+            {activeTab === "chat" && (
               <div className="flex flex-col gap-4">
-                {/* CHAT MODE */}
-                {activeTab === "chat" && (
-                  <div className="flex flex-col gap-4">
-                    {/* System Prompt Collapsible Card */}
-                    <Card>
-                      <CardHeader className="py-3">
-                        <div className="flex items-center justify-between">
-                          <CardTitle className="flex items-center gap-2 text-sm font-medium">
-                            <HugeiconsIcon
-                              icon={Settings05Icon}
-                              className="size-4 text-muted-foreground"
-                            />
-                            {tPlayground("systemPrompt")}
-                          </CardTitle>
-                          <Badge variant="outline" className="text-[11px]">
-                            {systemPrompt.length} chars
-                          </Badge>
-                        </div>
-                      </CardHeader>
-                      <CardContent className="pt-0">
-                        <Textarea
-                          value={systemPrompt}
-                          onChange={(e) => setSystemPrompt(e.target.value)}
-                          placeholder={tPlayground("systemPlaceholder")}
-                          className="min-h-20 font-mono text-xs leading-relaxed"
+                {/* System Prompt Collapsible Card */}
+                <Card>
+                  <CardHeader className="py-3">
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="flex items-center gap-2 text-sm font-medium">
+                        <HugeiconsIcon
+                          icon={Settings05Icon}
+                          className="size-4 text-muted-foreground"
                         />
-                      </CardContent>
-                    </Card>
-
-                    {/* Messages Thread Container */}
-                    <Card className="flex flex-1 flex-col">
-                      <CardHeader className="border-b py-3">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <HugeiconsIcon
-                              icon={ComputerTerminalIcon}
-                              className="size-4 text-primary"
-                            />
-                            <CardTitle className="text-sm font-medium">
-                              Conversation Session
-                            </CardTitle>
-                          </div>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setMessages([])}
-                            className="h-7 text-xs text-muted-foreground hover:text-destructive"
-                          >
-                            <HugeiconsIcon
-                              icon={Delete02Icon}
-                              className="mr-1 size-3.5"
-                            />
-                            {tPlayground("clear")}
-                          </Button>
-                        </div>
-                      </CardHeader>
-
-                      <CardContent className="flex flex-1 flex-col gap-4 p-4">
-                        {messages.length === 0 ? (
-                          <div className="flex flex-col items-center justify-center py-16 text-center text-muted-foreground">
-                            <HugeiconsIcon
-                              icon={SparklesIcon}
-                              className="mb-2 size-8 opacity-40"
-                            />
-                            <p className="text-sm font-medium">
-                              Session is empty
-                            </p>
-                            <p className="text-xs">
-                              Type a prompt below or pick a preset above to
-                              begin.
-                            </p>
-                          </div>
-                        ) : (
-                          messages.map((msg) => (
-                            <div
-                              key={msg.id}
-                              className={`flex flex-col gap-1.5 rounded-lg border p-3.5 ${
-                                msg.role === "user"
-                                  ? "border-primary/20 bg-primary/5 dark:bg-primary/10"
-                                  : "border-border bg-card shadow-xs"
-                              }`}
-                            >
-                              <div className="flex items-center justify-between text-xs">
-                                <div className="flex items-center gap-2">
-                                  <Badge
-                                    variant={
-                                      msg.role === "user"
-                                        ? "default"
-                                        : "secondary"
-                                    }
-                                    className="text-[10px] capitalize"
-                                  >
-                                    {msg.role}
-                                  </Badge>
-                                  {msg.model && (
-                                    <span className="font-mono text-[11px] text-muted-foreground">
-                                      {msg.model}
-                                    </span>
-                                  )}
-                                  {msg.tokens && (
-                                    <span className="text-[11px] text-muted-foreground">
-                                      • {msg.tokens} tokens
-                                    </span>
-                                  )}
-                                </div>
-                                <div className="flex items-center gap-1.5">
-                                  {msg.timestamp && (
-                                    <span className="text-[11px] text-muted-foreground">
-                                      {msg.timestamp}
-                                    </span>
-                                  )}
-                                  <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    onClick={() =>
-                                      handleCopy(msg.content, msg.id)
-                                    }
-                                    className="h-6 w-6 p-0"
-                                  >
-                                    {copiedId === msg.id ? (
-                                      <HugeiconsIcon
-                                        icon={Tick02Icon}
-                                        className="size-3 text-emerald-500"
-                                      />
-                                    ) : (
-                                      <HugeiconsIcon
-                                        icon={Copy01Icon}
-                                        className="size-3 text-muted-foreground"
-                                      />
-                                    )}
-                                  </Button>
-                                </div>
-                              </div>
-                              <div className="text-xs/relaxed whitespace-pre-wrap">
-                                {msg.content}
-                              </div>
-                            </div>
-                          ))
-                        )}
-
-                        {isGenerating && (
-                          <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/40 p-3 text-xs text-muted-foreground">
-                            <span className="size-2 animate-ping rounded-full bg-primary" />
-                            <span>{tPlayground("running")}</span>
-                          </div>
-                        )}
-                      </CardContent>
-
-                      {/* Prompt Input Box */}
-                      <div className="border-t p-3">
-                        <Textarea
-                          value={userInput}
-                          onChange={(e) => setUserInput(e.target.value)}
-                          onKeyDown={handleKeyDown}
-                          placeholder={tPlayground("promptPlaceholder")}
-                          className="min-h-20 text-xs"
-                        />
-                        <div className="mt-2.5 flex items-center justify-between">
-                          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                            <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px]">
-                              ⌘ + Enter
-                            </kbd>
-                            <span>to run</span>
-                          </div>
-
-                          <div className="flex items-center gap-2">
-                            <Button
-                              variant="default"
-                              size="sm"
-                              onClick={handleRunChat}
-                              disabled={isGenerating || !userInput.trim()}
-                              className="gap-1.5"
-                            >
-                              <HugeiconsIcon
-                                icon={PlayIcon}
-                                className="size-3.5"
-                              />
-                              {isGenerating
-                                ? tPlayground("running")
-                                : tPlayground("run")}
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                    </Card>
-                  </div>
-                )}
-
-                {/* COMPLETION MODE */}
-                {activeTab === "complete" && (
-                  <Card className="flex flex-col gap-4 p-5">
-                    <div>
-                      <CardTitle className="text-base font-semibold">
-                        Direct Text & Code Completion
+                        {tPlayground("systemPrompt")}
                       </CardTitle>
-                      <CardDescription className="text-xs text-muted-foreground">
-                        Single-prompt completions for raw token generation and
-                        code tasks.
-                      </CardDescription>
+                      <Badge variant="outline" className="text-[11px]">
+                        {systemPrompt.length} chars
+                      </Badge>
                     </div>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <Textarea
+                      value={systemPrompt}
+                      onChange={(e) => setSystemPrompt(e.target.value)}
+                      placeholder={tPlayground("systemPlaceholder")}
+                      className="min-h-20 font-mono text-xs leading-relaxed"
+                    />
+                  </CardContent>
+                </Card>
 
-                    <div className="grid gap-2">
-                      <Label className="text-xs">Prompt</Label>
-                      <Textarea
-                        value={completionPrompt}
-                        onChange={(e) => setCompletionPrompt(e.target.value)}
-                        className="min-h-24 font-mono text-xs"
-                      />
-                    </div>
-
-                    <div className="flex items-center justify-end">
+                {/* Messages Thread Container */}
+                <Card className="flex flex-1 flex-col">
+                  <CardHeader className="border-b py-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <HugeiconsIcon
+                          icon={ComputerTerminalIcon}
+                          className="size-4 text-primary"
+                        />
+                        <CardTitle className="text-sm font-medium">
+                          Conversation Session
+                        </CardTitle>
+                      </div>
                       <Button
+                        variant="ghost"
                         size="sm"
-                        onClick={() => {
-                          setIsGenerating(true)
-                          setTimeout(() => {
-                            setCompletionResult(
-                              `// Completion output generated by ${selectedModel.toUpperCase()} (T: ${temperature.toFixed(2)}, MaxTokens: ${maxTokens})\n// Prompt: "${completionPrompt}"\n\n` +
-                                `export async function executeTask() {\n  // Implementation for: "${completionPrompt}"\n  console.log("Task executed successfully");\n  return { success: true, timestamp: Date.now() };\n}`
-                            )
-                            setIsGenerating(false)
-                          }, 600)
-                        }}
-                        disabled={isGenerating}
-                        className="gap-1.5"
+                        onClick={() => setMessages([])}
+                        className="h-7 text-xs text-muted-foreground hover:text-destructive"
                       >
-                        <HugeiconsIcon icon={PlayIcon} className="size-3.5" />
-                        {isGenerating
-                          ? tPlayground("running")
-                          : "Complete Prompt"}
+                        <HugeiconsIcon
+                          icon={Delete02Icon}
+                          className="mr-1 size-3.5"
+                        />
+                        {tPlayground("clear")}
                       </Button>
                     </div>
+                  </CardHeader>
 
-                    <Separator />
-
-                    <div className="grid gap-2">
-                      <div className="flex items-center justify-between">
-                        <Label className="text-xs">Completion Output</Label>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() =>
-                            handleCopy(completionResult, "complete-out")
-                          }
-                          className="h-6 text-xs"
+                  <CardContent className="flex flex-1 flex-col gap-4 p-4">
+                    {messages.length === 0 ? (
+                      <div className="flex flex-col items-center justify-center py-16 text-center text-muted-foreground">
+                        <HugeiconsIcon
+                          icon={SparklesIcon}
+                          className="mb-2 size-8 opacity-40"
+                        />
+                        <p className="text-sm font-medium">Session is empty</p>
+                        <p className="text-xs">
+                          Type a prompt below or pick a preset above to begin.
+                        </p>
+                      </div>
+                    ) : (
+                      messages.map((msg) => (
+                        <div
+                          key={msg.id}
+                          className={`flex flex-col gap-1.5 rounded-lg border p-3.5 ${
+                            msg.role === "user"
+                              ? "border-primary/20 bg-primary/5 dark:bg-primary/10"
+                              : "border-border bg-card shadow-xs"
+                          }`}
                         >
-                          <HugeiconsIcon
-                            icon={Copy01Icon}
-                            className="mr-1 size-3"
-                          />
-                          Copy
+                          <div className="flex items-center justify-between text-xs">
+                            <div className="flex items-center gap-2">
+                              <Badge
+                                variant={
+                                  msg.role === "user" ? "default" : "secondary"
+                                }
+                                className="text-[10px] capitalize"
+                              >
+                                {msg.role}
+                              </Badge>
+                              {msg.model && (
+                                <span className="font-mono text-[11px] text-muted-foreground">
+                                  {msg.model}
+                                </span>
+                              )}
+                              {msg.tokens && (
+                                <span className="text-[11px] text-muted-foreground">
+                                  • {msg.tokens} tokens
+                                </span>
+                              )}
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                              {msg.timestamp && (
+                                <span className="text-[11px] text-muted-foreground">
+                                  {msg.timestamp}
+                                </span>
+                              )}
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => handleCopy(msg.content, msg.id)}
+                                className="h-6 w-6 p-0"
+                              >
+                                {copiedId === msg.id ? (
+                                  <HugeiconsIcon
+                                    icon={Tick02Icon}
+                                    className="size-3 text-emerald-500"
+                                  />
+                                ) : (
+                                  <HugeiconsIcon
+                                    icon={Copy01Icon}
+                                    className="size-3 text-muted-foreground"
+                                  />
+                                )}
+                              </Button>
+                            </div>
+                          </div>
+                          <div className="text-xs/relaxed whitespace-pre-wrap">
+                            {msg.content}
+                          </div>
+                        </div>
+                      ))
+                    )}
+
+                    {isGenerating && (
+                      <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/40 p-3 text-xs text-muted-foreground">
+                        <span className="size-2 animate-ping rounded-full bg-primary" />
+                        <span>{tPlayground("running")}</span>
+                      </div>
+                    )}
+                  </CardContent>
+
+                  {/* Prompt Input Box */}
+                  <div className="border-t p-3">
+                    <Textarea
+                      value={userInput}
+                      onChange={(e) => setUserInput(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                      placeholder={tPlayground("promptPlaceholder")}
+                      className="min-h-20 text-xs"
+                    />
+                    <div className="mt-2.5 flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px]">
+                          ⌘ + Enter
+                        </kbd>
+                        <span>to run</span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <Button
+                          variant="default"
+                          size="sm"
+                          onClick={handleRunChat}
+                          disabled={isGenerating || !userInput.trim()}
+                          className="gap-1.5"
+                        >
+                          <HugeiconsIcon icon={PlayIcon} className="size-3.5" />
+                          {isGenerating
+                            ? tPlayground("running")
+                            : tPlayground("run")}
                         </Button>
                       </div>
-                      <div className="rounded-md border bg-muted/60 p-4 font-mono text-xs">
-                        <pre className="overflow-x-auto whitespace-pre">
-                          {completionResult}
-                        </pre>
-                      </div>
-                    </div>
-                  </Card>
-                )}
-
-                {/* COMPARE MODE */}
-                {activeTab === "compare" && (
-                  <div className="flex flex-col gap-4">
-                    <Card className="p-4">
-                      <Label className="text-xs font-medium">
-                        Shared Test Prompt
-                      </Label>
-                      <Textarea
-                        value={comparePrompt}
-                        onChange={(e) => setComparePrompt(e.target.value)}
-                        className="mt-1.5 min-h-16 text-xs"
-                      />
-                    </Card>
-
-                    <div className="grid gap-4 md:grid-cols-2">
-                      {/* Model A */}
-                      <Card className="p-4">
-                        <div className="mb-3 flex items-center justify-between border-b pb-2">
-                          <Badge
-                            variant="default"
-                            className="font-mono text-xs"
-                          >
-                            GPT-4o
-                          </Badge>
-                          <span className="text-xs text-muted-foreground">
-                            Latency: 420ms
-                          </span>
-                        </div>
-                        <p className="text-xs/relaxed text-muted-foreground">
-                          In React 19, Server Actions use optimistic updates by
-                          pairing{" "}
-                          <code className="text-foreground">useOptimistic</code>{" "}
-                          with{" "}
-                          <code className="text-foreground">useTransition</code>
-                          . When an action triggers, the UI instantly reflects
-                          expected state mutations before the server responds.
-                        </p>
-                      </Card>
-
-                      {/* Model B */}
-                      <Card className="p-4">
-                        <div className="mb-3 flex items-center justify-between border-b pb-2">
-                          <Badge
-                            variant="secondary"
-                            className="font-mono text-xs"
-                          >
-                            Claude 3.5 Sonnet
-                          </Badge>
-                          <span className="text-xs text-muted-foreground">
-                            Latency: 380ms
-                          </span>
-                        </div>
-                        <p className="text-xs/relaxed text-muted-foreground">
-                          React 19 orchestrates optimistic state updates through
-                          the{" "}
-                          <code className="text-foreground">useOptimistic</code>{" "}
-                          hook. While the async Server Action processes across
-                          the network wire, an ephemeral state branch is
-                          projected, reverting if the mutation encounters a
-                          reject.
-                        </p>
-                      </Card>
-                    </div>
-                  </div>
-                )}
-
-                {/* HISTORY TAB */}
-                {activeTab === "history" && (
-                  <Card className="p-4">
-                    <div className="mb-4">
-                      <CardTitle className="text-base font-medium">
-                        Execution History
-                      </CardTitle>
-                      <CardDescription className="text-xs">
-                        Review previously completed prompt executions and
-                        metrics.
-                      </CardDescription>
-                    </div>
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead className="text-xs">Prompt</TableHead>
-                          <TableHead className="text-xs">Model</TableHead>
-                          <TableHead className="text-xs">Latency</TableHead>
-                          <TableHead className="text-xs">Tokens</TableHead>
-                          <TableHead className="text-xs">Date</TableHead>
-                          <TableHead className="text-right text-xs">
-                            Action
-                          </TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {HISTORY_MOCK.map((item) => (
-                          <TableRow key={item.id}>
-                            <TableCell className="max-w-xs truncate text-xs font-medium">
-                              {item.prompt}
-                            </TableCell>
-                            <TableCell className="font-mono text-xs">
-                              {item.model}
-                            </TableCell>
-                            <TableCell className="text-xs text-muted-foreground">
-                              {item.latency}
-                            </TableCell>
-                            <TableCell className="font-mono text-xs">
-                              {item.tokens}
-                            </TableCell>
-                            <TableCell className="text-xs text-muted-foreground">
-                              {item.date}
-                            </TableCell>
-                            <TableCell className="text-right">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => {
-                                  setUserInput(item.prompt)
-                                  setActiveTab("chat")
-                                }}
-                                className="h-6 text-[11px]"
-                              >
-                                Restore
-                              </Button>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </Card>
-                )}
-
-                {/* STARRED TAB */}
-                {activeTab === "starred" && (
-                  <Card className="p-4">
-                    <div className="mb-4">
-                      <CardTitle className="text-base font-medium">
-                        Starred Prompt Snippets
-                      </CardTitle>
-                      <CardDescription className="text-xs">
-                        Quickly reuse high-value prompts saved for your team.
-                      </CardDescription>
-                    </div>
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      {STARRED_MOCK.map((star) => (
-                        <Card key={star.id} className="p-3.5">
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs font-semibold text-foreground">
-                              {star.title}
-                            </span>
-                            <Badge variant="outline" className="text-[10px]">
-                              {star.model}
-                            </Badge>
-                          </div>
-                          <p className="mt-2 line-clamp-2 text-xs text-muted-foreground">
-                            {star.prompt}
-                          </p>
-                          <div className="mt-3 flex items-center justify-between border-t pt-2">
-                            <span className="text-[11px] text-muted-foreground">
-                              ~{star.tokens} tokens
-                            </span>
-                            <Button
-                              variant="secondary"
-                              size="sm"
-                              onClick={() => {
-                                setUserInput(star.prompt)
-                                setActiveTab("chat")
-                              }}
-                              className="h-6 text-[11px]"
-                            >
-                              Load in Chat
-                            </Button>
-                          </div>
-                        </Card>
-                      ))}
-                    </div>
-                  </Card>
-                )}
-              </div>
-
-              {/* Right Parameters Sidebar */}
-              <div className="flex flex-col gap-4">
-                <Card className="p-4">
-                  <div className="flex items-center justify-between border-b pb-2">
-                    <CardTitle className="text-sm font-semibold">
-                      {tPlayground("parameters")}
-                    </CardTitle>
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger
-                          render={
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={handleResetDefaults}
-                              className="h-6 w-6 p-0"
-                            >
-                              <HugeiconsIcon
-                                icon={ArrowReloadHorizontalIcon}
-                                className="size-3.5 text-muted-foreground"
-                              />
-                            </Button>
-                          }
-                        />
-                        <TooltipContent>
-                          <span>{tPlayground("resetDefaults")}</span>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </div>
-
-                  <div className="flex flex-col gap-4 pt-3">
-                    {/* Model Select */}
-                    <div className="grid gap-1.5">
-                      <Label className="text-xs font-medium">
-                        {tPlayground("model")}
-                      </Label>
-                      <Select
-                        value={selectedModel}
-                        onValueChange={(val) => {
-                          if (val) setSelectedModel(val)
-                        }}
-                      >
-                        <SelectTrigger className="w-full text-xs">
-                          <SelectValue placeholder="Select Model" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectGroup>
-                            <SelectLabel>OpenAI</SelectLabel>
-                            <SelectItem value="gpt-4o">
-                              GPT-4o (Omni)
-                            </SelectItem>
-                            <SelectItem value="gpt-4o-mini">
-                              GPT-4o Mini (Fast)
-                            </SelectItem>
-                          </SelectGroup>
-                          <SelectGroup>
-                            <SelectLabel>Anthropic</SelectLabel>
-                            <SelectItem value="claude-3-5-sonnet">
-                              Claude 3.5 Sonnet
-                            </SelectItem>
-                            <SelectItem value="claude-3-haiku">
-                              Claude 3 Haiku
-                            </SelectItem>
-                          </SelectGroup>
-                          <SelectGroup>
-                            <SelectLabel>Google</SelectLabel>
-                            <SelectItem value="gemini-1-5-pro">
-                              Gemini 1.5 Pro
-                            </SelectItem>
-                            <SelectItem value="gemini-1-5-flash">
-                              Gemini 1.5 Flash
-                            </SelectItem>
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    {/* Temperature Slider */}
-                    <div className="grid gap-2">
-                      <div className="flex items-center justify-between">
-                        <Label className="text-xs font-medium">
-                          {tPlayground("temperature")}
-                        </Label>
-                        <span className="font-mono text-xs text-muted-foreground">
-                          {temperature.toFixed(2)}
-                        </span>
-                      </div>
-                      <Slider
-                        value={[temperature]}
-                        onValueChange={(val) =>
-                          setTemperature(Array.isArray(val) ? val[0] : val)
-                        }
-                        min={0}
-                        max={2}
-                        step={0.05}
-                      />
-                      <div className="flex justify-between text-[10px] text-muted-foreground">
-                        <span>Precise</span>
-                        <span>Balanced</span>
-                        <span>Creative</span>
-                      </div>
-                    </div>
-
-                    {/* Max Tokens Slider */}
-                    <div className="grid gap-2">
-                      <div className="flex items-center justify-between">
-                        <Label className="text-xs font-medium">
-                          {tPlayground("maxTokens")}
-                        </Label>
-                        <span className="font-mono text-xs text-muted-foreground">
-                          {maxTokens}
-                        </span>
-                      </div>
-                      <Slider
-                        value={[maxTokens]}
-                        onValueChange={(val) =>
-                          setMaxTokens(Array.isArray(val) ? val[0] : val)
-                        }
-                        min={256}
-                        max={8192}
-                        step={256}
-                      />
-                    </div>
-
-                    {/* Top P Slider */}
-                    <div className="grid gap-2">
-                      <div className="flex items-center justify-between">
-                        <Label className="text-xs font-medium">
-                          {tPlayground("topP")}
-                        </Label>
-                        <span className="font-mono text-xs text-muted-foreground">
-                          {topP.toFixed(2)}
-                        </span>
-                      </div>
-                      <Slider
-                        value={[topP]}
-                        onValueChange={(val) =>
-                          setTopP(Array.isArray(val) ? val[0] : val)
-                        }
-                        min={0}
-                        max={1}
-                        step={0.05}
-                      />
-                    </div>
-
-                    <Separator />
-
-                    {/* Feature Switches */}
-                    <div className="flex flex-col gap-3">
-                      <div className="flex items-center justify-between">
-                        <Label
-                          htmlFor="stream-switch"
-                          className="text-xs font-normal"
-                        >
-                          {tPlayground("streaming")}
-                        </Label>
-                        <Switch
-                          id="stream-switch"
-                          checked={streamOutput}
-                          onCheckedChange={setStreamOutput}
-                        />
-                      </div>
-
-                      <div className="flex items-center justify-between">
-                        <Label
-                          htmlFor="web-search-switch"
-                          className="text-xs font-normal"
-                        >
-                          {tPlayground("webSearch")}
-                        </Label>
-                        <Switch
-                          id="web-search-switch"
-                          checked={webSearch}
-                          onCheckedChange={setWebSearch}
-                        />
-                      </div>
-
-                      <div className="flex items-center justify-between">
-                        <Label
-                          htmlFor="sandbox-switch"
-                          className="text-xs font-normal"
-                        >
-                          {tPlayground("codeInterpreter")}
-                        </Label>
-                        <Switch
-                          id="sandbox-switch"
-                          checked={codeSandbox}
-                          onCheckedChange={setCodeSandbox}
-                        />
-                      </div>
-
-                      <div className="flex items-center justify-between">
-                        <Label
-                          htmlFor="json-switch"
-                          className="text-xs font-normal"
-                        >
-                          {tPlayground("jsonMode")}
-                        </Label>
-                        <Switch
-                          id="json-switch"
-                          checked={jsonMode}
-                          onCheckedChange={setJsonMode}
-                        />
-                      </div>
-                    </div>
-
-                    <Separator />
-
-                    {/* Context Window & Token Meter */}
-                    <div className="rounded-lg border bg-muted/30 p-3">
-                      <Progress value={28}>
-                        <ProgressLabel className="text-xs">
-                          {tPlayground("tokenUsage")}
-                        </ProgressLabel>
-                        <span className="ml-auto font-mono text-xs text-muted-foreground">
-                          1,842 / 128k
-                        </span>
-                      </Progress>
-                      <p className="mt-2 text-[10px] text-muted-foreground">
-                        Est. Cost:{" "}
-                        <span className="font-mono font-medium text-foreground">
-                          $0.0054
-                        </span>{" "}
-                        / run
-                      </p>
                     </div>
                   </div>
                 </Card>
               </div>
-            </div>
-          </main>
+            )}
+
+            {/* COMPLETION MODE */}
+            {activeTab === "complete" && (
+              <Card className="flex flex-col gap-4 p-5">
+                <div>
+                  <CardTitle className="text-base font-semibold">
+                    Direct Text & Code Completion
+                  </CardTitle>
+                  <CardDescription className="text-xs text-muted-foreground">
+                    Single-prompt completions for raw token generation and code
+                    tasks.
+                  </CardDescription>
+                </div>
+
+                <div className="grid gap-2">
+                  <Label className="text-xs">Prompt</Label>
+                  <Textarea
+                    value={completionPrompt}
+                    onChange={(e) => setCompletionPrompt(e.target.value)}
+                    className="min-h-24 font-mono text-xs"
+                  />
+                </div>
+
+                <div className="flex items-center justify-end">
+                  <Button
+                    size="sm"
+                    onClick={() => {
+                      setIsGenerating(true)
+                      setTimeout(() => {
+                        setCompletionResult(
+                          `// Completion output generated by ${selectedModel.toUpperCase()} (T: ${temperature.toFixed(2)}, MaxTokens: ${maxTokens})\n// Prompt: "${completionPrompt}"\n\n` +
+                            `export async function executeTask() {\n  // Implementation for: "${completionPrompt}"\n  console.log("Task executed successfully");\n  return { success: true, timestamp: Date.now() };\n}`
+                        )
+                        setIsGenerating(false)
+                      }, 600)
+                    }}
+                    disabled={isGenerating}
+                    className="gap-1.5"
+                  >
+                    <HugeiconsIcon icon={PlayIcon} className="size-3.5" />
+                    {isGenerating ? tPlayground("running") : "Complete Prompt"}
+                  </Button>
+                </div>
+
+                <Separator />
+
+                <div className="grid gap-2">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-xs">Completion Output</Label>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() =>
+                        handleCopy(completionResult, "complete-out")
+                      }
+                      className="h-6 text-xs"
+                    >
+                      <HugeiconsIcon
+                        icon={Copy01Icon}
+                        className="mr-1 size-3"
+                      />
+                      Copy
+                    </Button>
+                  </div>
+                  <div className="rounded-md border bg-muted/60 p-4 font-mono text-xs">
+                    <pre className="overflow-x-auto whitespace-pre">
+                      {completionResult}
+                    </pre>
+                  </div>
+                </div>
+              </Card>
+            )}
+
+            {/* COMPARE MODE */}
+            {activeTab === "compare" && (
+              <div className="flex flex-col gap-4">
+                <Card className="p-4">
+                  <Label className="text-xs font-medium">
+                    Shared Test Prompt
+                  </Label>
+                  <Textarea
+                    value={comparePrompt}
+                    onChange={(e) => setComparePrompt(e.target.value)}
+                    className="mt-1.5 min-h-16 text-xs"
+                  />
+                </Card>
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  {/* Model A */}
+                  <Card className="p-4">
+                    <div className="mb-3 flex items-center justify-between border-b pb-2">
+                      <Badge variant="default" className="font-mono text-xs">
+                        GPT-4o
+                      </Badge>
+                      <span className="text-xs text-muted-foreground">
+                        Latency: 420ms
+                      </span>
+                    </div>
+                    <p className="text-xs/relaxed text-muted-foreground">
+                      In React 19, Server Actions use optimistic updates by
+                      pairing{" "}
+                      <code className="text-foreground">useOptimistic</code>{" "}
+                      with{" "}
+                      <code className="text-foreground">useTransition</code>.
+                      When an action triggers, the UI instantly reflects
+                      expected state mutations before the server responds.
+                    </p>
+                  </Card>
+
+                  {/* Model B */}
+                  <Card className="p-4">
+                    <div className="mb-3 flex items-center justify-between border-b pb-2">
+                      <Badge variant="secondary" className="font-mono text-xs">
+                        Claude 3.5 Sonnet
+                      </Badge>
+                      <span className="text-xs text-muted-foreground">
+                        Latency: 380ms
+                      </span>
+                    </div>
+                    <p className="text-xs/relaxed text-muted-foreground">
+                      React 19 orchestrates optimistic state updates through the{" "}
+                      <code className="text-foreground">useOptimistic</code>{" "}
+                      hook. While the async Server Action processes across the
+                      network wire, an ephemeral state branch is projected,
+                      reverting if the mutation encounters a reject.
+                    </p>
+                  </Card>
+                </div>
+              </div>
+            )}
+
+            {/* HISTORY TAB */}
+            {activeTab === "history" && (
+              <Card className="p-4">
+                <div className="mb-4">
+                  <CardTitle className="text-base font-medium">
+                    Execution History
+                  </CardTitle>
+                  <CardDescription className="text-xs">
+                    Review previously completed prompt executions and metrics.
+                  </CardDescription>
+                </div>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="text-xs">Prompt</TableHead>
+                      <TableHead className="text-xs">Model</TableHead>
+                      <TableHead className="text-xs">Latency</TableHead>
+                      <TableHead className="text-xs">Tokens</TableHead>
+                      <TableHead className="text-xs">Date</TableHead>
+                      <TableHead className="text-right text-xs">
+                        Action
+                      </TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {HISTORY_MOCK.map((item) => (
+                      <TableRow key={item.id}>
+                        <TableCell className="max-w-xs truncate text-xs font-medium">
+                          {item.prompt}
+                        </TableCell>
+                        <TableCell className="font-mono text-xs">
+                          {item.model}
+                        </TableCell>
+                        <TableCell className="text-xs text-muted-foreground">
+                          {item.latency}
+                        </TableCell>
+                        <TableCell className="font-mono text-xs">
+                          {item.tokens}
+                        </TableCell>
+                        <TableCell className="text-xs text-muted-foreground">
+                          {item.date}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => {
+                              setUserInput(item.prompt)
+                              setActiveTab("chat")
+                            }}
+                            className="h-6 text-[11px]"
+                          >
+                            Restore
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Card>
+            )}
+
+            {/* STARRED TAB */}
+            {activeTab === "starred" && (
+              <Card className="p-4">
+                <div className="mb-4">
+                  <CardTitle className="text-base font-medium">
+                    Starred Prompt Snippets
+                  </CardTitle>
+                  <CardDescription className="text-xs">
+                    Quickly reuse high-value prompts saved for your team.
+                  </CardDescription>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {STARRED_MOCK.map((star) => (
+                    <Card key={star.id} className="p-3.5">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-semibold text-foreground">
+                          {star.title}
+                        </span>
+                        <Badge variant="outline" className="text-[10px]">
+                          {star.model}
+                        </Badge>
+                      </div>
+                      <p className="mt-2 line-clamp-2 text-xs text-muted-foreground">
+                        {star.prompt}
+                      </p>
+                      <div className="mt-3 flex items-center justify-between border-t pt-2">
+                        <span className="text-[11px] text-muted-foreground">
+                          ~{star.tokens} tokens
+                        </span>
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => {
+                            setUserInput(star.prompt)
+                            setActiveTab("chat")
+                          }}
+                          className="h-6 text-[11px]"
+                        >
+                          Load in Chat
+                        </Button>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </Card>
+            )}
+          </div>
+
+          {/* Right Parameters Sidebar */}
+          <div className="flex flex-col gap-4">
+            <Card className="p-4">
+              <div className="flex items-center justify-between border-b pb-2">
+                <CardTitle className="text-sm font-semibold">
+                  {tPlayground("parameters")}
+                </CardTitle>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger
+                      render={
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={handleResetDefaults}
+                          className="h-6 w-6 p-0"
+                        >
+                          <HugeiconsIcon
+                            icon={ArrowReloadHorizontalIcon}
+                            className="size-3.5 text-muted-foreground"
+                          />
+                        </Button>
+                      }
+                    />
+                    <TooltipContent>
+                      <span>{tPlayground("resetDefaults")}</span>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+
+              <div className="flex flex-col gap-4 pt-3">
+                {/* Model Select */}
+                <div className="grid gap-1.5">
+                  <Label className="text-xs font-medium">
+                    {tPlayground("model")}
+                  </Label>
+                  <Select
+                    value={selectedModel}
+                    onValueChange={(val) => {
+                      if (val) setSelectedModel(val)
+                    }}
+                  >
+                    <SelectTrigger className="w-full text-xs">
+                      <SelectValue placeholder="Select Model" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>OpenAI</SelectLabel>
+                        <SelectItem value="gpt-4o">GPT-4o (Omni)</SelectItem>
+                        <SelectItem value="gpt-4o-mini">
+                          GPT-4o Mini (Fast)
+                        </SelectItem>
+                      </SelectGroup>
+                      <SelectGroup>
+                        <SelectLabel>Anthropic</SelectLabel>
+                        <SelectItem value="claude-3-5-sonnet">
+                          Claude 3.5 Sonnet
+                        </SelectItem>
+                        <SelectItem value="claude-3-haiku">
+                          Claude 3 Haiku
+                        </SelectItem>
+                      </SelectGroup>
+                      <SelectGroup>
+                        <SelectLabel>Google</SelectLabel>
+                        <SelectItem value="gemini-1-5-pro">
+                          Gemini 1.5 Pro
+                        </SelectItem>
+                        <SelectItem value="gemini-1-5-flash">
+                          Gemini 1.5 Flash
+                        </SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Temperature Slider */}
+                <div className="grid gap-2">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-xs font-medium">
+                      {tPlayground("temperature")}
+                    </Label>
+                    <span className="font-mono text-xs text-muted-foreground">
+                      {temperature.toFixed(2)}
+                    </span>
+                  </div>
+                  <Slider
+                    value={[temperature]}
+                    onValueChange={(val) =>
+                      setTemperature(Array.isArray(val) ? val[0] : val)
+                    }
+                    min={0}
+                    max={2}
+                    step={0.05}
+                  />
+                  <div className="flex justify-between text-[10px] text-muted-foreground">
+                    <span>Precise</span>
+                    <span>Balanced</span>
+                    <span>Creative</span>
+                  </div>
+                </div>
+
+                {/* Max Tokens Slider */}
+                <div className="grid gap-2">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-xs font-medium">
+                      {tPlayground("maxTokens")}
+                    </Label>
+                    <span className="font-mono text-xs text-muted-foreground">
+                      {maxTokens}
+                    </span>
+                  </div>
+                  <Slider
+                    value={[maxTokens]}
+                    onValueChange={(val) =>
+                      setMaxTokens(Array.isArray(val) ? val[0] : val)
+                    }
+                    min={256}
+                    max={8192}
+                    step={256}
+                  />
+                </div>
+
+                {/* Top P Slider */}
+                <div className="grid gap-2">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-xs font-medium">
+                      {tPlayground("topP")}
+                    </Label>
+                    <span className="font-mono text-xs text-muted-foreground">
+                      {topP.toFixed(2)}
+                    </span>
+                  </div>
+                  <Slider
+                    value={[topP]}
+                    onValueChange={(val) =>
+                      setTopP(Array.isArray(val) ? val[0] : val)
+                    }
+                    min={0}
+                    max={1}
+                    step={0.05}
+                  />
+                </div>
+
+                <Separator />
+
+                {/* Feature Switches */}
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-center justify-between">
+                    <Label
+                      htmlFor="stream-switch"
+                      className="text-xs font-normal"
+                    >
+                      {tPlayground("streaming")}
+                    </Label>
+                    <Switch
+                      id="stream-switch"
+                      checked={streamOutput}
+                      onCheckedChange={setStreamOutput}
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <Label
+                      htmlFor="web-search-switch"
+                      className="text-xs font-normal"
+                    >
+                      {tPlayground("webSearch")}
+                    </Label>
+                    <Switch
+                      id="web-search-switch"
+                      checked={webSearch}
+                      onCheckedChange={setWebSearch}
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <Label
+                      htmlFor="sandbox-switch"
+                      className="text-xs font-normal"
+                    >
+                      {tPlayground("codeInterpreter")}
+                    </Label>
+                    <Switch
+                      id="sandbox-switch"
+                      checked={codeSandbox}
+                      onCheckedChange={setCodeSandbox}
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <Label
+                      htmlFor="json-switch"
+                      className="text-xs font-normal"
+                    >
+                      {tPlayground("jsonMode")}
+                    </Label>
+                    <Switch
+                      id="json-switch"
+                      checked={jsonMode}
+                      onCheckedChange={setJsonMode}
+                    />
+                  </div>
+                </div>
+
+                <Separator />
+
+                {/* Context Window & Token Meter */}
+                <div className="rounded-lg border bg-muted/30 p-3">
+                  <Progress value={28}>
+                    <ProgressLabel className="text-xs">
+                      {tPlayground("tokenUsage")}
+                    </ProgressLabel>
+                    <span className="ml-auto font-mono text-xs text-muted-foreground">
+                      1,842 / 128k
+                    </span>
+                  </Progress>
+                  <p className="mt-2 text-[10px] text-muted-foreground">
+                    Est. Cost:{" "}
+                    <span className="font-mono font-medium text-foreground">
+                      $0.0054
+                    </span>{" "}
+                    / run
+                  </p>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </main>
     </>
   )
 }

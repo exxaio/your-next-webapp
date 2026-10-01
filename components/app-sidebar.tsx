@@ -1,19 +1,12 @@
 "use client"
 
 import * as React from "react"
-import { useTheme } from "next-themes"
-import { useLocale, useTranslations } from "next-intl"
+import { useTranslations } from "next-intl"
 
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import {
   Sidebar,
   SidebarContent,
@@ -22,7 +15,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from "@/components/ui/sidebar"
 import { useAuth } from "@/hooks/use-auth"
 import { Link, usePathname } from "@/i18n/routing"
@@ -38,128 +30,9 @@ import {
   PieChartIcon,
   MapsIcon,
   CommandIcon,
-  Sun01Icon,
-  Moon01Icon,
-  GlobeIcon,
-  Tick02Icon,
 } from "@hugeicons/core-free-icons"
 
-function useIsMounted() {
-  return React.useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false
-  )
-}
 
-function SidebarThemeToggle() {
-  const { resolvedTheme, setTheme } = useTheme()
-  const mounted = useIsMounted()
-  const tSidebar = useTranslations("Sidebar")
-
-  const isDark = mounted && resolvedTheme === "dark"
-
-  const toggleTheme = () => {
-    setTheme(isDark ? "light" : "dark")
-  }
-
-  return (
-    <SidebarMenuItem>
-      <SidebarMenuButton
-        tooltip={
-          isDark ? tSidebar("switchToLightMode") : tSidebar("switchToDarkMode")
-        }
-        onClick={toggleTheme}
-        aria-label={
-          isDark ? tSidebar("switchToLightMode") : tSidebar("switchToDarkMode")
-        }
-      >
-        {isDark ? (
-          <HugeiconsIcon icon={Sun01Icon} strokeWidth={2} />
-        ) : (
-          <HugeiconsIcon icon={Moon01Icon} strokeWidth={2} />
-        )}
-        <span>{isDark ? tSidebar("lightMode") : tSidebar("darkMode")}</span>
-        <kbd className="pointer-events-none ml-auto hidden h-5 items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[11px] font-medium opacity-100 select-none group-data-[collapsible=icon]:hidden sm:inline-flex">
-          D
-        </kbd>
-      </SidebarMenuButton>
-    </SidebarMenuItem>
-  )
-}
-
-function SidebarLanguagePicker() {
-  const { isMobile } = useSidebar()
-  const tCommon = useTranslations("Common")
-  const locale = useLocale()
-  const pathname = usePathname()
-  const [isPending, startTransition] = React.useTransition()
-
-  const handleLanguageChange = (nextLocale: "en" | "zh-CN") => {
-    startTransition(() => {
-      // Use window.location for a hard refresh to avoid hydration issues
-      const newPath = `/${nextLocale}${pathname === "/" ? "" : pathname}`
-      window.location.href = newPath
-    })
-  }
-
-  return (
-    <SidebarMenuItem>
-      <DropdownMenu>
-        <DropdownMenuTrigger
-          render={
-            <SidebarMenuButton
-              className="aria-expanded:bg-muted"
-              aria-label={tCommon("language")}
-              title={tCommon("language")}
-            />
-          }
-        >
-          <HugeiconsIcon icon={GlobeIcon} strokeWidth={2} />
-          <span>{tCommon("language")}</span>
-          <span className="pointer-events-none ml-auto hidden h-5 items-center rounded border bg-muted px-1.5 font-sans text-[11px] font-medium opacity-100 select-none group-data-[collapsible=icon]:hidden sm:inline-flex">
-            {locale === "zh-CN" ? "中文" : "EN"}
-          </span>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent
-          className="min-w-36 rounded-lg"
-          side={isMobile ? "bottom" : "right"}
-          align="end"
-          sideOffset={4}
-        >
-          <DropdownMenuItem
-            onClick={() => handleLanguageChange("en")}
-            className="flex items-center justify-between"
-            disabled={isPending}
-          >
-            <span>{tCommon("english")}</span>
-            {locale === "en" && (
-              <HugeiconsIcon
-                icon={Tick02Icon}
-                strokeWidth={2}
-                className="size-3.5"
-              />
-            )}
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => handleLanguageChange("zh-CN")}
-            className="flex items-center justify-between"
-            disabled={isPending}
-          >
-            <span>{tCommon("chinese")}</span>
-            {locale === "zh-CN" && (
-              <HugeiconsIcon
-                icon={Tick02Icon}
-                strokeWidth={2}
-                className="size-3.5"
-              />
-            )}
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </SidebarMenuItem>
-  )
-}
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const tNav = useTranslations("Navigation")
@@ -339,10 +212,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <SidebarMenu>
-          <SidebarThemeToggle />
-          <SidebarLanguagePicker />
-        </SidebarMenu>
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>
