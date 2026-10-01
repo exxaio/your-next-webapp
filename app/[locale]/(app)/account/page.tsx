@@ -107,7 +107,7 @@ export default function AccountPage() {
             Personal Information
           </span>
         </div>
-        <Card className="border border-border/80 bg-card p-6 shadow-xs sm:p-7">
+        <Card className="border border-border bg-card p-6 shadow-xs sm:p-7">
           <ProfileSection />
         </Card>
       </div>
@@ -125,14 +125,14 @@ export default function AccountPage() {
 
         {/* Section Card: Connected Sign-In Methods (Active/Violet Surface) */}
         <div id="connected-providers-section" className="scroll-mt-6">
-          <Card className="border border-primary/25 bg-primary/5 p-6 shadow-xs sm:p-7">
+          <Card className="border border-border bg-card p-6 shadow-xs sm:p-7">
             <ConnectedProviders />
           </Card>
         </div>
 
         {/* Section Card: Password & Credentials (Warning/Amber Surface) */}
         <div id="security-section" className="scroll-mt-6">
-          <Card className="border border-warning/30 bg-warning/10 p-6 shadow-xs sm:p-7">
+          <Card className="border border-border bg-card p-6 shadow-xs sm:p-7">
             <ChangePasswordSection defaultOpen={false} />
           </Card>
         </div>
@@ -148,7 +148,7 @@ export default function AccountPage() {
             Critical Actions
           </span>
         </div>
-        <Card className="border border-danger/25 bg-danger/10 p-6 shadow-xs sm:p-7">
+        <Card className="border border-border bg-card p-6 shadow-xs sm:p-7">
           <DangerZone />
         </Card>
       </div>
