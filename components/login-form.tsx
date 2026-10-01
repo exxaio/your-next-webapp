@@ -161,7 +161,9 @@ export function LoginForm({
               </Field>
               <Field>
                 <div className="flex items-center">
-                  <FieldLabel htmlFor="login-password">{t("password")}</FieldLabel>
+                  <FieldLabel htmlFor="login-password">
+                    {t("password")}
+                  </FieldLabel>
                   <a
                     href="#"
                     className="ml-auto text-xs text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline"
@@ -234,4 +236,3 @@ export function LoginForm({
     </div>
   )
 }
-

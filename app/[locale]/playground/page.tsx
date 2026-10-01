@@ -188,7 +188,7 @@ const STARRED_MOCK = [
   },
 ]
 
-export default function PlaygroundPage() {
+function PlaygroundContent() {
   const tNav = useTranslations("Navigation")
   const tPlayground = useTranslations("Playground")
   const searchParams = useSearchParams()
@@ -1258,5 +1258,13 @@ main();`
         </SidebarInset>
       </SidebarProvider>
     </ProtectedRoute>
+  )
+}
+
+export default function PlaygroundPage() {
+  return (
+    <React.Suspense fallback={null}>
+      <PlaygroundContent />
+    </React.Suspense>
   )
 }
