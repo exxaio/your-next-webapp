@@ -48,6 +48,19 @@
     "noAccount": "Don't have an account?",
     "signUp": "Sign up"
   },
+  "ForgotPassword": {
+    "title": "Reset password",
+    "description": "Enter your email address and we'll send you a link to reset your password.",
+    "email": "Email",
+    "sendResetLink": "Send reset link",
+    "sending": "Sending...",
+    "backToSignIn": "Back to sign in",
+    "successTitle": "Check your email",
+    "successDescription": "We've sent a password reset link to {email}. Follow the instructions to reset your password.",
+    "resendPrompt": "Didn't receive the email?",
+    "resendLink": "Click to resend",
+    "resendCountdown": "Resend in {seconds}s"
+  },
   "Signup": {
     "createAccount": "Create your account",
     "almostThere": "Almost there!",

@@ -164,12 +164,12 @@ export function LoginForm({
                   <FieldLabel htmlFor="login-password">
                     {t("password")}
                   </FieldLabel>
-                  <a
-                    href="#"
+                  <Link
+                    href="/forgot-password"
                     className="ml-auto text-xs text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline"
                   >
                     {t("forgotPassword")}
-                  </a>
+                  </Link>
                 </div>
                 <Input
                   id="login-password"

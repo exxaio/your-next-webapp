@@ -3,13 +3,14 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { LayoutBottomIcon } from "@hugeicons/core-free-icons"
 
 import { Link } from "@/i18n/routing"
-import { SignupForm } from "@/components/signup-form"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { LanguageSwitcher } from "@/components/language-switcher"
 
-export default async function SignupPage({
+export default async function AuthLayout({
+  children,
   params,
 }: {
+  children: React.ReactNode
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
@@ -53,9 +54,7 @@ export default async function SignupPage({
 
       {/* Main card container */}
       <main className="relative z-10 flex flex-1 items-center justify-center p-4 sm:p-6 md:p-8">
-        <div className="w-full max-w-[440px]">
-          <SignupForm />
-        </div>
+        <div className="w-full max-w-[440px]">{children}</div>
       </main>
 
       {/* Footer */}
