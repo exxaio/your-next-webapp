@@ -1,0 +1,15 @@
+{
+  "signIn": "登录",
+  "description": "使用您的 GitHub 或 Google 账户登录",
+  "loginWithGithub": "通过 GitHub 登录",
+  "loginWithGoogle": "通过 Google 登录",
+  "orContinueWith": "或继续使用",
+  "email": "电子邮件",
+  "password": "密码",
+  "rememberMe": "记住我",
+  "forgotPassword": "忘记密码？",
+  "submit": "登录",
+  "loading": "登录中...",
+  "noAccount": "没有账户？",
+  "signUp": "注册"
+}
