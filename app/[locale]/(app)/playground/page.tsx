@@ -18,18 +18,8 @@ import {
   ComputerTerminalIcon,
 } from "@hugeicons/core-free-icons"
 
-import { ProtectedRoute } from "@/components/protected-route"
-import { AppSidebar } from "@/components/app-sidebar"
-import { Link } from "@/i18n/routing"
+import { NavbarActions } from "@/components/top-navbar"
 import { Badge } from "@/components/ui/badge"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -61,11 +51,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar"
+
 import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
 import {
@@ -189,7 +175,6 @@ const STARRED_MOCK = [
 ]
 
 function PlaygroundContent() {
-  const tNav = useTranslations("Navigation")
   const tPlayground = useTranslations("Playground")
   const searchParams = useSearchParams()
 
@@ -379,35 +364,9 @@ async function main() {
 main();`
 
   return (
-    <ProtectedRoute>
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset>
-          {/* Top Header */}
-          <header className="sticky top-0 z-20 flex h-16 shrink-0 items-center justify-between border-b bg-background/95 px-4 backdrop-blur-sm">
-            <div className="flex items-center gap-2">
-              <SidebarTrigger className="-ml-1" />
-              <Separator
-                orientation="vertical"
-                className="mr-2 data-vertical:h-4 data-vertical:self-auto"
-              />
-              <Breadcrumb>
-                <BreadcrumbList>
-                  <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink render={<Link href="/dashboard" />}>
-                      {tNav("dashboard")}
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator className="hidden md:block" />
-                  <BreadcrumbItem>
-                    <BreadcrumbPage>{tPlayground("title")}</BreadcrumbPage>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-              </Breadcrumb>
-            </div>
-
-            {/* Quick Actions Header */}
-            <div className="flex items-center gap-2">
+    <>
+      <NavbarActions>
+        <div className="flex items-center gap-2">
               {showShareNotification && (
                 <Badge
                   variant="secondary"
@@ -529,7 +488,7 @@ main();`
                 <span className="hidden sm:inline">{tPlayground("share")}</span>
               </Button>
             </div>
-          </header>
+          </NavbarActions>
 
           {/* Main Container */}
           <main className="flex flex-1 flex-col gap-4 p-4 md:p-6">
@@ -1255,9 +1214,7 @@ main();`
               </div>
             </div>
           </main>
-        </SidebarInset>
-      </SidebarProvider>
-    </ProtectedRoute>
+    </>
   )
 }
 

@@ -1,0 +1,173 @@
+"use client"
+
+import * as React from "react"
+import { useTranslations } from "next-intl"
+
+import { Link, usePathname } from "@/i18n/routing"
+import { LanguageSwitcher } from "@/components/language-switcher"
+import { ThemeToggle } from "@/components/theme-toggle"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import { Separator } from "@/components/ui/separator"
+import { SidebarTrigger } from "@/components/ui/sidebar"
+
+export interface BreadcrumbItemType {
+  label: string
+  href?: string
+}
+
+interface NavbarContextType {
+  actions: React.ReactNode | null
+  setActions: (actions: React.ReactNode | null) => void
+  breadcrumbs: BreadcrumbItemType[] | null
+  setBreadcrumbs: (breadcrumbs: BreadcrumbItemType[] | null) => void
+}
+
+const NavbarContext = React.createContext<NavbarContextType | null>(null)
+
+export function NavbarProvider({ children }: { children: React.ReactNode }) {
+  const [actions, setActions] = React.useState<React.ReactNode | null>(null)
+  const [breadcrumbs, setBreadcrumbs] = React.useState<
+    BreadcrumbItemType[] | null
+  >(null)
+
+  return (
+    <NavbarContext.Provider
+      value={{ actions, setActions, breadcrumbs, setBreadcrumbs }}
+    >
+      {children}
+    </NavbarContext.Provider>
+  )
+}
+
+export function useNavbar() {
+  return React.useContext(NavbarContext)
+}
+
+export function NavbarActions({ children }: { children: React.ReactNode }) {
+  const navbar = useNavbar()
+
+  React.useEffect(() => {
+    navbar?.setActions(children)
+    return () => {
+      navbar?.setActions(null)
+    }
+  }, [children, navbar])
+
+  return null
+}
+
+export function NavbarBreadcrumbs({ items }: { items: BreadcrumbItemType[] }) {
+  const navbar = useNavbar()
+
+  React.useEffect(() => {
+    navbar?.setBreadcrumbs(items)
+    return () => {
+      navbar?.setBreadcrumbs(null)
+    }
+  }, [items, navbar])
+
+  return null
+}
+
+export function TopNavbar() {
+  const tNav = useTranslations("Navigation")
+  const tSidebar = useTranslations("Sidebar")
+  const pathname = usePathname()
+  const navbar = useNavbar()
+
+  const breadcrumbs = React.useMemo<BreadcrumbItemType[]>(() => {
+    if (navbar?.breadcrumbs && navbar.breadcrumbs.length > 0) {
+      return navbar.breadcrumbs
+    }
+
+    const cleanPath = pathname?.replace(/\/$/, "") || ""
+
+    if (cleanPath === "/dashboard" || cleanPath === "") {
+      return [
+        { label: tNav("dashboard"), href: "/dashboard" },
+        { label: tSidebar("analytics") },
+      ]
+    }
+
+    if (cleanPath === "/playground" || cleanPath.startsWith("/playground")) {
+      return [
+        { label: tNav("dashboard"), href: "/dashboard" },
+        { label: tNav("playground") },
+      ]
+    }
+
+    if (cleanPath === "/account" || cleanPath.startsWith("/account")) {
+      return [
+        { label: tNav("dashboard"), href: "/dashboard" },
+        { label: tNav("account") },
+      ]
+    }
+
+    // Fallback for any other paths
+    const segments = cleanPath.split("/").filter(Boolean)
+    const items: BreadcrumbItemType[] = [
+      { label: tNav("dashboard"), href: "/dashboard" },
+    ]
+
+    segments.forEach((seg, idx) => {
+      const isLast = idx === segments.length - 1
+      const segCapitalized = seg.charAt(0).toUpperCase() + seg.slice(1)
+      items.push({
+        label: segCapitalized,
+        href: isLast ? undefined : `/${segments.slice(0, idx + 1).join("/")}`,
+      })
+    })
+
+    return items
+  }, [navbar?.breadcrumbs, pathname, tNav, tSidebar])
+
+  return (
+    <header className="flex h-16 shrink-0 items-center gap-2">
+      <div className="flex flex-1 items-center gap-2 px-4">
+        <SidebarTrigger className="-ml-1" />
+        <Separator
+          orientation="vertical"
+          className="mr-2 data-vertical:h-4 data-vertical:self-auto"
+        />
+        <Breadcrumb>
+          <BreadcrumbList>
+            {breadcrumbs.map((crumb, index) => {
+              const isLast = index === breadcrumbs.length - 1
+              return (
+                <React.Fragment key={`${crumb.label}-${index}`}>
+                  <BreadcrumbItem className={!isLast ? "hidden md:block" : ""}>
+                    {isLast || !crumb.href ? (
+                      <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
+                    ) : (
+                      <BreadcrumbLink render={<Link href={crumb.href} />}>
+                        {crumb.label}
+                      </BreadcrumbLink>
+                    )}
+                  </BreadcrumbItem>
+                  {!isLast && (
+                    <BreadcrumbSeparator className="hidden md:block" />
+                  )}
+                </React.Fragment>
+              )
+            })}
+          </BreadcrumbList>
+        </Breadcrumb>
+        <div className="ml-auto flex items-center gap-2">
+          {navbar?.actions}
+          <div className="flex items-center gap-1">
+            <LanguageSwitcher />
+            <div className="h-4 w-px bg-border" />
+            <ThemeToggle />
+          </div>
+        </div>
+      </div>
+    </header>
+  )
+}
