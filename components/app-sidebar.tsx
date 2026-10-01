@@ -327,7 +327,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </div>
               <div className="grid flex-1 text-left text-base leading-tight">
                 <span className="truncate font-medium">NextWebapp</span>
-                <span className="truncate text-sm">Enterprise</span>
+                <span className="truncate text-sm">Demo</span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>

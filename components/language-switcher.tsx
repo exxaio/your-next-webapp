@@ -44,16 +44,22 @@ function LanguageSwitcher({
       <span
         className={cn(
           "transition-all duration-200",
-          !isZh ? "font-semibold text-foreground" : "text-muted-foreground"
+          !isZh
+            ? "text-sm font-bold text-foreground"
+            : "text-xs font-normal text-muted-foreground/80"
         )}
       >
         EN
       </span>
-      <span className="mx-1 text-muted-foreground/50 select-none">/</span>
+      <span className="mx-1 text-xs text-muted-foreground/80 select-none">
+        /
+      </span>
       <span
         className={cn(
           "transition-all duration-200",
-          isZh ? "font-semibold text-foreground" : "text-muted-foreground"
+          isZh
+            ? "text-sm font-bold text-foreground"
+            : "text-xs font-normal text-muted-foreground/40"
         )}
       >
         中
