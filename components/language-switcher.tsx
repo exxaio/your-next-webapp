@@ -4,6 +4,9 @@ import * as React from "react"
 import { useLocale } from "next-intl"
 import { usePathname, useRouter } from "@/i18n/routing"
 
+import { HugeiconsIcon } from "@hugeicons/react"
+import { GlobeIcon } from "@hugeicons/core-free-icons"
+
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -27,42 +30,49 @@ function LanguageSwitcher({
 
   return (
     <Button
-      variant="ghost"
+      variant="outline"
       size="sm"
       aria-label={isZh ? "Switch to English" : "切换为中文"}
       onClick={handleSwitch}
       disabled={isPending}
       className={cn(
-        "h-8 gap-0 px-2 font-medium tracking-wide tabular-nums",
-        "text-muted-foreground hover:text-foreground",
+        "h-7 gap-1.5 rounded-md border-border/80 bg-muted/40 px-2 font-medium tracking-wide tabular-nums shadow-xs",
+        "hover:bg-muted/80 hover:text-foreground active:scale-[0.98]",
         "transition-all duration-200",
         isPending && "opacity-50",
         className
       )}
       {...props}
     >
-      <span
-        className={cn(
-          "transition-all duration-200",
-          !isZh
-            ? "text-sm font-bold text-foreground"
-            : "text-xs font-normal text-muted-foreground/80"
-        )}
-      >
-        EN
-      </span>
-      <span className="mx-1 text-xs text-muted-foreground/80 select-none">
-        /
-      </span>
-      <span
-        className={cn(
-          "transition-all duration-200",
-          isZh
-            ? "text-sm font-bold text-foreground"
-            : "text-xs font-normal text-muted-foreground/40"
-        )}
-      >
-        中
+      <HugeiconsIcon
+        icon={GlobeIcon}
+        strokeWidth={2}
+        className="size-3.5 text-muted-foreground/70"
+      />
+      <span className="flex items-center gap-0.5">
+        <span
+          className={cn(
+            "transition-all duration-200",
+            !isZh
+              ? "text-xs font-bold text-foreground"
+              : "text-[11px] font-normal text-muted-foreground/50"
+          )}
+        >
+          EN
+        </span>
+        <span className="mx-0.5 text-[10px] text-muted-foreground/30 select-none">
+          /
+        </span>
+        <span
+          className={cn(
+            "transition-all duration-200",
+            isZh
+              ? "text-xs font-bold text-foreground"
+              : "text-[11px] font-normal text-muted-foreground/50"
+          )}
+        >
+          中
+        </span>
       </span>
     </Button>
   )
