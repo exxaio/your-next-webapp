@@ -3,6 +3,7 @@
 import * as React from "react"
 import { useAuth } from "@/hooks/use-auth"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import {
   AlertDialog,
@@ -142,7 +143,7 @@ export function ConnectedProviders() {
         </Alert>
       )}
       {successMsg && (
-        <Alert className="border-emerald-500/30 bg-emerald-500/5 text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-400">
+        <Alert className="border-success/30 bg-success/5 text-success">
           <AlertDescription>{successMsg}</AlertDescription>
         </Alert>
       )}
@@ -176,9 +177,12 @@ export function ConnectedProviders() {
 
               <div className="flex items-center gap-2">
                 {isLinked && (
-                  <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/15 dark:text-emerald-400">
+                  <Badge
+                    variant="outline"
+                    className="border-success/30 bg-success/5 text-success"
+                  >
                     Connected
-                  </span>
+                  </Badge>
                 )}
                 {canUnlink && (
                   <Button

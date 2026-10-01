@@ -26,13 +26,7 @@ function PasswordStrengthBar({ password }: { password: string }) {
   }, [password])
 
   const labels = ["", "Weak", "Fair", "Good", "Strong"]
-  const colors = [
-    "",
-    "bg-red-500",
-    "bg-orange-400",
-    "bg-yellow-400",
-    "bg-green-500",
-  ]
+  const colors = ["", "bg-danger", "bg-warning", "bg-warning", "bg-success"]
 
   if (!password) return null
 
@@ -162,7 +156,7 @@ export function ChangePasswordSection({
             </Alert>
           )}
           {successMsg && (
-            <Alert className="max-w-sm border-emerald-500/30 bg-emerald-500/5 text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-400">
+            <Alert className="max-w-sm border-success/30 bg-success/5 text-success">
               <AlertDescription>{successMsg}</AlertDescription>
             </Alert>
           )}

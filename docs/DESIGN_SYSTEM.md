@@ -109,8 +109,7 @@ className="bg-accent/15 text-accent"
 - **Strategy**: `class` (via `next-themes`, `attribute="class"`)
 - **Provider**: `<ThemeProvider>` in `app/[locale]/layout.tsx`
 - **Keyboard shortcut**: Press `D` anywhere to toggle (not in inputs)
-- **Toggle component**: `<ThemeToggle />` — header icon button
-- **Sidebar toggle**: `SidebarThemeToggle` inside `<AppSidebar>`
+- **Toggle component**: `<ThemeToggle />` — header icon button in `<TopNavbar />`
 
 ---
 

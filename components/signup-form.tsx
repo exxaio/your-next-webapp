@@ -17,6 +17,7 @@ import {
 import {
   Field,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
   FieldSeparator,
@@ -177,10 +178,10 @@ export function SignupForm({
   }
 
   const getPasswordStrengthColor = () => {
-    if (passwordStrength <= 40) return "bg-red-500"
-    if (passwordStrength <= 60) return "bg-orange-500"
-    if (passwordStrength <= 80) return "bg-yellow-500"
-    return "bg-green-500"
+    if (passwordStrength <= 40) return "bg-danger"
+    if (passwordStrength <= 60) return "bg-warning"
+    if (passwordStrength <= 80) return "bg-warning"
+    return "bg-success"
   }
 
   return (
@@ -421,14 +422,11 @@ export function SignupForm({
                         <span
                           className={cn(
                             "font-semibold",
-                            passwordStrength <= 40 && "text-red-500",
+                            passwordStrength <= 40 && "text-danger",
                             passwordStrength > 40 &&
-                              passwordStrength <= 60 &&
-                              "text-orange-500",
-                            passwordStrength > 60 &&
                               passwordStrength <= 80 &&
-                              "text-yellow-500",
-                            passwordStrength > 80 && "text-green-500"
+                              "text-warning",
+                            passwordStrength > 80 && "text-success"
                           )}
                         >
                           {passwordStrengthText}
@@ -464,9 +462,7 @@ export function SignupForm({
                     className="h-11"
                   />
                   {confirmPassword && password !== confirmPassword && (
-                    <FieldDescription className="text-xs text-red-500">
-                      {t("passwordsDoNotMatch")}
-                    </FieldDescription>
+                    <FieldError>{t("passwordsDoNotMatch")}</FieldError>
                   )}
                 </Field>
 

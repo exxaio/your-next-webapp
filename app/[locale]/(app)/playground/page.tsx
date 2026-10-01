@@ -370,7 +370,7 @@ main();`
           {showShareNotification && (
             <Badge
               variant="secondary"
-              className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+              className="border-success/30 bg-success/10 text-success"
             >
               <HugeiconsIcon icon={Tick02Icon} className="mr-1 size-3" />
               Link copied to clipboard
@@ -655,7 +655,7 @@ main();`
                                 {copiedId === msg.id ? (
                                   <HugeiconsIcon
                                     icon={Tick02Icon}
-                                    className="size-3 text-emerald-500"
+                                    className="size-3 text-success"
                                   />
                                 ) : (
                                   <HugeiconsIcon

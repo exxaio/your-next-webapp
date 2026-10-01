@@ -117,7 +117,7 @@ export function ProfileSection() {
       </div>
 
       {successMsg && (
-        <Alert className="border-emerald-500/30 bg-emerald-500/5 text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-400">
+        <Alert className="border-success/30 bg-success/5 text-success">
           <AlertDescription>{successMsg}</AlertDescription>
         </Alert>
       )}

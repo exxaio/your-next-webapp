@@ -32,8 +32,6 @@ import {
   CommandIcon,
 } from "@hugeicons/core-free-icons"
 
-
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const tNav = useTranslations("Navigation")
   const tSidebar = useTranslations("Sidebar")
