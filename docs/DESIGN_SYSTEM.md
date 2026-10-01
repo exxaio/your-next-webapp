@@ -125,6 +125,85 @@ className="bg-accent/15 text-accent"
 
 ---
 
+## Page Layout Archetypes
+
+The application defines two distinct layout archetypes: **Settings Pages** (focused, single-column, max-width constrained) and **Content & Workspace Pages** (fluid, multi-column or split-pane, full-width).
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ 1. Settings Pages (max-w-4xl, gap-8)                        │
+│    - Account, Profile, Organization, Security               │
+├─────────────────────────────────────────────────────────────┤
+│ 2. Content & Workspace Pages (full-width fluid, gap-4)      │
+│    - Dashboard, Analytics, Playground/Studio, Logs, Tables  │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### 1. Settings Pages Archetype
+
+Used for user preferences, account management, credentials, organization settings, and billing.
+
+- **Width & Spacing**: Centered with a constrained width for form readability:  
+  `className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-8 p-4 pt-0 md:p-6 md:pt-0"`
+- **Page Header**: Explicit `h1` title (`text-2xl font-bold tracking-tight`) with explanatory subtitle (`text-sm text-muted-foreground`).
+- **Overview Banner (Optional)**: Top profile/summary card (`rounded-xl border border-border bg-card p-4 sm:p-5 shadow-xs`) highlighting user avatar, status badges, and quick stats.
+- **Section Eyebrow Headers**: Group cards with an icon chip badge and uppercase tracking label:
+  ```tsx
+  <div className="flex items-center gap-2 px-1">
+    <span className="flex size-6 items-center justify-center rounded-md bg-muted text-muted-foreground">
+      <HugeiconsIcon icon={UserIcon} className="size-3.5" />
+    </span>
+    <span className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
+      Personal Information
+    </span>
+  </div>
+  ```
+- **Modular Cards**: Single-column stacked cards with generous padding:  
+  `Card className="border border-border bg-card p-6 shadow-xs sm:p-7"`
+- **Danger Zone**: For irreversible or high-impact actions (account deletion, API key revoke):
+  ```tsx
+  <div id="danger-zone" className="scroll-mt-6 space-y-3">
+    <div className="flex items-center gap-2 px-1">
+      <span className="flex size-6 items-center justify-center rounded-md border border-danger/20 bg-danger/10 text-danger">
+        <HugeiconsIcon icon={AlertCircleIcon} className="size-3.5" />
+      </span>
+      <span className="text-xs font-semibold tracking-wider text-danger uppercase">
+        Critical Actions
+      </span>
+    </div>
+    <Card className="border border-border bg-card p-6 shadow-xs sm:p-7">
+      {/* Danger Zone content */}
+    </Card>
+  </div>
+  ```
+
+---
+
+### 2. Content & Workspace Pages Archetype
+
+Used for all primary application experiences: Dashboard, Analytics, Studio/Playground, Data Tables, and Monitoring.
+
+- **Width & Spacing**: Fluid full-width container to maximize viewport real estate:  
+  `className="flex flex-1 flex-col gap-4 p-4 pt-0 md:p-6 md:pt-0"`
+- **Header & Navigation**:
+  - Integrate contextual actions and breadcrumbs directly into the top navigation via `<NavbarActions>` and `<NavbarBreadcrumbs>`.
+  - Provide an accessible heading: `<h1 className="sr-only">Page Title</h1>`.
+  - Top context bar (optional): Alert banners (`Alert border-l-4 border-l-accent`), filter bars, or preset toolbars spanning full width.
+- **Grid & Modular Rhythm**:
+  - **KPI / Stat Grids**: `grid gap-4 md:grid-cols-2 lg:grid-cols-4`
+  - **Visualization / Charts**: `grid gap-4 md:grid-cols-2` using `ChartContainer` and tokens `--chart-1` through `--chart-5`.
+  - **Studio / Split Workspaces**: Use unified `gap-4` split layouts:  
+    `grid flex-1 items-start gap-4 lg:grid-cols-[1fr_320px]` (canvas + parameter/inspector rail)
+- **Tables & Lists**: Wrap within `<Card className="border border-border bg-card p-6">` combined with `<Tabs>` for switching sub-views (e.g. Recent, Pending, Completed).
+- **Status Badges**: Standardized semantic badges for data rows:
+  - Success: `border-success/30 bg-success/5 text-success`
+  - Warning: `border-warning/30 bg-warning/10 text-warning`
+  - Error: `border-danger/30 bg-danger/10 text-danger`
+
+---
+
 ## Files Changed (Color System v2)
 
 | File | Change |
@@ -134,3 +213,4 @@ className="bg-accent/15 text-accent"
 | `components/ui/tabs.tsx` | Active tab indicator uses `bg-accent` (was `bg-foreground`) |
 | `components/theme-toggle.tsx` | New standalone `<ThemeToggle>` icon button component |
 | `app/[locale]/dashboard/page.tsx` | `<ThemeToggle className="ml-auto" />` added to page header |
+
