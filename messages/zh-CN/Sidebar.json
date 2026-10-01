@@ -20,5 +20,7 @@
   "lightMode": "浅色模式",
   "darkMode": "深色模式",
   "switchToLightMode": "切换到浅色模式 (按 D)",
-  "switchToDarkMode": "切换到深色模式 (按 D)"
+  "switchToDarkMode": "切换到深色模式 (按 D)",
+  "allModels": "所有模型",
+  "monitoring": "系统监控"
 }

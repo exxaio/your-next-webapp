@@ -28,6 +28,7 @@ import {
   CreditCardIcon,
   NotificationIcon,
   LogoutIcon,
+  UserGroupIcon,
 } from "@hugeicons/core-free-icons"
 
 export function NavUser({
@@ -99,7 +100,7 @@ export function NavUser({
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem render={<Link href="/billing" />}>
                 <HugeiconsIcon icon={SparklesIcon} strokeWidth={2} />
                 Upgrade to Pro
               </DropdownMenuItem>
@@ -110,9 +111,13 @@ export function NavUser({
                 <HugeiconsIcon icon={CheckmarkBadgeIcon} strokeWidth={2} />
                 {tNav("account")}
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem render={<Link href="/billing" />}>
                 <HugeiconsIcon icon={CreditCardIcon} strokeWidth={2} />
-                Billing
+                {tNav("billing")}
+              </DropdownMenuItem>
+              <DropdownMenuItem render={<Link href="/team" />}>
+                <HugeiconsIcon icon={UserGroupIcon} strokeWidth={2} />
+                {tNav("team")}
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <HugeiconsIcon icon={NotificationIcon} strokeWidth={2} />

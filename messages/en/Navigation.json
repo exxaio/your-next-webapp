@@ -6,5 +6,8 @@
   "settings": "Settings",
   "support": "Support",
   "feedback": "Feedback",
-  "account": "Account"
+  "account": "Account",
+  "billing": "Billing",
+  "team": "Team",
+  "monitoring": "Monitoring"
 }

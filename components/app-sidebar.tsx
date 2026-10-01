@@ -23,7 +23,6 @@ import {
   ComputerTerminalIcon,
   RoboticIcon,
   BookOpen02Icon,
-  Settings05Icon,
   ChartRingIcon,
   SentIcon,
   CropIcon,
@@ -51,12 +50,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           title: tNav("dashboard"),
           url: "/dashboard",
           icon: <HugeiconsIcon icon={ChartRingIcon} strokeWidth={2} />,
-          isActive: pathname === "/dashboard",
+          isActive: pathname === "/dashboard" || pathname === "/monitoring",
           items: [
             {
               title: tSidebar("analytics"),
               url: "/dashboard",
               isActive: pathname === "/dashboard",
+            },
+            {
+              title: tSidebar("monitoring"),
+              url: "/monitoring",
+              isActive: pathname === "/monitoring",
             },
           ],
         },
@@ -88,20 +92,26 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         },
         {
           title: tNav("models"),
-          url: "#",
+          url: "/models",
           icon: <HugeiconsIcon icon={RoboticIcon} strokeWidth={2} />,
+          isActive: pathname === "/models" || pathname?.startsWith("/models"),
           items: [
             {
+              title: tSidebar("allModels"),
+              url: "/models",
+              isActive: pathname === "/models",
+            },
+            {
               title: tSidebar("genesis"),
-              url: "#",
+              url: "/models?family=genesis",
             },
             {
               title: tSidebar("explorer"),
-              url: "#",
+              url: "/models?family=explorer",
             },
             {
               title: tSidebar("quantum"),
-              url: "#",
+              url: "/models?family=quantum",
             },
           ],
         },
@@ -124,35 +134,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             },
             {
               title: tSidebar("changelog"),
-              url: "#",
-            },
-          ],
-        },
-        {
-          title: tNav("settings"),
-          url: "/account",
-          icon: <HugeiconsIcon icon={Settings05Icon} strokeWidth={2} />,
-          isActive: pathname === "/account",
-          items: [
-            {
-              title: tSidebar("account"),
-              url: "/account",
-              isActive: pathname === "/account",
-            },
-            {
-              title: tSidebar("general"),
-              url: "#",
-            },
-            {
-              title: tSidebar("team"),
-              url: "#",
-            },
-            {
-              title: tSidebar("billing"),
-              url: "#",
-            },
-            {
-              title: tSidebar("limits"),
               url: "#",
             },
           ],

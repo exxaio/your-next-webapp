@@ -6,6 +6,10 @@ import Navigation from "./Navigation.json"
 import Playground from "./Playground.json"
 import Sidebar from "./Sidebar.json"
 import Signup from "./Signup.json"
+import Models from "./Models.json"
+import Billing from "./Billing.json"
+import Team from "./Team.json"
+import Monitoring from "./Monitoring.json"
 
 const en = {
   Common,
@@ -16,6 +20,10 @@ const en = {
   Playground,
   Sidebar,
   Signup,
+  Models,
+  Billing,
+  Team,
+  Monitoring,
 }
 
 export default en

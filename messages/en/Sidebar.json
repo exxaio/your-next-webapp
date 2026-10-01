@@ -20,5 +20,7 @@
   "lightMode": "Light Mode",
   "darkMode": "Dark Mode",
   "switchToLightMode": "Switch to light mode (Press D)",
-  "switchToDarkMode": "Switch to dark mode (Press D)"
+  "switchToDarkMode": "Switch to dark mode (Press D)",
+  "allModels": "All Models",
+  "monitoring": "Monitoring"
 }

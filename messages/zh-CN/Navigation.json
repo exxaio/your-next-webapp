@@ -6,5 +6,8 @@
   "settings": "设置",
   "support": "支持",
   "feedback": "反馈",
-  "account": "账户"
+  "account": "账户",
+  "billing": "账单",
+  "team": "团队",
+  "monitoring": "监控"
 }

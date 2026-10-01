@@ -111,6 +111,34 @@ export function TopNavbar() {
       ]
     }
 
+    if (cleanPath === "/models" || cleanPath.startsWith("/models")) {
+      return [
+        { label: tNav("models"), href: "/models" },
+        { label: tSidebar("allModels") },
+      ]
+    }
+
+    if (cleanPath === "/monitoring" || cleanPath.startsWith("/monitoring")) {
+      return [
+        { label: tNav("dashboard"), href: "/dashboard" },
+        { label: tSidebar("monitoring") },
+      ]
+    }
+
+    if (cleanPath === "/billing" || cleanPath.startsWith("/billing")) {
+      return [
+        { label: tNav("account"), href: "/account" },
+        { label: tNav("billing") },
+      ]
+    }
+
+    if (cleanPath === "/team" || cleanPath.startsWith("/team")) {
+      return [
+        { label: tNav("account"), href: "/account" },
+        { label: tNav("team") },
+      ]
+    }
+
     // Fallback for any other paths
     const segments = cleanPath.split("/").filter(Boolean)
     if (segments.length === 0) {
@@ -126,6 +154,9 @@ export function TopNavbar() {
       "support",
       "feedback",
       "account",
+      "billing",
+      "team",
+      "monitoring",
     ] as const
 
     const items: BreadcrumbItemType[] = []
