@@ -79,6 +79,7 @@ export function NavbarBreadcrumbs({ items }: { items: BreadcrumbItemType[] }) {
 export function TopNavbar() {
   const tNav = useTranslations("Navigation")
   const tSidebar = useTranslations("Sidebar")
+  const tPlayground = useTranslations("Playground")
   const pathname = usePathname()
   const navbar = useNavbar()
 
@@ -98,35 +99,52 @@ export function TopNavbar() {
 
     if (cleanPath === "/playground" || cleanPath.startsWith("/playground")) {
       return [
-        { label: tNav("dashboard"), href: "/dashboard" },
-        { label: tNav("playground") },
+        { label: tNav("playground"), href: "/playground" },
+        { label: tPlayground("modeChat") },
       ]
     }
 
     if (cleanPath === "/account" || cleanPath.startsWith("/account")) {
       return [
-        { label: tNav("dashboard"), href: "/dashboard" },
-        { label: tNav("account") },
+        { label: tNav("settings"), href: "/account" },
+        { label: tSidebar("account") },
       ]
     }
 
     // Fallback for any other paths
     const segments = cleanPath.split("/").filter(Boolean)
-    const items: BreadcrumbItemType[] = [
-      { label: tNav("dashboard"), href: "/dashboard" },
-    ]
+    if (segments.length === 0) {
+      return [{ label: tNav("dashboard") }]
+    }
+
+    const navKeys = [
+      "dashboard",
+      "playground",
+      "models",
+      "documentation",
+      "settings",
+      "support",
+      "feedback",
+      "account",
+    ] as const
+
+    const items: BreadcrumbItemType[] = []
 
     segments.forEach((seg, idx) => {
       const isLast = idx === segments.length - 1
-      const segCapitalized = seg.charAt(0).toUpperCase() + seg.slice(1)
+      const segLower = seg.toLowerCase() as (typeof navKeys)[number]
+      const label = navKeys.includes(segLower)
+        ? tNav(segLower)
+        : seg.charAt(0).toUpperCase() + seg.slice(1)
+
       items.push({
-        label: segCapitalized,
+        label,
         href: isLast ? undefined : `/${segments.slice(0, idx + 1).join("/")}`,
       })
     })
 
     return items
-  }, [navbar?.breadcrumbs, pathname, tNav, tSidebar])
+  }, [navbar?.breadcrumbs, pathname, tNav, tSidebar, tPlayground])
 
   return (
     <header className="flex h-16 shrink-0 items-center gap-2">
@@ -142,7 +160,9 @@ export function TopNavbar() {
               const isLast = index === breadcrumbs.length - 1
               return (
                 <React.Fragment key={`${crumb.label}-${index}`}>
-                  <BreadcrumbItem className={!isLast ? "hidden md:block" : ""}>
+                  <BreadcrumbItem
+                    className={!isLast ? "hidden md:inline-flex" : ""}
+                  >
                     {isLast || !crumb.href ? (
                       <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
                     ) : (
@@ -152,7 +172,7 @@ export function TopNavbar() {
                     )}
                   </BreadcrumbItem>
                   {!isLast && (
-                    <BreadcrumbSeparator className="hidden md:block" />
+                    <BreadcrumbSeparator className="hidden md:inline-flex" />
                   )}
                 </React.Fragment>
               )

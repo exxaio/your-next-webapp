@@ -18,7 +18,7 @@ import {
   ComputerTerminalIcon,
 } from "@hugeicons/core-free-icons"
 
-import { NavbarActions } from "@/components/top-navbar"
+import { NavbarActions, NavbarBreadcrumbs } from "@/components/top-navbar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -176,6 +176,8 @@ const STARRED_MOCK = [
 
 function PlaygroundContent() {
   const tPlayground = useTranslations("Playground")
+  const tNav = useTranslations("Navigation")
+  const tSidebar = useTranslations("Sidebar")
   const searchParams = useSearchParams()
 
   // Tab navigation from query or default
@@ -192,6 +194,43 @@ function PlaygroundContent() {
       ? defaultTab
       : "chat"
   )
+
+  const breadcrumbItems = React.useMemo(() => {
+    if (activeTab === "history") {
+      return [
+        { label: tNav("playground"), href: "/playground" },
+        { label: tSidebar("history") },
+      ]
+    }
+    if (activeTab === "starred") {
+      return [
+        { label: tNav("playground"), href: "/playground" },
+        { label: tSidebar("starred") },
+      ]
+    }
+    if (activeTab === "parameters") {
+      return [
+        { label: tNav("playground"), href: "/playground" },
+        { label: tNav("settings") },
+      ]
+    }
+    if (activeTab === "complete") {
+      return [
+        { label: tNav("playground"), href: "/playground" },
+        { label: tPlayground("modeComplete") },
+      ]
+    }
+    if (activeTab === "compare") {
+      return [
+        { label: tNav("playground"), href: "/playground" },
+        { label: tPlayground("modeCompare") },
+      ]
+    }
+    return [
+      { label: tNav("playground"), href: "/playground" },
+      { label: tPlayground("modeChat") },
+    ]
+  }, [activeTab, tNav, tPlayground, tSidebar])
 
   // Playground state
   const [selectedPreset, setSelectedPreset] = React.useState<string>(
@@ -486,6 +525,8 @@ main();`
           </Button>
         </div>
       </NavbarActions>
+
+      <NavbarBreadcrumbs items={breadcrumbItems} />
 
       {/* Main Container */}
       <main className="flex flex-1 flex-col gap-4 p-4 pt-0 md:p-6 md:pt-0">

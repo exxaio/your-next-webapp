@@ -35,6 +35,7 @@ import {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const tNav = useTranslations("Navigation")
   const tSidebar = useTranslations("Sidebar")
+  const tPlayground = useTranslations("Playground")
   const { user: authUser } = useAuth()
   const pathname = usePathname()
 
@@ -55,6 +56,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {
               title: tSidebar("analytics"),
               url: "/dashboard",
+              isActive: pathname === "/dashboard",
             },
           ],
         },
@@ -65,6 +67,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           isActive:
             pathname === "/playground" || pathname?.startsWith("/playground"),
           items: [
+            {
+              title: tPlayground("modeChat"),
+              url: "/playground",
+              isActive: pathname === "/playground",
+            },
             {
               title: tSidebar("history"),
               url: "/playground?tab=history",
@@ -130,6 +137,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {
               title: tSidebar("account"),
               url: "/account",
+              isActive: pathname === "/account",
             },
             {
               title: tSidebar("general"),
@@ -180,7 +188,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         },
       ],
     }),
-    [tNav, tSidebar, authUser, pathname]
+    [tNav, tSidebar, tPlayground, authUser, pathname]
   )
 
   return (
