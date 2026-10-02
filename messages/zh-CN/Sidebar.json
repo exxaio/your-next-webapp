@@ -24,5 +24,9 @@
   "allModels": "所有模型",
   "monitoring": "系统监控",
   "workflows": "工作流",
-  "builder": "智能体构建器"
+  "builder": "智能体构建器",
+  "overview": "概览",
+  "settings": "设置",
+  "architecture": "架构指南",
+  "archetypes": "布局原型"
 }

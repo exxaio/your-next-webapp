@@ -30,6 +30,7 @@ import {
   MapsIcon,
   CommandIcon,
   FlowConnectionIcon,
+  Settings02Icon,
 } from "@hugeicons/core-free-icons"
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -51,17 +52,39 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           title: tNav("dashboard"),
           url: "/dashboard",
           icon: <HugeiconsIcon icon={ChartRingIcon} strokeWidth={2} />,
-          isActive: pathname === "/dashboard" || pathname === "/monitoring",
+          isActive:
+            pathname === "/dashboard" ||
+            pathname === "/analytics" ||
+            pathname === "/monitoring",
           items: [
             {
-              title: tSidebar("analytics"),
+              title: tSidebar("overview"),
               url: "/dashboard",
               isActive: pathname === "/dashboard",
+            },
+            {
+              title: tSidebar("analytics"),
+              url: "/analytics",
+              isActive: pathname === "/analytics",
             },
             {
               title: tSidebar("monitoring"),
               url: "/monitoring",
               isActive: pathname === "/monitoring",
+            },
+          ],
+        },
+        {
+          title: tNav("workflows"),
+          url: "/workflows",
+          icon: <HugeiconsIcon icon={FlowConnectionIcon} strokeWidth={2} />,
+          isActive:
+            pathname === "/workflows" || pathname?.startsWith("/workflows"),
+          items: [
+            {
+              title: tSidebar("builder"),
+              url: "/workflows",
+              isActive: pathname === "/workflows",
             },
           ],
         },
@@ -117,39 +140,47 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           ],
         },
         {
-          title: tNav("workflows"),
-          url: "/workflows",
-          icon: <HugeiconsIcon icon={FlowConnectionIcon} strokeWidth={2} />,
+          title: tNav("settings"),
+          url: "/account",
+          icon: <HugeiconsIcon icon={Settings02Icon} strokeWidth={2} />,
           isActive:
-            pathname === "/workflows" || pathname?.startsWith("/workflows"),
+            pathname === "/account" ||
+            pathname === "/billing" ||
+            pathname === "/team",
           items: [
             {
-              title: tSidebar("builder"),
-              url: "/workflows",
-              isActive: pathname === "/workflows",
+              title: tSidebar("account"),
+              url: "/account",
+              isActive: pathname === "/account",
+            },
+            {
+              title: tSidebar("billing"),
+              url: "/billing",
+              isActive: pathname === "/billing",
+            },
+            {
+              title: tSidebar("team"),
+              url: "/team",
+              isActive: pathname === "/team",
             },
           ],
         },
         {
           title: tNav("documentation"),
-          url: "#",
+          url: "/dashboard#architecture",
           icon: <HugeiconsIcon icon={BookOpen02Icon} strokeWidth={2} />,
           items: [
             {
-              title: tSidebar("introduction"),
-              url: "#",
+              title: tSidebar("archetypes"),
+              url: "/dashboard#archetypes",
+            },
+            {
+              title: tSidebar("architecture"),
+              url: "/dashboard#architecture",
             },
             {
               title: tSidebar("getStarted"),
-              url: "#",
-            },
-            {
-              title: tSidebar("tutorials"),
-              url: "#",
-            },
-            {
-              title: tSidebar("changelog"),
-              url: "#",
+              url: "/dashboard#quickstart",
             },
           ],
         },

@@ -10,5 +10,7 @@
   "billing": "Billing",
   "team": "Team",
   "monitoring": "Monitoring",
-  "workflows": "Workflows"
+  "workflows": "Workflows",
+  "analytics": "Analytics",
+  "overview": "Overview"
 }

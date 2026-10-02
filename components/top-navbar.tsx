@@ -91,9 +91,20 @@ export function TopNavbar() {
     const cleanPath = pathname?.replace(/\/$/, "") || ""
 
     if (cleanPath === "/dashboard" || cleanPath === "") {
+      return [{ label: tNav("dashboard") }]
+    }
+
+    if (cleanPath === "/analytics" || cleanPath.startsWith("/analytics")) {
       return [
         { label: tNav("dashboard"), href: "/dashboard" },
         { label: tSidebar("analytics") },
+      ]
+    }
+
+    if (cleanPath === "/monitoring" || cleanPath.startsWith("/monitoring")) {
+      return [
+        { label: tNav("dashboard"), href: "/dashboard" },
+        { label: tSidebar("monitoring") },
       ]
     }
 
@@ -111,31 +122,24 @@ export function TopNavbar() {
       ]
     }
 
-    if (cleanPath === "/models" || cleanPath.startsWith("/models")) {
-      return [
-        { label: tNav("models"), href: "/models" },
-        { label: tSidebar("allModels") },
-      ]
-    }
-
-    if (cleanPath === "/monitoring" || cleanPath.startsWith("/monitoring")) {
-      return [
-        { label: tNav("dashboard"), href: "/dashboard" },
-        { label: tSidebar("monitoring") },
-      ]
-    }
-
     if (cleanPath === "/billing" || cleanPath.startsWith("/billing")) {
       return [
-        { label: tNav("account"), href: "/account" },
-        { label: tNav("billing") },
+        { label: tNav("settings"), href: "/account" },
+        { label: tSidebar("billing") },
       ]
     }
 
     if (cleanPath === "/team" || cleanPath.startsWith("/team")) {
       return [
-        { label: tNav("account"), href: "/account" },
-        { label: tNav("team") },
+        { label: tNav("settings"), href: "/account" },
+        { label: tSidebar("team") },
+      ]
+    }
+
+    if (cleanPath === "/models" || cleanPath.startsWith("/models")) {
+      return [
+        { label: tNav("models"), href: "/models" },
+        { label: tSidebar("allModels") },
       ]
     }
 
@@ -154,6 +158,7 @@ export function TopNavbar() {
 
     const navKeys = [
       "dashboard",
+      "analytics",
       "playground",
       "models",
       "workflows",

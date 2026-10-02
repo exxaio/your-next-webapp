@@ -24,5 +24,9 @@
   "allModels": "All Models",
   "monitoring": "Monitoring",
   "workflows": "Workflows",
-  "builder": "Agent Builder"
+  "builder": "Agent Builder",
+  "overview": "Overview",
+  "settings": "Settings",
+  "architecture": "Architecture",
+  "archetypes": "Layout Archetypes"
 }
