@@ -11,6 +11,7 @@
 3. **Avoid** hardcoded scales — no `bg-gray-*`, `text-slate-*`, `bg-indigo-*`, raw hex, etc.
 4. **Primary** — buttons, links, focus rings only
 5. **Accent** — status indicators and active states only
+6. **Enforce containment** — always apply `min-w-0` to flex/grid items and `overflow-hidden` to cards (see [Responsive Design Guidelines](./RESPONSIVE_DESIGN.md))
 
 ---
 
@@ -127,14 +128,16 @@ className="bg-accent/15 text-accent"
 
 ## Page Layout Archetypes
 
+> 📖 **Detailed Guidelines**: For container containment rules (`min-w-0`), component-specific implementations (tables, charts, top navbar), and screen breakpoint matrix, consult the dedicated [Responsive Design Guidelines](./RESPONSIVE_DESIGN.md).
+
 The application defines two distinct layout archetypes: **Settings Pages** (focused, single-column, max-width constrained) and **Content & Workspace Pages** (fluid, multi-column or split-pane, full-width).
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ 1. Settings Pages (max-w-4xl, gap-8)                        │
+│ 1. Settings Pages (max-w-4xl, min-w-0, gap-8)               │
 │    - Account, Profile, Organization, Security               │
 ├─────────────────────────────────────────────────────────────┤
-│ 2. Content & Workspace Pages (full-width fluid, gap-4)      │
+│ 2. Content & Workspace Pages (full-width fluid, min-w-0)    │
 │    - Dashboard, Analytics, Playground/Studio, Logs, Tables  │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -146,7 +149,7 @@ The application defines two distinct layout archetypes: **Settings Pages** (focu
 Used for user preferences, account management, credentials, organization settings, and billing.
 
 - **Width & Spacing**: Centered with a constrained width for form readability:  
-  `className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-8 p-4 pt-0 md:p-6 md:pt-0"`
+  `className="mx-auto flex w-full max-w-4xl min-w-0 flex-1 flex-col gap-8 p-4 pt-0 md:p-6 md:pt-0"`
 - **Page Header**: Explicit `h1` title (`text-2xl font-bold tracking-tight`) with explanatory subtitle (`text-sm text-muted-foreground`).
 - **Overview Banner (Optional)**: Top profile/summary card (`rounded-xl border border-border bg-card p-4 sm:p-5 shadow-xs`) highlighting user avatar, status badges, and quick stats.
 - **Section Eyebrow Headers**: Group cards with an icon chip badge and uppercase tracking label:
@@ -186,17 +189,17 @@ Used for user preferences, account management, credentials, organization setting
 Used for all primary application experiences: Dashboard, Analytics, Studio/Playground, Data Tables, and Monitoring.
 
 - **Width & Spacing**: Fluid full-width container to maximize viewport real estate:  
-  `className="flex flex-1 flex-col gap-4 p-4 pt-0 md:p-6 md:pt-0"`
+  `className="flex min-w-0 flex-1 flex-col gap-4 p-4 pt-0 md:p-6 md:pt-0"`
 - **Header & Navigation**:
   - Integrate contextual actions and breadcrumbs directly into the top navigation via `<NavbarActions>` and `<NavbarBreadcrumbs>`.
   - Provide an accessible heading: `<h1 className="sr-only">Page Title</h1>`.
-  - Top context bar (optional): Alert banners (`Alert border-l-4 border-l-accent`), filter bars, or preset toolbars spanning full width.
+  - Top context bar (optional): Alert banners (`Alert border-l-4 border-l-accent`), filter bars, or preset toolbars spanning full width with responsive actions (`static mt-2 sm:absolute sm:top-1.5 sm:right-2 sm:mt-0`).
 - **Grid & Modular Rhythm**:
-  - **KPI / Stat Grids**: `grid gap-4 md:grid-cols-2 lg:grid-cols-4`
-  - **Visualization / Charts**: `grid gap-4 md:grid-cols-2` using `ChartContainer` and tokens `--chart-1` through `--chart-5`.
+  - **KPI / Stat Grids**: `grid gap-4 sm:grid-cols-2 lg:grid-cols-4` with `min-w-0` on cards.
+  - **Visualization / Charts**: `grid gap-4 md:grid-cols-2` using `ChartContainer` (`initialDimension={width: 0, height: 0}`) inside `<Card className="min-w-0 overflow-hidden">`.
   - **Studio / Split Workspaces**: Use unified `gap-4` split layouts:  
-    `grid flex-1 items-start gap-4 lg:grid-cols-[1fr_320px]` (canvas + parameter/inspector rail)
-- **Tables & Lists**: Wrap within `<Card className="border border-border bg-card p-6">` combined with `<Tabs>` for switching sub-views (e.g. Recent, Pending, Completed).
+    `grid min-w-0 flex-1 items-start gap-4 lg:grid-cols-[1fr_320px]` (canvas + parameter/inspector rail with `min-w-0` on both columns).
+- **Tables & Lists**: Wrap within `<Card className="border border-border bg-card p-6 min-w-0 overflow-hidden">` combined with `<Tabs>` for switching sub-views, and `<div className="min-w-0 overflow-x-auto">` enclosing `<Table>`.
 - **Status Badges**: Standardized semantic badges for data rows:
   - Success: `border-success/30 bg-success/5 text-success`
   - Warning: `border-warning/30 bg-warning/10 text-warning`
