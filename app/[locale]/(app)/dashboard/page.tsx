@@ -118,7 +118,7 @@ export default function DashboardPage() {
   const t = useTranslations("Dashboard")
 
   return (
-    <main className="flex flex-1 flex-col gap-4 p-4 pt-0 md:p-6 md:pt-0">
+    <main className="flex min-w-0 flex-1 flex-col gap-4 p-4 pt-0 md:p-6 md:pt-0">
       <h1 className="sr-only">{t("dashboard")}</h1>
       {/* Alert Banner */}
       <Alert className="border-l-4 border-l-accent bg-card text-card-foreground">
@@ -133,8 +133,8 @@ export default function DashboardPage() {
       </Alert>
 
       {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card className="border border-border bg-card p-6">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <Card className="min-w-0 border border-border bg-card p-6">
           <div className="flex items-center justify-between">
             <p className="text-sm text-muted-foreground">{t("totalRevenue")}</p>
             <HugeiconsIcon
@@ -231,7 +231,7 @@ export default function DashboardPage() {
 
       {/* Charts Section */}
       <div className="grid gap-4 md:grid-cols-2">
-        <Card className="border border-border bg-card p-6">
+        <Card className="min-w-0 overflow-hidden border border-border bg-card p-6">
           <div className="mb-4">
             <h3 className="text-xl font-semibold">{t("revenueVsExpenses")}</h3>
             <p className="text-sm text-muted-foreground">
@@ -271,7 +271,7 @@ export default function DashboardPage() {
           </ChartContainer>
         </Card>
 
-        <Card className="border border-border bg-card p-6">
+        <Card className="min-w-0 overflow-hidden border border-border bg-card p-6">
           <div className="mb-4">
             <h3 className="text-xl font-semibold">{t("weeklyPerformance")}</h3>
             <p className="text-sm text-muted-foreground">
@@ -331,7 +331,7 @@ export default function DashboardPage() {
       </Card>
 
       {/* Tabs with Table */}
-      <Card className="border border-border bg-card p-6">
+      <Card className="min-w-0 overflow-hidden border border-border bg-card p-6">
         <Tabs defaultValue="recent">
           <div className="mb-4 flex items-center justify-between">
             <h3 className="text-xl font-semibold">{t("transactionsTab")}</h3>

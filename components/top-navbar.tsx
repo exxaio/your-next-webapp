@@ -179,23 +179,27 @@ export function TopNavbar() {
 
   return (
     <header className="flex h-16 shrink-0 items-center gap-2">
-      <div className="flex flex-1 items-center gap-2 px-4">
-        <SidebarTrigger className="-ml-1" />
+      <div className="flex min-w-0 flex-1 items-center gap-2 px-4">
+        <SidebarTrigger className="-ml-1 shrink-0" />
         <Separator
           orientation="vertical"
-          className="mr-2 data-vertical:h-4 data-vertical:self-auto"
+          className="mr-2 shrink-0 data-vertical:h-4 data-vertical:self-auto"
         />
-        <Breadcrumb>
-          <BreadcrumbList>
+        <Breadcrumb className="min-w-0">
+          <BreadcrumbList className="flex-nowrap">
             {breadcrumbs.map((crumb, index) => {
               const isLast = index === breadcrumbs.length - 1
               return (
                 <React.Fragment key={`${crumb.label}-${index}`}>
                   <BreadcrumbItem
-                    className={!isLast ? "hidden md:inline-flex" : ""}
+                    className={
+                      !isLast ? "hidden shrink-0 md:inline-flex" : "min-w-0"
+                    }
                   >
                     {isLast || !crumb.href ? (
-                      <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
+                      <BreadcrumbPage className="max-w-[140px] truncate sm:max-w-[220px] md:max-w-none">
+                        {crumb.label}
+                      </BreadcrumbPage>
                     ) : (
                       <BreadcrumbLink render={<Link href={crumb.href} />}>
                         {crumb.label}
@@ -203,16 +207,16 @@ export function TopNavbar() {
                     )}
                   </BreadcrumbItem>
                   {!isLast && (
-                    <BreadcrumbSeparator className="hidden md:inline-flex" />
+                    <BreadcrumbSeparator className="hidden shrink-0 md:inline-flex" />
                   )}
                 </React.Fragment>
               )
             })}
           </BreadcrumbList>
         </Breadcrumb>
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex shrink-0 items-center gap-2">
           {navbar?.actions}
-          <div className="flex items-center gap-1">
+          <div className="flex shrink-0 items-center gap-1">
             <LanguageSwitcher />
             <div className="h-4 w-px bg-border" />
             <ThemeToggle />

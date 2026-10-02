@@ -80,7 +80,7 @@ export default function BillingPage() {
   const [isAddCardOpen, setIsAddCardOpen] = React.useState(false)
 
   return (
-    <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-8 p-4 pt-0 md:p-6 md:pt-0">
+    <main className="mx-auto flex w-full max-w-4xl min-w-0 flex-1 flex-col gap-8 p-4 pt-0 md:p-6 md:pt-0">
       {/* Page Header */}
       <div className="flex flex-col gap-4">
         <div>
@@ -475,7 +475,7 @@ export default function BillingPage() {
         </Card>
 
         {/* Card: Invoice History Table */}
-        <Card className="border border-border bg-card p-6 shadow-xs sm:p-7">
+        <Card className="min-w-0 overflow-hidden border border-border bg-card p-6 shadow-xs sm:p-7">
           <div className="mb-4">
             <h3 className="text-base font-semibold">{t("invoices")}</h3>
             <p className="text-xs text-muted-foreground">
@@ -483,7 +483,7 @@ export default function BillingPage() {
             </p>
           </div>
 
-          <div className="overflow-x-auto">
+          <div className="min-w-0 overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>

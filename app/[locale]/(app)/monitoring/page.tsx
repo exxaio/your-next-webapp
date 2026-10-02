@@ -241,7 +241,7 @@ export default function MonitoringPage() {
         </div>
       </NavbarActions>
 
-      <main className="flex flex-1 flex-col gap-4 p-4 pt-0 md:p-6 md:pt-0">
+      <main className="flex min-w-0 flex-1 flex-col gap-4 p-4 pt-0 md:p-6 md:pt-0">
         <h1 className="sr-only">{t("title")}</h1>
 
         {/* Global Live Stream Telemetry Banner */}
@@ -251,8 +251,10 @@ export default function MonitoringPage() {
             className="h-4 w-4 text-accent"
           />
           <AlertTitle>{t("liveAlertTitle")}</AlertTitle>
-          <AlertDescription>{t("liveAlertDesc")}</AlertDescription>
-          <AlertAction>
+          <AlertDescription className="pr-24 sm:pr-0">
+            {t("liveAlertDesc")}
+          </AlertDescription>
+          <AlertAction className="static mt-2 sm:absolute sm:top-1.5 sm:right-2 sm:mt-0">
             <Badge
               variant="outline"
               className="gap-1 border-success/30 bg-success/5 text-[11px] text-success"
@@ -264,8 +266,8 @@ export default function MonitoringPage() {
         </Alert>
 
         {/* 4 Stat KPI Cards */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <Card className="border border-border bg-card p-6">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Card className="min-w-0 border border-border bg-card p-6">
             <div className="flex items-center justify-between">
               <p className="text-sm text-muted-foreground">
                 {t("requestsPerSec")}
@@ -289,7 +291,7 @@ export default function MonitoringPage() {
             </p>
           </Card>
 
-          <Card className="border border-border bg-card p-6">
+          <Card className="min-w-0 border border-border bg-card p-6">
             <div className="flex items-center justify-between">
               <p className="text-sm text-muted-foreground">{t("errorRate")}</p>
               <HugeiconsIcon
@@ -311,7 +313,7 @@ export default function MonitoringPage() {
             </p>
           </Card>
 
-          <Card className="border border-border bg-card p-6">
+          <Card className="min-w-0 border border-border bg-card p-6">
             <div className="flex items-center justify-between">
               <p className="text-sm text-muted-foreground">{t("p95Latency")}</p>
               <HugeiconsIcon
@@ -333,7 +335,7 @@ export default function MonitoringPage() {
             </p>
           </Card>
 
-          <Card className="border border-border bg-card p-6">
+          <Card className="min-w-0 border border-border bg-card p-6">
             <div className="flex items-center justify-between">
               <p className="text-sm text-muted-foreground">{t("cacheHit")}</p>
               <HugeiconsIcon
@@ -355,7 +357,7 @@ export default function MonitoringPage() {
 
         {/* Charts: Throughput & Latency Breakdown */}
         <div className="grid gap-4 md:grid-cols-2">
-          <Card className="border border-border bg-card p-6">
+          <Card className="min-w-0 overflow-hidden border border-border bg-card p-6">
             <div className="mb-4">
               <h3 className="text-xl font-semibold">
                 {t("trafficThroughput")}
@@ -389,7 +391,7 @@ export default function MonitoringPage() {
             </ChartContainer>
           </Card>
 
-          <Card className="border border-border bg-card p-6">
+          <Card className="min-w-0 overflow-hidden border border-border bg-card p-6">
             <div className="mb-4">
               <h3 className="text-xl font-semibold">
                 {t("errorDistribution")}
@@ -423,8 +425,8 @@ export default function MonitoringPage() {
         </div>
 
         {/* Request Logs Table with Tabs */}
-        <Card className="border border-border bg-card p-6">
-          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <Card className="min-w-0 overflow-hidden border border-border bg-card p-6">
+          <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <h3 className="text-xl font-semibold">{t("requestLogs")}</h3>
               <p className="text-sm text-muted-foreground">
@@ -435,26 +437,26 @@ export default function MonitoringPage() {
             <Tabs
               value={activeTab}
               onValueChange={(val) => setActiveTab(val as any)}
-              className="w-full sm:w-auto"
+              className="w-full lg:w-auto"
             >
-              <TabsList className="h-8">
-                <TabsTrigger value="all" className="text-xs">
+              <TabsList className="h-8 w-full max-w-full justify-start overflow-x-auto sm:w-auto sm:justify-center">
+                <TabsTrigger value="all" className="shrink-0 text-xs">
                   {t("all")}
                 </TabsTrigger>
-                <TabsTrigger value="2xx" className="text-xs">
+                <TabsTrigger value="2xx" className="shrink-0 text-xs">
                   {t("success")}
                 </TabsTrigger>
-                <TabsTrigger value="4xx" className="text-xs">
+                <TabsTrigger value="4xx" className="shrink-0 text-xs">
                   {t("clientErrors")}
                 </TabsTrigger>
-                <TabsTrigger value="5xx" className="text-xs">
+                <TabsTrigger value="5xx" className="shrink-0 text-xs">
                   {t("serverErrors")}
                 </TabsTrigger>
               </TabsList>
             </Tabs>
           </div>
 
-          <div className="overflow-x-auto">
+          <div className="min-w-0 overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>

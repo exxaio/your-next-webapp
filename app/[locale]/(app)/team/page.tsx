@@ -132,7 +132,7 @@ export default function TeamPage() {
   }
 
   return (
-    <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-8 p-4 pt-0 md:p-6 md:pt-0">
+    <main className="mx-auto flex w-full max-w-4xl min-w-0 flex-1 flex-col gap-8 p-4 pt-0 md:p-6 md:pt-0">
       {/* Page Header */}
       <div className="flex flex-col gap-4">
         <div>
@@ -269,8 +269,8 @@ export default function TeamPage() {
           </span>
         </div>
 
-        <Card className="border border-border bg-card p-6 shadow-xs sm:p-7">
-          <div className="overflow-x-auto">
+        <Card className="min-w-0 overflow-hidden border border-border bg-card p-6 shadow-xs sm:p-7">
+          <div className="min-w-0 overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>

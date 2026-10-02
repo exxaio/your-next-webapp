@@ -336,7 +336,7 @@ export default function ModelsPage() {
         </div>
       </NavbarActions>
 
-      <main className="flex flex-1 flex-col gap-4 p-4 pt-0 md:p-6 md:pt-0">
+      <main className="flex min-w-0 flex-1 flex-col gap-4 p-4 pt-0 md:p-6 md:pt-0">
         <h1 className="sr-only">{t("title")}</h1>
 
         {/* Global Operational Status Context Bar */}
@@ -346,8 +346,10 @@ export default function ModelsPage() {
             className="h-4 w-4 text-accent"
           />
           <AlertTitle>{t("systemStatus")}</AlertTitle>
-          <AlertDescription>{t("systemStatusDesc")}</AlertDescription>
-          <AlertAction>
+          <AlertDescription className="pr-28 sm:pr-0">
+            {t("systemStatusDesc")}
+          </AlertDescription>
+          <AlertAction className="static mt-2 sm:absolute sm:top-1.5 sm:right-2 sm:mt-0">
             <Button
               variant="outline"
               size="sm"
@@ -361,8 +363,8 @@ export default function ModelsPage() {
         </Alert>
 
         {/* KPI Stat Cards Grid */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <Card className="border border-border bg-card p-6">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Card className="min-w-0 border border-border bg-card p-6">
             <div className="flex items-center justify-between">
               <p className="text-sm text-muted-foreground">
                 {t("totalModels")}
@@ -386,7 +388,7 @@ export default function ModelsPage() {
             </p>
           </Card>
 
-          <Card className="border border-border bg-card p-6">
+          <Card className="min-w-0 border border-border bg-card p-6">
             <div className="flex items-center justify-between">
               <p className="text-sm text-muted-foreground">
                 {t("activeDeployments")}
@@ -407,7 +409,7 @@ export default function ModelsPage() {
             </p>
           </Card>
 
-          <Card className="border border-border bg-card p-6">
+          <Card className="min-w-0 border border-border bg-card p-6">
             <div className="flex items-center justify-between">
               <p className="text-sm text-muted-foreground">{t("avgLatency")}</p>
               <HugeiconsIcon
@@ -429,7 +431,7 @@ export default function ModelsPage() {
             </p>
           </Card>
 
-          <Card className="border border-border bg-card p-6">
+          <Card className="min-w-0 border border-border bg-card p-6">
             <div className="flex items-center justify-between">
               <p className="text-sm text-muted-foreground">
                 {t("dailyRequests")}
@@ -456,7 +458,7 @@ export default function ModelsPage() {
 
         {/* Visual Benchmark Chart */}
         <div className="grid gap-4 md:grid-cols-2">
-          <Card className="border border-border bg-card p-6">
+          <Card className="min-w-0 overflow-hidden border border-border bg-card p-6">
             <div className="mb-4">
               <h3 className="text-xl font-semibold">
                 {t("compareBenchmarks")}
@@ -488,7 +490,7 @@ export default function ModelsPage() {
             </ChartContainer>
           </Card>
 
-          <Card className="border border-border bg-card p-6">
+          <Card className="min-w-0 overflow-hidden border border-border bg-card p-6">
             <div className="mb-4">
               <h3 className="text-xl font-semibold">Response Latency (ms)</h3>
               <p className="text-sm text-muted-foreground">
@@ -520,33 +522,33 @@ export default function ModelsPage() {
         </div>
 
         {/* Filter Toolbar & Model Directory Table */}
-        <Card className="border border-border bg-card p-6">
-          <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <Card className="min-w-0 overflow-hidden border border-border bg-card p-6">
+          <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <Tabs
               value={selectedCategory}
               onValueChange={setSelectedCategory}
-              className="w-full sm:w-auto"
+              className="w-full lg:w-auto"
             >
-              <TabsList className="h-9">
-                <TabsTrigger value="all" className="text-xs">
+              <TabsList className="h-9 w-full max-w-full justify-start overflow-x-auto sm:w-auto sm:justify-center">
+                <TabsTrigger value="all" className="shrink-0 text-xs">
                   {t("allFamilies")}
                 </TabsTrigger>
-                <TabsTrigger value="llm" className="text-xs">
+                <TabsTrigger value="llm" className="shrink-0 text-xs">
                   {t("llm")}
                 </TabsTrigger>
-                <TabsTrigger value="multimodal" className="text-xs">
+                <TabsTrigger value="multimodal" className="shrink-0 text-xs">
                   {t("multimodal")}
                 </TabsTrigger>
-                <TabsTrigger value="code" className="text-xs">
+                <TabsTrigger value="code" className="shrink-0 text-xs">
                   {t("code")}
                 </TabsTrigger>
-                <TabsTrigger value="embeddings" className="text-xs">
+                <TabsTrigger value="embeddings" className="shrink-0 text-xs">
                   {t("embeddings")}
                 </TabsTrigger>
               </TabsList>
             </Tabs>
 
-            <div className="relative w-full sm:w-72">
+            <div className="relative w-full lg:w-72">
               <HugeiconsIcon
                 icon={Search01Icon}
                 className="absolute top-2.5 left-2.5 size-4 text-muted-foreground"
@@ -560,7 +562,7 @@ export default function ModelsPage() {
             </div>
           </div>
 
-          <div className="overflow-x-auto">
+          <div className="min-w-0 overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>

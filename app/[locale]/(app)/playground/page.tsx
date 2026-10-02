@@ -529,7 +529,7 @@ main();`
       <NavbarBreadcrumbs items={breadcrumbItems} />
 
       {/* Main Container */}
-      <main className="flex flex-1 flex-col gap-4 p-4 pt-0 md:p-6 md:pt-0">
+      <main className="flex min-w-0 flex-1 flex-col gap-4 p-4 pt-0 md:p-6 md:pt-0">
         <h1 className="sr-only">{tPlayground("title")}</h1>
         {/* Presets and Mode Selector Bar */}
         <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border bg-card p-3 shadow-xs">
@@ -556,22 +556,22 @@ main();`
           <Tabs
             value={activeTab}
             onValueChange={setActiveTab}
-            className="w-auto"
+            className="w-full sm:w-auto"
           >
-            <TabsList className="h-8">
-              <TabsTrigger value="chat" className="text-xs">
+            <TabsList className="h-8 w-full max-w-full justify-start overflow-x-auto sm:w-auto sm:justify-center">
+              <TabsTrigger value="chat" className="shrink-0 text-xs">
                 {tPlayground("modeChat")}
               </TabsTrigger>
-              <TabsTrigger value="complete" className="text-xs">
+              <TabsTrigger value="complete" className="shrink-0 text-xs">
                 {tPlayground("modeComplete")}
               </TabsTrigger>
-              <TabsTrigger value="compare" className="text-xs">
+              <TabsTrigger value="compare" className="shrink-0 text-xs">
                 {tPlayground("modeCompare")}
               </TabsTrigger>
-              <TabsTrigger value="history" className="text-xs">
+              <TabsTrigger value="history" className="shrink-0 text-xs">
                 {tPlayground("history")}
               </TabsTrigger>
-              <TabsTrigger value="starred" className="text-xs">
+              <TabsTrigger value="starred" className="shrink-0 text-xs">
                 {tPlayground("starred")}
               </TabsTrigger>
             </TabsList>
@@ -579,9 +579,9 @@ main();`
         </div>
 
         {/* Split Grid: Canvas on Left/Center, Parameters on Right */}
-        <div className="grid flex-1 items-start gap-4 lg:grid-cols-[1fr_320px]">
+        <div className="grid min-w-0 flex-1 items-start gap-4 lg:grid-cols-[1fr_320px]">
           {/* Left / Center Canvas */}
-          <div className="flex flex-col gap-4">
+          <div className="flex min-w-0 flex-col gap-4">
             {/* CHAT MODE */}
             {activeTab === "chat" && (
               <div className="flex flex-col gap-4">
@@ -892,7 +892,7 @@ main();`
 
             {/* HISTORY TAB */}
             {activeTab === "history" && (
-              <Card className="p-4">
+              <Card className="min-w-0 overflow-hidden p-4">
                 <div className="mb-4">
                   <CardTitle className="text-base font-medium">
                     Execution History

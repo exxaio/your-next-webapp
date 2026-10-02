@@ -43,7 +43,7 @@ export default function AccountPage() {
   const initials = getInitials(user?.displayName, user?.email)
 
   return (
-    <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-8 p-4 pt-0 md:p-6 md:pt-0">
+    <main className="mx-auto flex w-full max-w-4xl min-w-0 flex-1 flex-col gap-8 p-4 pt-0 md:p-6 md:pt-0">
       {/* Page Header & Quick User Summary */}
       <div className="flex flex-col gap-4">
         <div>
