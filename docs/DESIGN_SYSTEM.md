@@ -98,6 +98,9 @@ className="border-danger/30 bg-danger/10 text-danger"
 ├─────────────────────────────────────────────────────────────┤
 │ 2. Content & Workspace Pages (full-width fluid canvas)      │
 │    - Dashboard, Analytics, Studio/Playground, Logs, Tables  │
+├─────────────────────────────────────────────────────────────┤
+│ 3. Interactive Canvas Pages (viewport-locked, zero scroll)  │
+│    - Agent Workflow Builder, Visual Pipelines, Graph Nodes  │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -139,3 +142,19 @@ Used for primary operational views: Dashboard, Analytics, Studio/Playground, and
   - **KPI Grids**: `grid gap-4 sm:grid-cols-2 lg:grid-cols-4`
   - **Visualization Grids**: `grid gap-4 md:grid-cols-2`
   - **Split Workspace**: `grid gap-4 lg:grid-cols-[1fr_320px]` (canvas + inspector)
+
+### 3. Interactive Canvas Archetype
+
+Used for viewport-locked node graphs, pipeline builders, and zero-scroll canvas interactions.
+
+- **Container**: Viewport-locked, zero-scroll container:
+  ```tsx
+  <PageContainer variant="canvas">
+  ```
+- **Header & Navigation**:
+  - Global pipeline actions (Run/Simulate, Deploy, Export) mounted into `<TopNavbar />` via `<NavbarActions>` and `<NavbarBreadcrumbs>`.
+  - Accessible heading: `<h1 className="sr-only">Page Title</h1>`.
+- **Layout Rhythms**:
+  - **Panels**: Collapsible side rails (`w-64 border-r` library palette on left, `w-80 border-l` inspector drawer on right) wrapping a boundless interactive canvas.
+  - **Canvas Surface**: Dot or grid patterned surface with glassmorphic floating controls (`bg-card/80 backdrop-blur-md border border-border shadow-md`).
+  - **Containment**: Strict `min-w-0 min-h-0 overflow-hidden` hierarchy to preserve zero-scroll viewport lock.

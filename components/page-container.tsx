@@ -11,8 +11,9 @@ export const pageContainerVariants = cva(
         workspace: "flex flex-col gap-4",
         // Archetype 1: Max-w-4xl centered, single-column configuration
         settings: "mx-auto flex w-full max-w-4xl flex-col gap-8",
-        // Future-proof: Viewport-locked, zero-scroll interactive canvas
-        canvas: "flex h-[calc(100vh-3.5rem)] flex-col gap-4 overflow-hidden",
+        // Archetype 3: Viewport-locked, zero-scroll interactive canvas
+        canvas:
+          "flex h-[calc(100dvh-4rem)] flex-col gap-4 overflow-hidden md:h-[calc(100dvh-4.5rem)]",
       },
     },
     defaultVariants: {

@@ -9,5 +9,6 @@
   "account": "Account",
   "billing": "Billing",
   "team": "Team",
-  "monitoring": "Monitoring"
+  "monitoring": "Monitoring",
+  "workflows": "Workflows"
 }

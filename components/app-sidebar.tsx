@@ -29,6 +29,7 @@ import {
   PieChartIcon,
   MapsIcon,
   CommandIcon,
+  FlowConnectionIcon,
 } from "@hugeicons/core-free-icons"
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -112,6 +113,20 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {
               title: tSidebar("quantum"),
               url: "/models?family=quantum",
+            },
+          ],
+        },
+        {
+          title: tNav("workflows"),
+          url: "/workflows",
+          icon: <HugeiconsIcon icon={FlowConnectionIcon} strokeWidth={2} />,
+          isActive:
+            pathname === "/workflows" || pathname?.startsWith("/workflows"),
+          items: [
+            {
+              title: tSidebar("builder"),
+              url: "/workflows",
+              isActive: pathname === "/workflows",
             },
           ],
         },

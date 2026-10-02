@@ -139,6 +139,13 @@ export function TopNavbar() {
       ]
     }
 
+    if (cleanPath === "/workflows" || cleanPath.startsWith("/workflows")) {
+      return [
+        { label: tNav("workflows"), href: "/workflows" },
+        { label: tSidebar("builder") },
+      ]
+    }
+
     // Fallback for any other paths
     const segments = cleanPath.split("/").filter(Boolean)
     if (segments.length === 0) {
@@ -149,6 +156,7 @@ export function TopNavbar() {
       "dashboard",
       "playground",
       "models",
+      "workflows",
       "documentation",
       "settings",
       "support",

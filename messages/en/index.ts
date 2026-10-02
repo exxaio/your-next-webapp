@@ -10,6 +10,7 @@ import Models from "./Models.json"
 import Billing from "./Billing.json"
 import Team from "./Team.json"
 import Monitoring from "./Monitoring.json"
+import Workflows from "./Workflows.json"
 
 const en = {
   Common,
@@ -24,6 +25,7 @@ const en = {
   Billing,
   Team,
   Monitoring,
+  Workflows,
 }
 
 export default en

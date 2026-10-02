@@ -1,0 +1,70 @@
+{
+  "title": "智能体工作流构建器",
+  "subtitle": "自主多智能体系统与检索增强（RAG）管道的可视化编排画布",
+  "statusDraft": "草稿",
+  "statusLive": "v1.4 已上线",
+  "runSimulation": "测试运行",
+  "runningSimulation": "执行中...",
+  "stopSimulation": "停止",
+  "deploy": "部署管道",
+  "deploySuccess": "管道已成功部署到生产环境端点",
+  "autoLayout": "自动布局",
+  "resetCanvas": "重置画布",
+  "zoomIn": "放大",
+  "zoomOut": "缩小",
+  "fitView": "适应屏幕",
+  "toggleGrid": "网格切换",
+  "toggleMinimap": "小地图切换",
+  "exportJson": "导出 JSON",
+  "importJson": "导入",
+  "searchNodes": "搜索节点...",
+  "palette": {
+    "title": "节点库",
+    "triggers": "触发器",
+    "agents": "AI 智能体",
+    "tools": "工具与知识库",
+    "logic": "逻辑与路由",
+    "outputs": "输出与动作",
+    "addTooltip": "点击或拖拽添加至画布"
+  },
+  "inspector": {
+    "title": "节点检查器",
+    "noSelection": "在画布中选择一个节点以配置参数并查看实时遥测数据",
+    "tabConfig": "配置",
+    "tabSchema": "模式",
+    "tabTelemetry": "遥测",
+    "model": "目标模型",
+    "systemPrompt": "系统指令",
+    "temperature": "温度值",
+    "maxTokens": "最大生成 Token",
+    "streaming": "流式输出",
+    "fallbackModel": "启用后备降级路由",
+    "inputs": "输入参数",
+    "outputs": "输出变量",
+    "lastRun": "最近一次执行",
+    "latency": "耗时",
+    "tokens": "Token 消耗",
+    "cost": "预估成本",
+    "status": "状态",
+    "payloadPreview": "实时负载预览"
+  },
+  "nodeTypes": {
+    "webhook": "Webhook 触发器",
+    "intentGuard": "意图与安全防护",
+    "knowledgeRag": "向量 RAG 检索器",
+    "reasoningAgent": "深度推理智能体",
+    "humanApproval": "人工审核关卡",
+    "actionDispatch": "结果分发器"
+  },
+  "categories": {
+    "trigger": "触发器",
+    "agent": "智能体",
+    "tool": "工具",
+    "router": "逻辑",
+    "output": "输出"
+  },
+  "telemetry": {
+    "simSuccess": "所有 6 个节点在 1.28 秒内成功执行完成 (1,540 tokens, $0.0031)",
+    "simIdle": "点击“测试运行”以模拟数据在各节点间的流动"
+  }
+}

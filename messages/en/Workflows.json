@@ -1,0 +1,70 @@
+{
+  "title": "Agent Workflow Builder",
+  "subtitle": "Visual orchestration canvas for autonomous multi-agent systems and RAG pipelines",
+  "statusDraft": "Draft",
+  "statusLive": "v1.4 Live",
+  "runSimulation": "Test Run",
+  "runningSimulation": "Executing...",
+  "stopSimulation": "Stop",
+  "deploy": "Deploy Pipeline",
+  "deploySuccess": "Pipeline deployed successfully to production endpoint",
+  "autoLayout": "Auto Layout",
+  "resetCanvas": "Reset Canvas",
+  "zoomIn": "Zoom In",
+  "zoomOut": "Zoom Out",
+  "fitView": "Fit to Screen",
+  "toggleGrid": "Toggle Grid",
+  "toggleMinimap": "Toggle Mini-map",
+  "exportJson": "Export JSON",
+  "importJson": "Import",
+  "searchNodes": "Search nodes...",
+  "palette": {
+    "title": "Node Library",
+    "triggers": "Triggers",
+    "agents": "AI Agents",
+    "tools": "Tools & Knowledge",
+    "logic": "Logic & Routing",
+    "outputs": "Outputs & Actions",
+    "addTooltip": "Click or drag to add to canvas"
+  },
+  "inspector": {
+    "title": "Node Inspector",
+    "noSelection": "Select a node on the canvas to configure parameters and view live telemetry",
+    "tabConfig": "Config",
+    "tabSchema": "Schema",
+    "tabTelemetry": "Telemetry",
+    "model": "Target Model",
+    "systemPrompt": "System Instructions",
+    "temperature": "Temperature",
+    "maxTokens": "Max Tokens",
+    "streaming": "Stream Output",
+    "fallbackModel": "Enable Fallback Routing",
+    "inputs": "Input Parameters",
+    "outputs": "Output Variables",
+    "lastRun": "Last Execution",
+    "latency": "Latency",
+    "tokens": "Tokens Used",
+    "cost": "Est. Cost",
+    "status": "State",
+    "payloadPreview": "Live Payload Preview"
+  },
+  "nodeTypes": {
+    "webhook": "Webhook Trigger",
+    "intentGuard": "Intent & Safety Guard",
+    "knowledgeRag": "Vector RAG Retriever",
+    "reasoningAgent": "Reasoning Agent",
+    "humanApproval": "Human Approval Gate",
+    "actionDispatch": "Output Dispatcher"
+  },
+  "categories": {
+    "trigger": "Trigger",
+    "agent": "Agent",
+    "tool": "Tool",
+    "router": "Logic",
+    "output": "Output"
+  },
+  "telemetry": {
+    "simSuccess": "All 6 nodes completed successfully in 1.28s (1,540 tokens, $0.0031)",
+    "simIdle": "Click 'Test Run' to execute simulated data flow across nodes"
+  }
+}
