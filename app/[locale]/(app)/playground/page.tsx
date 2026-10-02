@@ -488,7 +488,6 @@ main();`
         </div>
       </NavbarActions>
 
-
       {/* Main Container */}
       <PageContainer variant="workspace">
         <h1 className="sr-only">{tPlayground("title")}</h1>

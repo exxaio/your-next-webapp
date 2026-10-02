@@ -136,7 +136,8 @@ Used for primary operational views: Dashboard, Analytics, Studio/Playground, and
   <PageContainer variant="workspace">
   ```
 - **Header & Navigation**:
-  - Contextual actions and breadcrumbs mounted into the top navigation via `<NavbarActions>` and `<NavbarBreadcrumbs>`.
+  - Breadcrumbs are automatically resolved by `<TopNavbar />` based on route and query parameters (zero boilerplate on pages; optional `<NavbarBreadcrumbs>` override supported).
+  - Contextual action buttons mounted into the top navigation via `<NavbarActions>`.
   - Accessible heading: `<h1 className="sr-only">Page Title</h1>`.
 - **Layout Rhythms**:
   - **KPI Grids**: `grid gap-4 sm:grid-cols-2 lg:grid-cols-4`
@@ -152,7 +153,8 @@ Used for viewport-locked node graphs, pipeline builders, and zero-scroll canvas 
   <PageContainer variant="canvas">
   ```
 - **Header & Navigation**:
-  - Global pipeline actions (Run/Simulate, Deploy, Export) mounted into `<TopNavbar />` via `<NavbarActions>` and `<NavbarBreadcrumbs>`.
+  - Sticky frosted-glass `<TopNavbar />` with automatic route breadcrumbs.
+  - Global pipeline actions (Run/Simulate, Deploy, Export) mounted into `<TopNavbar />` via `<NavbarActions>`.
   - Accessible heading: `<h1 className="sr-only">Page Title</h1>`.
 - **Layout Rhythms**:
   - **Panels**: Collapsible side rails (`w-64 border-r` library palette on left, `w-80 border-l` inspector drawer on right) wrapping a boundless interactive canvas.

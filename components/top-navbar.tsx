@@ -78,7 +78,9 @@ export function NavbarBreadcrumbs({ items }: { items: BreadcrumbItemType[] }) {
   return null
 }
 
-function useResolvedBreadcrumbs(customBreadcrumbs: BreadcrumbItemType[] | null) {
+function useResolvedBreadcrumbs(
+  customBreadcrumbs: BreadcrumbItemType[] | null
+) {
   const tNav = useTranslations("Navigation")
   const tSidebar = useTranslations("Sidebar")
   const tPlayground = useTranslations("Playground")
@@ -255,7 +257,7 @@ export function TopNavbar() {
   const navbar = useNavbar()
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center gap-2 border-b border-border/80 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 transition-[width,height] ease-linear">
+    <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center gap-2 border-b border-border/80 bg-background/95 backdrop-blur-md transition-[width,height] ease-linear supports-[backdrop-filter]:bg-background/60">
       <div className="flex min-w-0 flex-1 items-center gap-2 px-4">
         <SidebarTrigger className="-ml-1 shrink-0" />
         <Separator
@@ -263,7 +265,9 @@ export function TopNavbar() {
           className="mr-2 shrink-0 data-vertical:h-4 data-vertical:self-auto"
         />
         <React.Suspense
-          fallback={<div className="h-4 w-28 animate-pulse rounded bg-muted/60" />}
+          fallback={
+            <div className="h-4 w-28 animate-pulse rounded bg-muted/60" />
+          }
         >
           <BreadcrumbNavContent />
         </React.Suspense>

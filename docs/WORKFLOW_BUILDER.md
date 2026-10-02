@@ -31,7 +31,7 @@ The builder is constructed around a viewport-locked, zero-scroll architecture de
 
 ### Key Containment Rules
 - **Container**: `<PageContainer variant="canvas">` applies `h-[calc(100dvh-4rem)] md:h-[calc(100dvh-4.5rem)]` with `overflow-hidden`.
-- **Top Navigation Integration**: Breadcrumbs and primary workflow execution triggers are mounted to `<TopNavbar />` via `<NavbarBreadcrumbs>` and `<NavbarActions>`.
+- **Top Navigation Integration**: Breadcrumbs are automatically resolved by `<TopNavbar />` to `Workflows > Agent Builder`, and primary workflow execution triggers are mounted via `<NavbarActions>`.
 - **Screen Reader Accessible Header**: `<h1 className="sr-only">Agent Workflow Builder</h1>`.
 
 ---

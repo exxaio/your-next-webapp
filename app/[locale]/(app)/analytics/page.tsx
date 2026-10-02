@@ -123,7 +123,6 @@ export default function AnalyticsPage() {
 
   return (
     <>
-
       <NavbarActions>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" className="gap-1.5">
