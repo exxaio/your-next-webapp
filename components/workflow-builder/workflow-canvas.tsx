@@ -13,6 +13,8 @@ import {
   PlusSignIcon,
   Grid02Icon,
   MapsIcon,
+  FullScreenIcon,
+  MinimizeScreenIcon,
 } from "@hugeicons/core-free-icons"
 import { cn } from "cn"
 import { Button } from "@/components/ui/button"
@@ -32,6 +34,8 @@ interface WorkflowCanvasProps {
   onAutoLayout: () => void
   onResetCanvas: () => void
   isRunning: boolean
+  isCanvasMode?: boolean
+  onToggleCanvasMode?: () => void
 }
 
 export function WorkflowCanvas({
@@ -46,6 +50,8 @@ export function WorkflowCanvas({
   onAutoLayout,
   onResetCanvas,
   isRunning,
+  isCanvasMode = false,
+  onToggleCanvasMode,
 }: WorkflowCanvasProps) {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const [zoom, setZoom] = React.useState(1)
@@ -445,6 +451,28 @@ export function WorkflowCanvas({
         >
           <HugeiconsIcon icon={Grid02Icon} className="size-3.5" />
         </Button>
+
+        {onToggleCanvasMode && (
+          <>
+            <div className="mx-0.5 h-4 w-px bg-border" />
+            <Button
+              variant={isCanvasMode ? "secondary" : "ghost"}
+              size="icon-xs"
+              onClick={onToggleCanvasMode}
+              title={
+                isCanvasMode
+                  ? "Exit Canvas Mode (Expand all panels)"
+                  : "Canvas Mode (Collapse sidebar and panels)"
+              }
+              className={cn(isCanvasMode && "bg-accent/15 text-accent")}
+            >
+              <HugeiconsIcon
+                icon={isCanvasMode ? MinimizeScreenIcon : FullScreenIcon}
+                className="size-3.5"
+              />
+            </Button>
+          </>
+        )}
       </div>
 
       {/* Floating Bottom Left: Zoom & Viewport Controls */}

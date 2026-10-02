@@ -13,9 +13,12 @@ import {
   FlowConnectionIcon,
   Layers01Icon,
   CodeIcon,
+  FullScreenIcon,
+  MinimizeScreenIcon,
 } from "@hugeicons/core-free-icons"
 import { PageContainer } from "@/components/page-container"
 import { NavbarActions } from "@/components/top-navbar"
+import { useSidebar } from "@/components/ui/sidebar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -249,6 +252,27 @@ export default function WorkflowsPage() {
     string | null
   >(null)
 
+  const sidebar = useSidebar()
+  const isCanvasMode = !sidebar.open && !isPaletteOpen && !isInspectorOpen
+
+  const toggleCanvasMode = React.useCallback(() => {
+    if (isCanvasMode) {
+      sidebar.setOpen(true)
+      if (sidebar.isMobile) {
+        sidebar.setOpenMobile(true)
+      }
+      setIsPaletteOpen(true)
+      setIsInspectorOpen(true)
+    } else {
+      sidebar.setOpen(false)
+      if (sidebar.isMobile) {
+        sidebar.setOpenMobile(false)
+      }
+      setIsPaletteOpen(false)
+      setIsInspectorOpen(false)
+    }
+  }, [isCanvasMode, sidebar])
+
   // Selected Node lookup
   const selectedNode = React.useMemo(
     () => nodes.find((n) => n.id === selectedNodeId) || null,
@@ -418,6 +442,23 @@ export default function WorkflowsPage() {
             {t("statusLive")}
           </Badge>
 
+          {/* Canvas Mode / Focus Mode Toggle Button */}
+          <Button
+            size="sm"
+            variant={isCanvasMode ? "secondary" : "outline"}
+            onClick={toggleCanvasMode}
+            className="h-8 gap-1.5 text-xs font-medium"
+            title={isCanvasMode ? t("expandPanels") : t("collapsePanels")}
+          >
+            <HugeiconsIcon
+              icon={isCanvasMode ? MinimizeScreenIcon : FullScreenIcon}
+              className="size-3.5"
+            />
+            <span className="hidden sm:inline">
+              {isCanvasMode ? t("exitCanvasMode") : t("canvasMode")}
+            </span>
+          </Button>
+
           {/* Test Run Button */}
           <Button
             size="sm"
@@ -454,6 +495,17 @@ export default function WorkflowsPage() {
               <DropdownMenuLabel className="text-xs">
                 Pipeline Options
               </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={toggleCanvasMode}
+                className="gap-2 text-xs"
+              >
+                <HugeiconsIcon
+                  icon={isCanvasMode ? MinimizeScreenIcon : FullScreenIcon}
+                  className="size-3.5"
+                />
+                {isCanvasMode ? t("exitCanvasMode") : t("canvasMode")}
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={handleExportJson}
@@ -520,6 +572,8 @@ export default function WorkflowsPage() {
             onAutoLayout={handleAutoLayout}
             onResetCanvas={handleResetCanvas}
             isRunning={isRunning}
+            isCanvasMode={isCanvasMode}
+            onToggleCanvasMode={toggleCanvasMode}
           />
 
           {/* Right: Node Inspector & Telemetry Drawer */}
