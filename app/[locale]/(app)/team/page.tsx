@@ -58,7 +58,7 @@ const MEMBERS_DATA: TeamMember[] = [
   {
     id: "mem-1",
     name: "Alex Rivera",
-    email: "alex.rivera@acme.ai",
+    email: "alex.rivera@nextweb.app",
     role: "Owner",
     status: "active",
     joined: "Jan 12, 2026",
@@ -68,7 +68,7 @@ const MEMBERS_DATA: TeamMember[] = [
   {
     id: "mem-2",
     name: "Elena Rostova",
-    email: "elena.rostova@acme.ai",
+    email: "elena.rostova@nextweb.app",
     role: "Admin",
     status: "active",
     joined: "Feb 03, 2026",
@@ -78,7 +78,7 @@ const MEMBERS_DATA: TeamMember[] = [
   {
     id: "mem-3",
     name: "Marcus Chen",
-    email: "marcus.chen@acme.ai",
+    email: "marcus.chen@nextweb.app",
     role: "Developer",
     status: "active",
     joined: "Mar 18, 2026",
@@ -88,7 +88,7 @@ const MEMBERS_DATA: TeamMember[] = [
   {
     id: "mem-4",
     name: "Sarah Lindqvist",
-    email: "sarah.l@acme.ai",
+    email: "sarah.l@nextweb.app",
     role: "Developer",
     status: "pending",
     joined: "Invited 2d ago",
@@ -159,7 +159,7 @@ export default function TeamPage() {
                 </Badge>
               </div>
               <p className="text-xs text-muted-foreground">
-                Organization ID: org_acme_88321a
+                Organization ID: org_88321a
               </p>
             </div>
           </div>
