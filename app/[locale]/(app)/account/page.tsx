@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useAuth } from "@/hooks/use-auth"
+import { PageContainer } from "@/components/page-container"
 
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
@@ -43,7 +44,7 @@ export default function AccountPage() {
   const initials = getInitials(user?.displayName, user?.email)
 
   return (
-    <main className="mx-auto flex w-full max-w-4xl min-w-0 flex-1 flex-col gap-8 p-4 pt-0 md:p-6 md:pt-0">
+    <PageContainer variant="settings">
       {/* Page Header & Quick User Summary */}
       <div className="flex flex-col gap-4">
         <div>
@@ -152,6 +153,6 @@ export default function AccountPage() {
           <DangerZone />
         </Card>
       </div>
-    </main>
+    </PageContainer>
   )
 }

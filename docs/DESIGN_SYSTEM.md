@@ -107,7 +107,7 @@ Used for preferences, credentials, profile, and organization management.
 
 - **Container**: Centered, max-width constrained for reading comfort:
   ```tsx
-  <main className="mx-auto flex w-full max-w-4xl min-w-0 flex-1 flex-col gap-8 p-4 pt-0 md:p-6 md:pt-0">
+  <PageContainer variant="settings">
   ```
 - **Header**: Explicit `h1` (`text-2xl font-bold tracking-tight`) with explanatory subtitle (`text-sm text-muted-foreground`).
 - **Section Eyebrow**: Icon chip badge with tracking label to group cards:
@@ -130,7 +130,7 @@ Used for primary operational views: Dashboard, Analytics, Studio/Playground, and
 
 - **Container**: Fluid full-width container to maximize viewport space:
   ```tsx
-  <main className="flex min-w-0 flex-1 flex-col gap-4 p-4 pt-0 md:p-6 md:pt-0">
+  <PageContainer variant="workspace">
   ```
 - **Header & Navigation**:
   - Contextual actions and breadcrumbs mounted into the top navigation via `<NavbarActions>` and `<NavbarBreadcrumbs>`.

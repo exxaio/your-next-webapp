@@ -19,6 +19,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
+import { PageContainer } from "@/components/page-container"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -132,7 +133,7 @@ export default function TeamPage() {
   }
 
   return (
-    <main className="mx-auto flex w-full max-w-4xl min-w-0 flex-1 flex-col gap-8 p-4 pt-0 md:p-6 md:pt-0">
+    <PageContainer variant="settings">
       {/* Page Header */}
       <div className="flex flex-col gap-4">
         <div>
@@ -536,6 +537,6 @@ export default function TeamPage() {
           </div>
         </Card>
       </div>
-    </main>
+    </PageContainer>
   )
 }

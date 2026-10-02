@@ -19,6 +19,7 @@ import {
 } from "@hugeicons/core-free-icons"
 
 import { NavbarActions, NavbarBreadcrumbs } from "@/components/top-navbar"
+import { PageContainer } from "@/components/page-container"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -529,7 +530,7 @@ main();`
       <NavbarBreadcrumbs items={breadcrumbItems} />
 
       {/* Main Container */}
-      <main className="flex min-w-0 flex-1 flex-col gap-4 p-4 pt-0 md:p-6 md:pt-0">
+      <PageContainer variant="workspace">
         <h1 className="sr-only">{tPlayground("title")}</h1>
         {/* Presets and Mode Selector Bar */}
         <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border bg-card p-3 shadow-xs">
@@ -1229,7 +1230,7 @@ main();`
             </Card>
           </div>
         </div>
-      </main>
+      </PageContainer>
     </>
   )
 }
