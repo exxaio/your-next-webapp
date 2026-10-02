@@ -15,7 +15,7 @@ import {
   CodeIcon,
 } from "@hugeicons/core-free-icons"
 import { PageContainer } from "@/components/page-container"
-import { NavbarActions, NavbarBreadcrumbs } from "@/components/top-navbar"
+import { NavbarActions } from "@/components/top-navbar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -235,7 +235,6 @@ const INITIAL_EDGES: WorkflowEdge[] = [
 
 export default function WorkflowsPage() {
   const t = useTranslations("Workflows")
-  const tNav = useTranslations("Navigation")
   const [nodes, setNodes] = React.useState<WorkflowNode[]>(INITIAL_NODES)
   const [edges, setEdges] = React.useState<WorkflowEdge[]>(INITIAL_EDGES)
   const [selectedNodeId, setSelectedNodeId] = React.useState<string | null>(
@@ -249,15 +248,6 @@ export default function WorkflowsPage() {
   const [simulationSummary, setSimulationSummary] = React.useState<
     string | null
   >(null)
-
-  // Top navbar breadcrumbs
-  const breadcrumbItems = React.useMemo(
-    () => [
-      { label: tNav("workflows"), href: "/workflows" },
-      { label: "Customer Support RAG Agent" },
-    ],
-    [tNav]
-  )
 
   // Selected Node lookup
   const selectedNode = React.useMemo(
@@ -417,9 +407,6 @@ export default function WorkflowsPage() {
 
   return (
     <>
-      {/* Top Navbar Integration */}
-      <NavbarBreadcrumbs items={breadcrumbItems} />
-
       <NavbarActions>
         <div className="flex items-center gap-2">
           {/* Active Status Badge */}

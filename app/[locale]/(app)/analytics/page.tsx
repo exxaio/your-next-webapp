@@ -24,7 +24,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { PageContainer } from "@/components/page-container"
-import { NavbarActions, NavbarBreadcrumbs } from "@/components/top-navbar"
+import { NavbarActions } from "@/components/top-navbar"
 import {
   ChartContainer,
   ChartTooltip,
@@ -120,17 +120,9 @@ const chartConfig = {
 
 export default function AnalyticsPage() {
   const t = useTranslations("Dashboard")
-  const tNav = useTranslations("Navigation")
-  const tSidebar = useTranslations("Sidebar")
 
   return (
     <>
-      <NavbarBreadcrumbs
-        items={[
-          { label: tNav("dashboard"), href: "/dashboard" },
-          { label: tSidebar("analytics") },
-        ]}
-      />
 
       <NavbarActions>
         <div className="flex items-center gap-2">

@@ -20,7 +20,7 @@ import {
 } from "@hugeicons/core-free-icons"
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
 
-import { NavbarActions, NavbarBreadcrumbs } from "@/components/top-navbar"
+import { NavbarActions } from "@/components/top-navbar"
 import {
   Alert,
   AlertDescription,
@@ -206,7 +206,6 @@ const chartConfig = {
 
 export default function ModelsPage() {
   const t = useTranslations("Models")
-  const tNav = useTranslations("Navigation")
   const searchParams = useSearchParams()
 
   const familyParam = searchParams.get("family")
@@ -237,12 +236,6 @@ export default function ModelsPage() {
 
   return (
     <>
-      <NavbarBreadcrumbs
-        items={[
-          { label: tNav("models"), href: "/models" },
-          { label: familyParam ? familyParam.toUpperCase() : t("allFamilies") },
-        ]}
-      />
 
       <NavbarActions>
         <div className="flex items-center gap-2">

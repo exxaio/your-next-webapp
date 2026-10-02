@@ -25,7 +25,7 @@ import {
   YAxis,
 } from "recharts"
 
-import { NavbarActions, NavbarBreadcrumbs } from "@/components/top-navbar"
+import { NavbarActions } from "@/components/top-navbar"
 import {
   Alert,
   AlertDescription,
@@ -192,8 +192,6 @@ const chartConfig = {
 
 export default function MonitoringPage() {
   const t = useTranslations("Monitoring")
-  const tNav = useTranslations("Navigation")
-  const tSidebar = useTranslations("Sidebar")
 
   const [activeTab, setActiveTab] = React.useState<
     "all" | "2xx" | "4xx" | "5xx"
@@ -210,12 +208,6 @@ export default function MonitoringPage() {
 
   return (
     <>
-      <NavbarBreadcrumbs
-        items={[
-          { label: tNav("dashboard"), href: "/dashboard" },
-          { label: tSidebar("monitoring") },
-        ]}
-      />
 
       <NavbarActions>
         <div className="flex items-center gap-2">

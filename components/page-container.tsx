@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 
 export const pageContainerVariants = cva(
-  "min-w-0 flex-1 p-4 pt-0 md:p-6 md:pt-0",
+  "min-w-0 flex-1 p-4 md:p-6",
   {
     variants: {
       variant: {

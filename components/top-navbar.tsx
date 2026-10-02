@@ -3,6 +3,8 @@
 import * as React from "react"
 import { useTranslations } from "next-intl"
 
+import { useSearchParams } from "next/navigation"
+
 import { Link, usePathname } from "@/i18n/routing"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -76,16 +78,16 @@ export function NavbarBreadcrumbs({ items }: { items: BreadcrumbItemType[] }) {
   return null
 }
 
-export function TopNavbar() {
+function useResolvedBreadcrumbs(customBreadcrumbs: BreadcrumbItemType[] | null) {
   const tNav = useTranslations("Navigation")
   const tSidebar = useTranslations("Sidebar")
   const tPlayground = useTranslations("Playground")
   const pathname = usePathname()
-  const navbar = useNavbar()
+  const searchParams = useSearchParams()
 
-  const breadcrumbs = React.useMemo<BreadcrumbItemType[]>(() => {
-    if (navbar?.breadcrumbs && navbar.breadcrumbs.length > 0) {
-      return navbar.breadcrumbs
+  return React.useMemo<BreadcrumbItemType[]>(() => {
+    if (customBreadcrumbs && customBreadcrumbs.length > 0) {
+      return customBreadcrumbs
     }
 
     const cleanPath = pathname?.replace(/\/$/, "") || ""
@@ -109,9 +111,25 @@ export function TopNavbar() {
     }
 
     if (cleanPath === "/playground" || cleanPath.startsWith("/playground")) {
+      const tabParam = searchParams.get("tab")
+      const modeParam = searchParams.get("mode")
+      const current = tabParam || modeParam
+      const tabLabel =
+        current === "history"
+          ? tSidebar("history")
+          : current === "starred"
+            ? tSidebar("starred")
+            : current === "parameters"
+              ? tNav("settings")
+              : current === "compare"
+                ? tPlayground("modeCompare")
+                : current === "complete"
+                  ? tPlayground("modeComplete")
+                  : tPlayground("modeChat")
+
       return [
         { label: tNav("playground"), href: "/playground" },
-        { label: tPlayground("modeChat") },
+        { label: tabLabel },
       ]
     }
 
@@ -137,9 +155,14 @@ export function TopNavbar() {
     }
 
     if (cleanPath === "/models" || cleanPath.startsWith("/models")) {
+      const familyParam = searchParams.get("family")
+      const familyLabel = familyParam
+        ? familyParam.charAt(0).toUpperCase() + familyParam.slice(1)
+        : tSidebar("allModels")
+
       return [
         { label: tNav("models"), href: "/models" },
-        { label: tSidebar("allModels") },
+        { label: familyLabel },
       ]
     }
 
@@ -188,45 +211,62 @@ export function TopNavbar() {
     })
 
     return items
-  }, [navbar?.breadcrumbs, pathname, tNav, tSidebar, tPlayground])
+  }, [customBreadcrumbs, pathname, searchParams, tNav, tSidebar, tPlayground])
+}
+
+function BreadcrumbNavContent() {
+  const navbar = useNavbar()
+  const breadcrumbs = useResolvedBreadcrumbs(navbar?.breadcrumbs ?? null)
 
   return (
-    <header className="flex h-16 shrink-0 items-center gap-2">
+    <Breadcrumb className="min-w-0">
+      <BreadcrumbList className="flex-nowrap">
+        {breadcrumbs.map((crumb, index) => {
+          const isLast = index === breadcrumbs.length - 1
+          return (
+            <React.Fragment key={`${crumb.label}-${index}`}>
+              <BreadcrumbItem
+                className={
+                  !isLast ? "hidden shrink-0 md:inline-flex" : "min-w-0"
+                }
+              >
+                {isLast || !crumb.href ? (
+                  <BreadcrumbPage className="max-w-[140px] truncate sm:max-w-[220px] md:max-w-none">
+                    {crumb.label}
+                  </BreadcrumbPage>
+                ) : (
+                  <BreadcrumbLink render={<Link href={crumb.href} />}>
+                    {crumb.label}
+                  </BreadcrumbLink>
+                )}
+              </BreadcrumbItem>
+              {!isLast && (
+                <BreadcrumbSeparator className="hidden shrink-0 md:inline-flex" />
+              )}
+            </React.Fragment>
+          )
+        })}
+      </BreadcrumbList>
+    </Breadcrumb>
+  )
+}
+
+export function TopNavbar() {
+  const navbar = useNavbar()
+
+  return (
+    <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center gap-2 border-b border-border/80 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 transition-[width,height] ease-linear">
       <div className="flex min-w-0 flex-1 items-center gap-2 px-4">
         <SidebarTrigger className="-ml-1 shrink-0" />
         <Separator
           orientation="vertical"
           className="mr-2 shrink-0 data-vertical:h-4 data-vertical:self-auto"
         />
-        <Breadcrumb className="min-w-0">
-          <BreadcrumbList className="flex-nowrap">
-            {breadcrumbs.map((crumb, index) => {
-              const isLast = index === breadcrumbs.length - 1
-              return (
-                <React.Fragment key={`${crumb.label}-${index}`}>
-                  <BreadcrumbItem
-                    className={
-                      !isLast ? "hidden shrink-0 md:inline-flex" : "min-w-0"
-                    }
-                  >
-                    {isLast || !crumb.href ? (
-                      <BreadcrumbPage className="max-w-[140px] truncate sm:max-w-[220px] md:max-w-none">
-                        {crumb.label}
-                      </BreadcrumbPage>
-                    ) : (
-                      <BreadcrumbLink render={<Link href={crumb.href} />}>
-                        {crumb.label}
-                      </BreadcrumbLink>
-                    )}
-                  </BreadcrumbItem>
-                  {!isLast && (
-                    <BreadcrumbSeparator className="hidden shrink-0 md:inline-flex" />
-                  )}
-                </React.Fragment>
-              )
-            })}
-          </BreadcrumbList>
-        </Breadcrumb>
+        <React.Suspense
+          fallback={<div className="h-4 w-28 animate-pulse rounded bg-muted/60" />}
+        >
+          <BreadcrumbNavContent />
+        </React.Suspense>
         <div className="ml-auto flex shrink-0 items-center gap-2">
           {navbar?.actions}
           <div className="flex shrink-0 items-center gap-1">
