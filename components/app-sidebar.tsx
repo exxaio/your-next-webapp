@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Image from "next/image"
 import { useTranslations } from "next-intl"
 
 import { NavMain } from "@/components/nav-main"
@@ -224,11 +225,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" render={<Link href="/dashboard" />}>
-              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                <HugeiconsIcon
-                  icon={CommandIcon}
-                  strokeWidth={2}
-                  className="size-4"
+              <div className="flex aspect-square size-8 items-center justify-center overflow-hidden rounded-lg">
+                <Image
+                  src="/logo.png"
+                  alt="NextWebapp Logo"
+                  width={32}
+                  height={32}
+                  className="size-8 rounded-lg object-contain"
                 />
               </div>
               <div className="grid flex-1 text-left text-base leading-tight">

@@ -1,4 +1,12 @@
+<p align="center">
+  <img src="app/opengraph-image.jpeg" alt="your-next-webapp Banner" width="100%" />
+</p>
+
 <div align="center">
+
+<a href="https://github.com/exxaio/your-next-webapp">
+  <img src="public/logo.png" alt="your-next-webapp Logo" width="80" height="80" />
+</a>
 
 # ⚡ your-next-webapp
 

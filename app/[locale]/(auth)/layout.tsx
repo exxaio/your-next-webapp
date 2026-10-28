@@ -1,6 +1,5 @@
+import Image from "next/image"
 import { setRequestLocale } from "next-intl/server"
-import { HugeiconsIcon } from "@hugeicons/react"
-import { LayoutBottomIcon } from "@hugeicons/core-free-icons"
 
 import { Link } from "@/i18n/routing"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -34,11 +33,13 @@ export default async function AuthLayout({
           href="/"
           className="group flex items-center gap-2.5 font-semibold text-foreground transition-opacity hover:opacity-90"
         >
-          <div className="flex size-7 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-xs transition-transform duration-200 group-hover:scale-105">
-            <HugeiconsIcon
-              icon={LayoutBottomIcon}
-              strokeWidth={2}
-              className="size-4"
+          <div className="flex size-7 items-center justify-center overflow-hidden rounded-lg shadow-xs transition-transform duration-200 group-hover:scale-105">
+            <Image
+              src="/logo.png"
+              alt="NextWebapp Logo"
+              width={28}
+              height={28}
+              className="size-7 rounded-lg object-contain"
             />
           </div>
           <span className="text-base font-bold tracking-tight">NextWebapp</span>
