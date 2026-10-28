@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="app/opengraph-image.jpeg" alt="your-next-webapp Banner" width="100%" />
-</p>
-
 <div align="center">
 
 <a href="https://github.com/exxaio/your-next-webapp">
@@ -65,6 +61,10 @@
 - **`/billing`**: Plan selection, tier feature matrices, quota usage progress bars, and invoice history.
 
 ---
+
+<p align="center">
+  <img src="app/opengraph-image.jpeg" alt="your-next-webapp Banner" width="100%" />
+</p>
 
 ## 🚀 Quick Start
 
