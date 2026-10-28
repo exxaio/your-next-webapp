@@ -36,13 +36,15 @@ export default async function AuthLayout({
           <div className="flex size-7 items-center justify-center overflow-hidden rounded-lg shadow-xs transition-transform duration-200 group-hover:scale-105">
             <Image
               src="/logo.png"
-              alt="NextWebapp Logo"
+              alt="YourNext Webapp Logo"
               width={28}
               height={28}
               className="size-7 rounded-lg object-contain"
             />
           </div>
-          <span className="text-base font-bold tracking-tight">NextWebapp</span>
+          <span className="text-base font-bold tracking-tight">
+            YourNext Webapp
+          </span>
         </Link>
 
         {/* Theme and language switcher */}
@@ -60,7 +62,9 @@ export default async function AuthLayout({
 
       {/* Footer */}
       <footer className="relative z-10 py-6 text-center text-xs text-muted-foreground/80">
-        <p>© {new Date().getFullYear()} NextWebapp Inc. All rights reserved.</p>
+        <p>
+          © {new Date().getFullYear()} YourNext Webapp Inc. All rights reserved.
+        </p>
       </footer>
     </div>
   )

@@ -228,15 +228,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <div className="flex aspect-square size-8 items-center justify-center overflow-hidden rounded-lg">
                 <Image
                   src="/logo.png"
-                  alt="NextWebapp Logo"
+                  alt="YourNext Webapp Logo"
                   width={32}
                   height={32}
                   className="size-8 rounded-lg object-contain"
                 />
               </div>
               <div className="grid flex-1 text-left text-base leading-tight">
-                <span className="truncate font-medium">NextWebapp</span>
-                <span className="truncate text-sm">Demo</span>
+                <span className="truncate font-medium">YourNext</span>
+                <span className="truncate text-xs">Webapp</span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
