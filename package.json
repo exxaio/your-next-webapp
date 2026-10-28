@@ -1,16 +1,39 @@
 {
   "name": "your-next-webapp",
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "description": "Modern full-stack Next.js web application template featuring next-intl i18n, Firebase Auth, responsive dashboards, and interactive workflow canvas.",
   "type": "module",
   "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/exxaio/your-next-webapp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/exxaio/your-next-webapp/issues"
+  },
+  "homepage": "https://github.com/exxaio/your-next-webapp#readme",
+  "keywords": [
+    "nextjs",
+    "react19",
+    "tailwind",
+    "shadcn-ui",
+    "firebase-auth",
+    "next-intl",
+    "workflow-builder",
+    "dashboard",
+    "starter-kit"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx}\"",
+    "check": "pnpm format:check && pnpm lint",
     "typecheck": "tsc --noEmit",
-    "prepare": "husky"
+    "prepare": "husky || true"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
