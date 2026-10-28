@@ -11,8 +11,6 @@ import {
   AlertCircleIcon,
   PlusSignIcon,
   CpuIcon,
-  Database01Icon,
-  UserGroupIcon,
   Tick02Icon,
 } from "@hugeicons/core-free-icons"
 

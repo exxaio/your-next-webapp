@@ -7,13 +7,9 @@ import {
   Activity01Icon,
   ZapIcon,
   Download01Icon,
-  ArrowReloadHorizontalIcon,
   CheckmarkBadgeIcon,
   AlertCircleIcon,
-  CloudIcon,
   Layers01Icon,
-  PlayIcon,
-  StopIcon,
 } from "@hugeicons/core-free-icons"
 import {
   Area,
@@ -428,7 +424,9 @@ export default function MonitoringPage() {
 
             <Tabs
               value={activeTab}
-              onValueChange={(val) => setActiveTab(val as any)}
+              onValueChange={(val) =>
+                setActiveTab(val as "all" | "2xx" | "4xx" | "5xx")
+              }
               className="w-full lg:w-auto"
             >
               <TabsList className="h-8 w-full max-w-full justify-start overflow-x-auto sm:w-auto sm:justify-center">

@@ -73,8 +73,9 @@ export function ProfileSection() {
       await updateDisplayName(trimmed)
       setSuccessMsg("Display name updated.")
       setEditing(false)
-    } catch (err: any) {
-      setLocalError(err?.message ?? "Failed to update display name.")
+    } catch (err: unknown) {
+      const errorObj = err as { message?: string }
+      setLocalError(errorObj?.message ?? "Failed to update display name.")
     }
   }
 

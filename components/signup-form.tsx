@@ -60,19 +60,15 @@ export function SignupForm({
   const [password, setPassword] = React.useState("")
   const [confirmPassword, setConfirmPassword] = React.useState("")
   const [acceptedTerms, setAcceptedTerms] = React.useState(false)
-  const [passwordStrength, setPasswordStrength] = React.useState(0)
-  const [passwordStrengthText, setPasswordStrengthText] = React.useState("")
   const [validationError, setValidationError] = React.useState("")
 
   const isValidEmail = (val: string) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim())
 
   // Calculate password strength
-  React.useEffect(() => {
+  const { passwordStrength, passwordStrengthText } = React.useMemo(() => {
     if (!password) {
-      setPasswordStrength(0)
-      setPasswordStrengthText("")
-      return
+      return { passwordStrength: 0, passwordStrengthText: "" }
     }
 
     let strength = 0
@@ -90,12 +86,13 @@ export function SignupForm({
     if (checks.number) strength += 20
     if (checks.special) strength += 20
 
-    setPasswordStrength(strength)
+    let text = ""
+    if (strength <= 40) text = t("strengthWeak")
+    else if (strength <= 60) text = t("strengthFair")
+    else if (strength <= 80) text = t("strengthGood")
+    else text = t("strengthStrong")
 
-    if (strength <= 40) setPasswordStrengthText(t("strengthWeak"))
-    else if (strength <= 60) setPasswordStrengthText(t("strengthFair"))
-    else if (strength <= 80) setPasswordStrengthText(t("strengthGood"))
-    else setPasswordStrengthText(t("strengthStrong"))
+    return { passwordStrength: strength, passwordStrengthText: text }
   }, [password, t])
 
   const handleEmailNext = (e: React.FormEvent<HTMLFormElement>) => {

@@ -108,8 +108,9 @@ export function ChangePasswordSection({
       setCurrentPw("")
       setNewPw("")
       setConfirmPw("")
-    } catch (err: any) {
-      setLocalError(err?.message ?? "Failed to update password.")
+    } catch (err: unknown) {
+      const errorObj = err as { message?: string }
+      setLocalError(errorObj?.message ?? "Failed to update password.")
     }
   }
 

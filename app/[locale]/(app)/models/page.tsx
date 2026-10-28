@@ -15,8 +15,6 @@ import {
   SparklesIcon,
   ArrowRight01Icon,
   CheckmarkBadgeIcon,
-  Layers01Icon,
-  FilterIcon,
 } from "@hugeicons/core-free-icons"
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
 

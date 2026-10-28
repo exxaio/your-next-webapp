@@ -12,7 +12,6 @@ import {
   PlusSignIcon,
   Delete02Icon,
   MoreVerticalIcon,
-  SecurityCheckIcon,
 } from "@hugeicons/core-free-icons"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -226,7 +225,9 @@ export default function TeamPage() {
               </Label>
               <Select
                 value={inviteRole}
-                onValueChange={(val) => setInviteRole(val as any)}
+                onValueChange={(val) =>
+                  setInviteRole(val as "Admin" | "Developer" | "Viewer")
+                }
               >
                 <SelectTrigger id="invite-role" className="text-xs">
                   <SelectValue />

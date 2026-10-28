@@ -102,12 +102,13 @@ export function ConnectedProviders() {
       setSuccessMsg(
         `${provider === "google" ? "Google" : "GitHub"} linked successfully.`
       )
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const errorObj = err as { code?: string; message?: string }
       if (
-        err?.code !== "auth/popup-closed-by-user" &&
-        err?.code !== "auth/cancelled-popup-request"
+        errorObj?.code !== "auth/popup-closed-by-user" &&
+        errorObj?.code !== "auth/cancelled-popup-request"
       ) {
-        setLocalError(err?.message ?? "Failed to link provider.")
+        setLocalError(errorObj?.message ?? "Failed to link provider.")
       }
     }
   }
@@ -119,8 +120,9 @@ export function ConnectedProviders() {
     try {
       await unlinkProvider(unlinkTarget.id)
       setSuccessMsg(`${unlinkTarget.name} unlinked.`)
-    } catch (err: any) {
-      setLocalError(err?.message ?? "Failed to unlink provider.")
+    } catch (err: unknown) {
+      const errorObj = err as { message?: string }
+      setLocalError(errorObj?.message ?? "Failed to unlink provider.")
     } finally {
       setUnlinkTarget(null)
     }

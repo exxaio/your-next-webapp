@@ -1,6 +1,4 @@
-public/avatars/
-
-# dependencies
+# Dependencies
 /node_modules
 /.pnp
 .pnp.*
@@ -10,29 +8,43 @@ public/avatars/
 !.yarn/releases
 !.yarn/versions
 
-# testing
+# Testing
 /coverage
 
-# next.js
+# Next.js build output
 /.next/
 /out/
+.turbo/
+.vercel/
 
-# production
+# Production builds
 /build
 
-# misc
+# Environment files & local secrets
+.env
+.env*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Operating system & editor files
 .DS_Store
 *.pem
+Thumbs.db
+*.swp
+*.swo
 
-# debug
+# Debug and runtime logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env.local
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# Public uploads / local avatars
+public/avatars/

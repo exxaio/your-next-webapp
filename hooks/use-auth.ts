@@ -26,8 +26,9 @@ import {
 import { auth } from "@/lib/firebase"
 
 /** Maps Firebase Auth error codes to user-friendly messages. */
-function getAuthErrorMessage(err: any): string {
-  const code: string = err?.code ?? ""
+function getAuthErrorMessage(err: unknown): string {
+  const errorObj = err as { code?: string; message?: string }
+  const code: string = errorObj?.code ?? ""
   switch (code) {
     case "auth/account-exists-with-different-credential":
       return ""
@@ -51,7 +52,9 @@ function getAuthErrorMessage(err: any): string {
     case "auth/cancelled-popup-request":
       return ""
     default:
-      return err?.message || "An unexpected error occurred. Please try again."
+      return (
+        errorObj?.message || "An unexpected error occurred. Please try again."
+      )
   }
 }
 
@@ -96,14 +99,13 @@ export interface UseAuthReturn {
 
 export function useAuth(): UseAuthReturn {
   const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState<boolean>(() => Boolean(auth))
   const [error, setError] = useState<string | null>(null)
   const [pendingLinkState, setPendingLinkState] =
     useState<PendingLinkState | null>(null)
 
   useEffect(() => {
     if (!auth) {
-      setLoading(false)
       return
     }
 
@@ -124,14 +126,20 @@ export function useAuth(): UseAuthReturn {
   }, [])
 
   const handleOAuthConflict = async (
-    err: any,
+    err: unknown,
     attemptedProvider: "github" | "google"
   ) => {
-    const email: string | undefined = err?.customData?.email || err?.email
+    const errorObj = err as {
+      customData?: { email?: string }
+      email?: string
+      [key: string]: unknown
+    }
+    const email: string | undefined =
+      errorObj?.customData?.email || errorObj?.email
     const pendingCredential =
       attemptedProvider === "github"
-        ? GithubAuthProvider.credentialFromError(err)
-        : GoogleAuthProvider.credentialFromError(err)
+        ? GithubAuthProvider.credentialFromError(err as never)
+        : GoogleAuthProvider.credentialFromError(err as never)
 
     if (!pendingCredential || !email) {
       setError(
@@ -164,7 +172,7 @@ export function useAuth(): UseAuthReturn {
     try {
       const result = await signInWithEmailAndPassword(auth, email, password)
       return result
-    } catch (err: any) {
+    } catch (err: unknown) {
       const msg = getAuthErrorMessage(err)
       if (msg) setError(msg)
       throw err
@@ -189,8 +197,9 @@ export function useAuth(): UseAuthReturn {
       }
 
       return result
-    } catch (err: any) {
-      setError(err.message || "Failed to sign up")
+    } catch (err: unknown) {
+      const errorObj = err as { message?: string }
+      setError(errorObj?.message || "Failed to sign up")
       throw err
     } finally {
       setLoading(false)
@@ -206,8 +215,9 @@ export function useAuth(): UseAuthReturn {
       provider.addScope("email")
       const result = await signInWithPopup(auth, provider)
       return result
-    } catch (err: any) {
-      if (err?.code === "auth/account-exists-with-different-credential") {
+    } catch (err: unknown) {
+      const errorObj = err as { code?: string }
+      if (errorObj?.code === "auth/account-exists-with-different-credential") {
         await handleOAuthConflict(err, "google")
         return undefined
       }
@@ -227,8 +237,9 @@ export function useAuth(): UseAuthReturn {
       provider.addScope("user:email")
       const result = await signInWithPopup(auth, provider)
       return result
-    } catch (err: any) {
-      if (err?.code === "auth/account-exists-with-different-credential") {
+    } catch (err: unknown) {
+      const errorObj = err as { code?: string }
+      if (errorObj?.code === "auth/account-exists-with-different-credential") {
         await handleOAuthConflict(err, "github")
         return undefined
       }
@@ -257,7 +268,7 @@ export function useAuth(): UseAuthReturn {
       await linkWithCredential(result.user, pendingCredential)
       setPendingLinkState(null)
       return result
-    } catch (err: any) {
+    } catch (err: unknown) {
       const msg = getAuthErrorMessage(err)
       if (msg) setError(msg)
       throw err
@@ -281,7 +292,7 @@ export function useAuth(): UseAuthReturn {
       await linkWithCredential(result.user, pendingCredential)
       setPendingLinkState(null)
       return result
-    } catch (err: any) {
+    } catch (err: unknown) {
       const msg = getAuthErrorMessage(err)
       if (msg) setError(msg)
       throw err
@@ -298,8 +309,9 @@ export function useAuth(): UseAuthReturn {
     setError(null)
     try {
       await signOut(auth)
-    } catch (err: any) {
-      setError(err.message || "Failed to log out")
+    } catch (err: unknown) {
+      const errorObj = err as { message?: string }
+      setError(errorObj?.message || "Failed to log out")
       throw err
     }
   }
@@ -308,8 +320,9 @@ export function useAuth(): UseAuthReturn {
     setError(null)
     try {
       await sendPasswordResetEmail(auth, email)
-    } catch (err: any) {
-      setError(err.message || "Failed to send password reset email")
+    } catch (err: unknown) {
+      const errorObj = err as { message?: string }
+      setError(errorObj?.message || "Failed to send password reset email")
       throw err
     }
   }
@@ -337,7 +350,7 @@ export function useAuth(): UseAuthReturn {
     try {
       await updateProfile(auth.currentUser, { displayName })
       await refreshUser()
-    } catch (err: any) {
+    } catch (err: unknown) {
       const msg = getAuthErrorMessage(err)
       if (msg) setError(msg)
       throw err
@@ -353,7 +366,7 @@ export function useAuth(): UseAuthReturn {
     try {
       await updateProfile(auth.currentUser, { photoURL: photoURL ?? "" })
       await refreshUser()
-    } catch (err: any) {
+    } catch (err: unknown) {
       const msg = getAuthErrorMessage(err)
       if (msg) setError(msg)
       throw err
@@ -382,7 +395,7 @@ export function useAuth(): UseAuthReturn {
       const result = await linkWithPopup(auth.currentUser, authProvider)
       await refreshUser()
       return result
-    } catch (err: any) {
+    } catch (err: unknown) {
       const msg = getAuthErrorMessage(err)
       if (msg) setError(msg)
       throw err
@@ -399,7 +412,7 @@ export function useAuth(): UseAuthReturn {
       const updatedUser = await unlink(auth.currentUser, providerId)
       await refreshUser()
       return updatedUser
-    } catch (err: any) {
+    } catch (err: unknown) {
       const msg = getAuthErrorMessage(err)
       if (msg) setError(msg)
       throw err
@@ -425,7 +438,7 @@ export function useAuth(): UseAuthReturn {
       await reauthenticateWithCredential(auth.currentUser, credential)
       await updatePassword(auth.currentUser, newPassword)
       await refreshUser()
-    } catch (err: any) {
+    } catch (err: unknown) {
       const msg = getAuthErrorMessage(err)
       if (msg) setError(msg)
       throw err
@@ -441,7 +454,7 @@ export function useAuth(): UseAuthReturn {
     try {
       await updatePassword(auth.currentUser, newPassword)
       await refreshUser()
-    } catch (err: any) {
+    } catch (err: unknown) {
       const msg = getAuthErrorMessage(err)
       if (msg) setError(msg)
       throw err
@@ -464,7 +477,7 @@ export function useAuth(): UseAuthReturn {
       }
       await deleteUser(auth.currentUser)
       setUser(null)
-    } catch (err: any) {
+    } catch (err: unknown) {
       const msg = getAuthErrorMessage(err)
       if (msg) setError(msg)
       throw err

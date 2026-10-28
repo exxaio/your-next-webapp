@@ -42,13 +42,16 @@ export function LinkAccountDialog({
   const [showPasswordMode, setShowPasswordMode] = React.useState(false)
   const [localError, setLocalError] = React.useState<string | null>(null)
 
-  React.useEffect(() => {
-    if (open) {
-      setPassword("")
-      setLocalError(null)
-      setShowPasswordMode(false)
-    }
-  }, [open])
+  const resetForm = React.useCallback(() => {
+    setPassword("")
+    setLocalError(null)
+    setShowPasswordMode(false)
+  }, [])
+
+  const handleCancel = React.useCallback(() => {
+    resetForm()
+    onCancel()
+  }, [resetForm, onCancel])
 
   if (!pendingLinkState) {
     return null
@@ -75,14 +78,16 @@ export function LinkAccountDialog({
     setLocalError(null)
     try {
       const result = await onLinkWithOAuth()
+      resetForm()
       onSuccess(result)
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const errorObj = err as { code?: string; message?: string }
       if (
-        err?.code !== "auth/popup-closed-by-user" &&
-        err?.code !== "auth/cancelled-popup-request"
+        errorObj?.code !== "auth/popup-closed-by-user" &&
+        errorObj?.code !== "auth/cancelled-popup-request"
       ) {
         setLocalError(
-          err?.message || "Failed to link account. Please try again."
+          errorObj?.message || "Failed to link account. Please try again."
         )
       }
     }
@@ -97,14 +102,21 @@ export function LinkAccountDialog({
     setLocalError(null)
     try {
       const result = await onLinkWithPassword(password)
+      resetForm()
       onSuccess(result)
-    } catch (err: any) {
-      setLocalError(err?.message || "Incorrect password or linking failed.")
+    } catch (err: unknown) {
+      const errorObj = err as { message?: string }
+      setLocalError(
+        errorObj?.message || "Incorrect password or linking failed."
+      )
     }
   }
 
   return (
-    <AlertDialog open={open} onOpenChange={(isOpen) => !isOpen && onCancel()}>
+    <AlertDialog
+      open={open}
+      onOpenChange={(isOpen) => !isOpen && handleCancel()}
+    >
       <AlertDialogContent className="max-w-md">
         <AlertDialogHeader>
           <div className="mx-auto mb-2 flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
@@ -250,7 +262,7 @@ export function LinkAccountDialog({
         )}
 
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={onCancel} disabled={loading}>
+          <AlertDialogCancel onClick={handleCancel} disabled={loading}>
             Cancel
           </AlertDialogCancel>
         </AlertDialogFooter>

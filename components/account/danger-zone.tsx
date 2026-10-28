@@ -38,8 +38,9 @@ export function DangerZone() {
       await user?.getIdToken(true)
       await logout()
       router.push("/login")
-    } catch (err: any) {
-      setSignOutError(err?.message ?? "Failed to sign out.")
+    } catch (err: unknown) {
+      const errorObj = err as { message?: string }
+      setSignOutError(errorObj?.message ?? "Failed to sign out.")
     }
   }
 
@@ -54,8 +55,9 @@ export function DangerZone() {
     try {
       await deleteAccount(hasPassword ? deletePassword : undefined)
       router.push("/login")
-    } catch (err: any) {
-      setDeleteError(err?.message ?? "Failed to delete account.")
+    } catch (err: unknown) {
+      const errorObj = err as { message?: string }
+      setDeleteError(errorObj?.message ?? "Failed to delete account.")
     }
   }
 
