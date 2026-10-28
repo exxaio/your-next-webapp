@@ -1,6 +1,3 @@
-Get started
+Open Source
 
-```
-pnpm dlx shadcn@latest init
-pnpm dlx shadcn@latest add sidebar
-```
+https://github.com/exxaio/your-next-webapp
