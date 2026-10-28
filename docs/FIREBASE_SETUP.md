@@ -15,7 +15,7 @@ This guide will help you set up Firebase Authentication in your Next.js applicat
 
 ## Step 2: Register Your Web App
 
-1. In your Firebase project, click on the web icon (`</>`) to add a web app
+1. In your Firebase project, go to **Settings** → **General** → **Your apps** and click on the web icon (`</>`) to add a web app
 2. Register your app with a nickname (e.g., "Your Next WebApp")
 3. Copy the Firebase configuration object (you'll need this later)
 
@@ -34,10 +34,9 @@ This guide will help you set up Firebase Authentication in your Next.js applicat
 ### For GitHub Sign-In:
 1. Create a GitHub OAuth App:
    - Go to GitHub Settings → Developer settings → OAuth Apps → New OAuth App
-   - Set Authorization callback URL to: `https://your-project-id.firebaseapp.com/__/auth/handler`
-2. Copy the Client ID and Client Secret
-3. In Firebase Console, paste these credentials
-4. Add authorized domains for production
+   - Set Authorization callback URL to: `https://your-project-id.firebaseapp.com/__/auth/handler` (see `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` above)
+2. Copy the Client ID and Client Secret, and paste into Firebase Console
+3. Go to Authentication → Settings → Authorized domains, then add domains
 
 ## Step 4: Configure Environment Variables
 
