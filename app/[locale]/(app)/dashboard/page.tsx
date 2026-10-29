@@ -21,6 +21,7 @@ import {
   CreditCardIcon,
   Layers01Icon,
   Github01Icon,
+  LinkSquare02Icon,
 } from "@hugeicons/core-free-icons"
 
 import { Badge } from "@/components/ui/badge"
@@ -114,10 +115,14 @@ export default function DashboardLandingPage() {
                     rel="noopener noreferrer"
                   />
                 }
-                className="gap-2"
+                className="group/github-btn gap-1.5"
               >
                 <HugeiconsIcon icon={Github01Icon} className="size-4" />
                 <span>GitHub</span>
+                <HugeiconsIcon
+                  icon={LinkSquare02Icon}
+                  className="size-3.5 text-muted-foreground opacity-0 transition-all duration-200 group-hover/github-btn:translate-x-0.5 group-hover/github-btn:text-foreground group-hover/github-btn:opacity-100"
+                />
               </Button>
               <Button
                 variant="ghost"

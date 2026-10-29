@@ -2,7 +2,7 @@ import Image from "next/image"
 import { setRequestLocale } from "next-intl/server"
 
 import { Link } from "@/i18n/routing"
-import { Github01Icon } from "@hugeicons/core-free-icons"
+import { Github01Icon, LinkSquare02Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -95,9 +95,13 @@ export default async function AuthLayout({
             href="https://github.com/exxaio/your-next-webapp#readme"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline underline-offset-4 transition-colors hover:text-foreground"
+            className="group inline-flex items-center gap-1 underline underline-offset-4 transition-colors hover:text-foreground"
           >
-            GitHub
+            <span>GitHub</span>
+            <HugeiconsIcon
+              icon={LinkSquare02Icon}
+              className="size-3 opacity-0 transition-all duration-150 group-hover:translate-x-0.5 group-hover:opacity-100"
+            />
           </a>
         </p>
       </footer>

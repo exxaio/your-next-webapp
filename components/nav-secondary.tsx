@@ -1,6 +1,8 @@
 "use client"
 
 import * as React from "react"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { LinkSquare02Icon } from "@hugeicons/core-free-icons"
 
 import {
   SidebarGroup,
@@ -41,7 +43,14 @@ export function NavSecondary({
                   }
                 >
                   {item.icon}
-                  <span>{item.title}</span>
+                  <span className="truncate">{item.title}</span>
+                  {isExternal && (
+                    <HugeiconsIcon
+                      icon={LinkSquare02Icon}
+                      strokeWidth={2}
+                      className="ml-auto size-3! text-muted-foreground/60 opacity-0 transition-opacity duration-150 group-hover/menu-button:opacity-100 group-data-[collapsible=icon]:hidden"
+                    />
+                  )}
                 </SidebarMenuButton>
               </SidebarMenuItem>
             )
