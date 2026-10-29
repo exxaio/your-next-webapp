@@ -6,6 +6,9 @@ import { useTranslations } from "next-intl"
 import { useSearchParams } from "next/navigation"
 
 import { Link, usePathname } from "@/i18n/routing"
+import { Github01Icon } from "@hugeicons/core-free-icons"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { Button } from "@/components/ui/button"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { ThemeToggle } from "@/components/theme-toggle"
 import {
@@ -274,6 +277,25 @@ export function TopNavbar() {
         <div className="ml-auto flex shrink-0 items-center gap-2">
           {navbar?.actions}
           <div className="flex shrink-0 items-center gap-1">
+            <Button
+              variant="ghost"
+              size="icon"
+              render={
+                <a
+                  href="https://github.com/exxaio/your-next-webapp#readme"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub Repository"
+                />
+              }
+            >
+              <HugeiconsIcon
+                icon={Github01Icon}
+                strokeWidth={2}
+                className="size-4"
+              />
+            </Button>
+            <div className="h-4 w-px bg-border" />
             <LanguageSwitcher />
             <div className="h-4 w-px bg-border" />
             <ThemeToggle />

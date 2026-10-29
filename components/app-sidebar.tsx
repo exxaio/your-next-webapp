@@ -32,6 +32,7 @@ import {
   CommandIcon,
   FlowConnectionIcon,
   Settings02Icon,
+  Github01Icon,
 } from "@hugeicons/core-free-icons"
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -187,6 +188,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         },
       ],
       navSecondary: [
+        {
+          title: tNav("github"),
+          url: "https://github.com/exxaio/your-next-webapp#readme",
+          icon: <HugeiconsIcon icon={Github01Icon} strokeWidth={2} />,
+          external: true,
+        },
         {
           title: tNav("support"),
           url: "#",

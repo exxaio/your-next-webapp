@@ -2,6 +2,9 @@ import Image from "next/image"
 import { setRequestLocale } from "next-intl/server"
 
 import { Link } from "@/i18n/routing"
+import { Github01Icon } from "@hugeicons/core-free-icons"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { LanguageSwitcher } from "@/components/language-switcher"
 
@@ -47,8 +50,28 @@ export default async function AuthLayout({
           </span>
         </Link>
 
-        {/* Theme and language switcher */}
+        {/* Theme, language switcher, and GitHub link */}
         <div className="flex items-center gap-1.5 rounded-full border border-border/60 bg-card/60 px-2 py-1 shadow-xs backdrop-blur-md">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="size-7 rounded-full text-muted-foreground hover:text-foreground"
+            render={
+              <a
+                href="https://github.com/exxaio/your-next-webapp#readme"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub Repository"
+              />
+            }
+          >
+            <HugeiconsIcon
+              icon={Github01Icon}
+              strokeWidth={2}
+              className="size-4"
+            />
+          </Button>
+          <div className="h-3.5 w-px bg-border/60" />
           <LanguageSwitcher />
           <div className="h-3.5 w-px bg-border/60" />
           <ThemeToggle />
@@ -62,8 +85,20 @@ export default async function AuthLayout({
 
       {/* Footer */}
       <footer className="relative z-10 py-6 text-center text-xs text-muted-foreground/80">
-        <p>
-          © {new Date().getFullYear()} YourNext Webapp Inc. All rights reserved.
+        <p className="flex items-center justify-center gap-2">
+          <span>
+            © {new Date().getFullYear()} YourNext Webapp Inc. All rights
+            reserved.
+          </span>
+          <span>•</span>
+          <a
+            href="https://github.com/exxaio/your-next-webapp#readme"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-4 transition-colors hover:text-foreground"
+          >
+            GitHub
+          </a>
         </p>
       </footer>
     </div>

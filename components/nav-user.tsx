@@ -29,6 +29,7 @@ import {
   NotificationIcon,
   LogoutIcon,
   UserGroupIcon,
+  Github01Icon,
 } from "@hugeicons/core-free-icons"
 
 export function NavUser({
@@ -122,6 +123,18 @@ export function NavUser({
               <DropdownMenuItem>
                 <HugeiconsIcon icon={NotificationIcon} strokeWidth={2} />
                 Notifications
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                render={
+                  <a
+                    href="https://github.com/exxaio/your-next-webapp#readme"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  />
+                }
+              >
+                <HugeiconsIcon icon={Github01Icon} strokeWidth={2} />
+                {tNav("github")}
               </DropdownMenuItem>
             </DropdownMenuGroup>
 
