@@ -103,7 +103,7 @@ NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=G-XXXXXXXXXX
 ```bash
 pnpm dev
 ```
-Open [http://localhost:3000](http://localhost:3000) to view the application.
+Open [http://localhost:3023](http://localhost:3023) to view the application.
 
 ---
 

@@ -66,7 +66,7 @@ NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=G-XXXXXXXXXX
 pnpm dev
 ```
 
-2. Navigate to `http://localhost:3000/en/login` (or your configured locale)
+2. Navigate to `http://localhost:3023/en/login` (or your configured locale)
 3. Try signing up with email/password or using social login
 
 ## Project Structure
