@@ -35,9 +35,10 @@
 - **Animated Auth Flows**: 2-step registration with dynamic password strength analysis and password reset.
 - **Account Control Center**: Update display name, profile avatar, change or set passwords, link/unlink third-party providers, revoke sessions, and account deletion.
 
-![Screenshot 1](./public/images/Screenshot 2026-11-05 at 04.20.46.png)
-
-![Screenshot 2](./public/images/Screenshot 2026-11-05 at 04.21.01.png)
+<p align="center">
+  <img src="public/images/Screenshot 2026-11-05 at 04.20.46.png" alt="your-next-webapp Banner" width="100%" />
+  <img src="public/images/Screenshot 2026-11-05 at 04.21.01.png" alt="your-next-webapp Banner" width="100%" />
+</p>
 
 ### 🌐 Internationalization (i18n)
 - **Built on `next-intl`**: Route-based localization supporting English (`/en`) and Simplified Chinese (`/zh-CN`).
@@ -50,7 +51,9 @@
 - **Automatic Breadcrumb Resolution**: Breadcrumbs resolved dynamically per route.
 - **Accessible UI Primitives**: Built with `@base-ui/react`, shadcn/ui, and Hugeicons.
 
-![Screenshot 3](./public/images/Screenshot 2026-11-05 at 04.23.24.png)
+<p align="center">
+  <img src="public/images/Screenshot 2026-11-05 at 04.23.24.png" alt="your-next-webapp Banner" width="100%" />
+</p>
 
 ### 🛠️ Interactive Workflow Builder
 - **Node Canvas**: Interactive drag-and-drop workspace with execution engine simulation.
