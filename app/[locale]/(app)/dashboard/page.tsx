@@ -20,6 +20,8 @@ import {
   UserGroupIcon,
   CreditCardIcon,
   Layers01Icon,
+  Github01Icon,
+  LinkSquare02Icon,
 } from "@hugeicons/core-free-icons"
 
 import { Badge } from "@/components/ui/badge"
@@ -102,6 +104,25 @@ export default function DashboardLandingPage() {
               >
                 <HugeiconsIcon icon={ChartRingIcon} className="size-4" />
                 <span>{t("viewAnalytics")}</span>
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                render={
+                  <a
+                    href="https://github.com/exxaio/your-next-webapp#readme"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  />
+                }
+                className="group/github-btn gap-1.5"
+              >
+                <HugeiconsIcon icon={Github01Icon} className="size-4" />
+                <span>GitHub</span>
+                <HugeiconsIcon
+                  icon={LinkSquare02Icon}
+                  className="size-3.5 text-muted-foreground opacity-0 transition-all duration-200 group-hover/github-btn:translate-x-0.5 group-hover/github-btn:text-foreground group-hover/github-btn:opacity-100"
+                />
               </Button>
               <Button
                 variant="ghost"

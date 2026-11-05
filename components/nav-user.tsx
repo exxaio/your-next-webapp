@@ -29,6 +29,8 @@ import {
   NotificationIcon,
   LogoutIcon,
   UserGroupIcon,
+  Github01Icon,
+  LinkSquare02Icon,
 } from "@hugeicons/core-free-icons"
 
 export function NavUser({
@@ -122,6 +124,23 @@ export function NavUser({
               <DropdownMenuItem>
                 <HugeiconsIcon icon={NotificationIcon} strokeWidth={2} />
                 Notifications
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                render={
+                  <a
+                    href="https://github.com/exxaio/your-next-webapp#readme"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  />
+                }
+              >
+                <HugeiconsIcon icon={Github01Icon} strokeWidth={2} />
+                <span>{tNav("github")}</span>
+                <HugeiconsIcon
+                  icon={LinkSquare02Icon}
+                  strokeWidth={2}
+                  className="ml-auto size-3! text-muted-foreground/60 opacity-0 transition-opacity duration-150 group-hover/dropdown-menu-item:opacity-100 group-focus/dropdown-menu-item:opacity-100"
+                />
               </DropdownMenuItem>
             </DropdownMenuGroup>
 

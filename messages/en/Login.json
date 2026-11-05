@@ -11,5 +11,7 @@
   "submit": "Sign in",
   "loading": "Signing in...",
   "noAccount": "Don't have an account?",
-  "signUp": "Sign up"
+  "signUp": "Sign up",
+  "openSourceBadge": "Open Source",
+  "openSourceDesc": "Free, production-ready Next.js 16 boilerplate. Star & view repository on GitHub →"
 }

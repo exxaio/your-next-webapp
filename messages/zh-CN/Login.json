@@ -11,5 +11,7 @@
   "submit": "登录",
   "loading": "登录中...",
   "noAccount": "没有账户？",
-  "signUp": "注册"
+  "signUp": "注册",
+  "openSourceBadge": "开源模版",
+  "openSourceDesc": "免费的生产级 Next.js 16 全栈样板项目。前往 GitHub 查看源码与关注 →"
 }

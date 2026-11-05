@@ -99,7 +99,7 @@ export interface UseAuthReturn {
 
 export function useAuth(): UseAuthReturn {
   const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState<boolean>(() => Boolean(auth))
+  const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
   const [pendingLinkState, setPendingLinkState] =
     useState<PendingLinkState | null>(null)

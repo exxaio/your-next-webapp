@@ -41,7 +41,7 @@ All contributors are expected to uphold our [Code of Conduct](./CODE_OF_CONDUCT.
    ```bash
    pnpm dev
    ```
-   Open [http://localhost:3000](http://localhost:3000) in your browser.
+   Open [http://localhost:3023](http://localhost:3023) in your browser.
 
 ---
 
