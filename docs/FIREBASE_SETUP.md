@@ -40,10 +40,10 @@ This guide will help you set up Firebase Authentication in your Next.js applicat
 
 ## Step 4: Configure Environment Variables
 
-1. Create a `.env.local` file in your project root (copy from `.env.local.example`):
+1. Create a `.env.local` file in your project root (copy from `.env.example`):
 
 ```bash
-cp .env.local.example .env.local
+cp .env.example .env.local
 ```
 
 2. Fill in your Firebase credentials from Step 2:
