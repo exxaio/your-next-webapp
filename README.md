@@ -13,20 +13,32 @@
 [![React](https://img.shields.io/badge/React-19.3.1-blue?logo=react)](https://react.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8?logo=tailwind-css)](https://tailwindcss.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![Live Demo](https://img.shields.io/badge/Demo-Live_Online-00c853?logo=vercel&logoColor=white)](https://your-next-webapp.vercel.app/)
 [![CI](https://github.com/exxaio/your-next-webapp/actions/workflows/ci.yml/badge.svg)](https://github.com/exxaio/your-next-webapp/actions/workflows/ci.yml)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-[Explore Features](#-features) • [Quick Start](#-quick-start) • [Architecture](#-architecture) • [Documentation](#-documentation) • [Contributing](#-contributing)
+[Overview](#overview) • [Live Demo](#live-demo) • [Features](#features) • [Quick Start](#quick-start) • [Architecture](#architecture) • [Structure](#repository-structure) • [Documentation](#documentation) • [Contributing](#contributing)
 
 </div>
 
 ---
 
+<a id="overview"></a>
 ## 🌟 Overview
 
-**your-next-webapp** provides a foundation for modern SaaS and AI applications. It combines Next.js 16 (App Router & Turbopack) with a refined design system, full internationalization (English & Simplified Chinese), comprehensive Firebase authentication with OAuth account linking, and operational pages including an interactive node-based workflow builder canvas.
+**your-next-webapp** provides a production-grade foundation for modern SaaS and AI applications. It combines Next.js 16 (App Router & Turbopack) with a refined design system, full internationalization (English & Simplified Chinese), comprehensive Firebase authentication with OAuth account linking, and operational pages including an interactive node-based workflow builder canvas.
+
+<a id="live-demo"></a>
+### 🌐 Live Demo & Instant Deploy
+
+- 🔗 **Live Demo URL**: [https://your-next-webapp.vercel.app/](https://your-next-webapp.vercel.app/)
+- 🚀 **One-Click Deploy to Vercel**:
+
+  [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fexxaio%2Fyour-next-webapp&env=NEXT_PUBLIC_FIREBASE_API_KEY,NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,NEXT_PUBLIC_FIREBASE_PROJECT_ID,NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,NEXT_PUBLIC_FIREBASE_APP_ID&envDescription=Firebase%20credentials%20for%20authentication)
 
 ---
 
+<a id="features"></a>
 ## ✨ Features
 
 ### 🔐 Authentication & Account Management
@@ -75,6 +87,9 @@
   <img src="app/opengraph-image.jpeg" alt="your-next-webapp Banner" width="100%" />
 </p>
 
+---
+
+<a id="quick-start"></a>
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -95,6 +110,7 @@ cp .env.example .env.local
 ```
 
 Open `.env.local` and add your Firebase credentials from the [Firebase Console](https://console.firebase.google.com/):
+
 ```env
 NEXT_PUBLIC_FIREBASE_API_KEY=your-api-key-here
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project-id.firebaseapp.com
@@ -106,16 +122,66 @@ NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
 # Optional:
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
+
+#### Environment Variables Reference
+
+| Variable | Required | Description |
+| :--- | :---: | :--- |
+| `NEXT_PUBLIC_FIREBASE_API_KEY` | Yes | Firebase project Web API Key |
+| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | Yes | Firebase Auth domain (`<project-id>.firebaseapp.com`) |
+| `NEXT_PUBLIC_FIREBASE_PROJECT_ID` | Yes | Firebase Cloud Project ID |
+| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` | Yes | Firebase default Cloud Storage bucket |
+| `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | Yes | Firebase Cloud Messaging Sender ID |
+| `NEXT_PUBLIC_FIREBASE_APP_ID` | Yes | Firebase Web Client Application ID |
+| `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID` | No | Google Analytics measurement ID (`G-XXXXXXXXXX`) |
+
 > For step-by-step instructions on configuring Firebase Authentication, Google sign-in, and GitHub OAuth, see the [Firebase Setup Guide](docs/FIREBASE_SETUP.md).
 
 ### 3. Run Development Server
 ```bash
 pnpm dev
 ```
-Open [http://localhost:3023](http://localhost:3023) to view the application.
+Open [http://localhost:3023](http://localhost:3023) in your browser to view the application.
 
 ---
 
+<a id="architecture"></a>
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    Next.js Middleware                       │
+│      Locale Negotiation & Routing Proxy (/en, /zh-CN)       │
+└──────────────────────────────┬──────────────────────────────┘
+                               │
+       ┌───────────────────────┴───────────────────────┐
+       ▼                                               ▼
+┌──────────────────────────────┐        ┌──────────────────────────────┐
+│     (auth) Route Group       │        │      (app) Route Group       │
+│  - /login (OAuth + Email)    │        │  - /dashboard & /analytics   │
+│  - /signup (2-Step Flow)     │        │  - /workflows (Node Canvas)  │
+│  - /forgot-password          │        │  - /account & /team          │
+└──────────────┬───────────────┘        └──────────────┬───────────────┘
+               │                                       │
+               └───────────────────┬───────────────────┘
+                                   ▼
+┌─────────────────────────────────────────────────────────────┐
+│                       Client Layer                          │
+│  - useAuth & OAuth Account Linking State Machine             │
+│  - next-intl Localization Provider & Scoped Dictionaries    │
+│  - Tailwind CSS v4 Semantic Tokens & next-themes            │
+│  - Base UI / shadcn/ui Accessible Primitives                │
+└─────────────────────────────────────────────────────────────┘
+```
+
+- **Next.js 16 App Router**: Strict separation of concerns using Route Groups: `(auth)` for unauthenticated onboarding screens, and `(app)` for protected SaaS views.
+- **Internationalization (`next-intl`)**: Server-side request locale resolution in `layout.tsx` combined with modular JSON translation dictionaries under `messages/{locale}/`.
+- **Firebase Auth & Conflict Resolution**: Robust client-side auth state hook (`useAuth`) with automatic detection and recovery from `auth/account-exists-with-different-credential` errors.
+- **Tailwind CSS v4 & Semantic CSS Variables**: Native CSS `@theme` tokens in `app/globals.css` with dark/light mode switching via `next-themes`.
+
+---
+
+<a id="repository-structure"></a>
 ## 📁 Repository Structure
 
 ```
@@ -163,14 +229,15 @@ your-next-webapp/
 
 ---
 
+<a id="available-scripts"></a>
 ## 📜 Available Scripts
 
 | Script | Purpose |
 | :--- | :--- |
-| `pnpm dev` | Starts local Next.js development server with Turbopack |
+| `pnpm dev` | Starts local Next.js development server with Turbopack (default port `3023`) |
 | `pnpm build` | Builds the optimized production bundle |
 | `pnpm start` | Runs the compiled production server |
-| `pnpm lint` | Runs ESLint 10 with Next.js Core Web Vitals and TypeScript rules |
+| `pnpm lint` | Runs ESLint with Next.js Core Web Vitals and TypeScript rules |
 | `pnpm typecheck` | Validates TypeScript types across the entire project (`tsc --noEmit`) |
 | `pnpm format` | Formats TypeScript and JSX files using Prettier |
 | `pnpm format:check` | Verifies code formatting without modifying files |
@@ -178,6 +245,7 @@ your-next-webapp/
 
 ---
 
+<a id="documentation"></a>
 ## 📚 Documentation
 
 Detailed architectural and operational documentation is available in the [`docs/`](./docs) directory:
@@ -190,6 +258,32 @@ Detailed architectural and operational documentation is available in the [`docs/
 
 ---
 
+<a id="deployment"></a>
+## 🚢 Deployment
+
+### Deploy to Vercel
+
+The quickest way to deploy `your-next-webapp` is with [Vercel](https://vercel.com/):
+
+1. Click the **Deploy with Vercel** button above or import the GitHub repository in your Vercel Dashboard.
+2. In the environment variables configuration step, provide your Firebase keys (`NEXT_PUBLIC_FIREBASE_*`).
+3. Deploy! Next.js 16 build optimization and SSR will configure automatically.
+
+### Deploy with Node.js Server / Docker
+
+To host on your own infrastructure or container:
+
+```bash
+# 1. Build application bundle
+pnpm build
+
+# 2. Run standalone production server
+pnpm start
+```
+
+---
+
+<a id="contributing"></a>
 ## 🤝 Contributing
 
 Contributions are warmly welcomed! Please read our **[Contributing Guide](CONTRIBUTING.md)** and review our **[Code of Conduct](CODE_OF_CONDUCT.md)** before submitting pull requests.
@@ -202,12 +296,14 @@ Contributions are warmly welcomed! Please read our **[Contributing Guide](CONTRI
 
 ---
 
+<a id="security"></a>
 ## 🔒 Security
 
 For security vulnerability reports, please refer to our **[Security Policy](SECURITY.md)**.
 
 ---
 
+<a id="license"></a>
 ## 📄 License
 
 This project is open source and available under the **[MIT License](LICENSE)**.
