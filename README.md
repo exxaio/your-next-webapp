@@ -15,7 +15,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![Live Demo](https://img.shields.io/badge/Demo-Live_Online-00c853?logo=vercel&logoColor=white)](https://your-next-webapp.vercel.app/)
 [![CI](https://github.com/exxaio/your-next-webapp/actions/workflows/ci.yml/badge.svg)](https://github.com/exxaio/your-next-webapp/actions/workflows/ci.yml)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](.github/CONTRIBUTING.md)
 
 [Overview](#overview) • [Live Demo](#live-demo) • [Features](#features) • [Quick Start](#quick-start) • [Architecture](#architecture) • [Structure](#repository-structure) • [Documentation](#documentation) • [Contributing](#contributing)
 
@@ -186,10 +186,13 @@ Open [http://localhost:3023](http://localhost:3023) in your browser to view the 
 
 ```
 your-next-webapp/
-├── .github/                 # GitHub Actions workflows & issue templates
+├── .github/                 # Workflows, issue templates & community health files
 │   ├── workflows/ci.yml     # Automated CI (lint, format, typecheck, build)
 │   ├── ISSUE_TEMPLATE/      # Bug report & feature request templates
-│   └── pull_request_template.md
+│   ├── pull_request_template.md
+│   ├── CODE_OF_CONDUCT.md   # Community guidelines
+│   ├── CONTRIBUTING.md      # Contribution guide
+│   └── SECURITY.md          # Security policy
 ├── app/                     # Next.js App Router
 │   ├── [locale]/            # Localized route hierarchy (/en, /zh-CN)
 │   │   ├── (app)/           # Authenticated application routes
@@ -223,7 +226,8 @@ your-next-webapp/
 ├── messages/                # Translation dictionaries
 │   ├── en/                  # English locale JSON strings
 │   └── zh-CN/               # Simplified Chinese locale JSON strings
-├── middleware.ts            # next-intl locale negotiation proxy
+├── types/                   # Global TypeScript type declarations
+├── proxy.ts                 # Next.js 16 proxy (formerly middleware)
 └── package.json
 ```
 
@@ -286,7 +290,7 @@ pnpm start
 <a id="contributing"></a>
 ## 🤝 Contributing
 
-Contributions are warmly welcomed! Please read our **[Contributing Guide](CONTRIBUTING.md)** and review our **[Code of Conduct](CODE_OF_CONDUCT.md)** before submitting pull requests.
+Contributions are warmly welcomed! Please read our **[Contributing Guide](.github/CONTRIBUTING.md)** and review our **[Code of Conduct](.github/CODE_OF_CONDUCT.md)** before submitting pull requests.
 
 1. Fork the repo and create your branch: `git checkout -b feature/amazing-feature`
 2. Run validation checks: `pnpm check && pnpm typecheck && pnpm build`
@@ -299,7 +303,7 @@ Contributions are warmly welcomed! Please read our **[Contributing Guide](CONTRI
 <a id="security"></a>
 ## 🔒 Security
 
-For security vulnerability reports, please refer to our **[Security Policy](SECURITY.md)**.
+For security vulnerability reports, please refer to our **[Security Policy](.github/SECURITY.md)**.
 
 ---
 

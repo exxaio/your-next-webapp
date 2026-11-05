@@ -63,5 +63,21 @@
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.3",
     "typescript": "~5.9.3"
+  },
+  "prettier": {
+    "endOfLine": "lf",
+    "semi": false,
+    "singleQuote": false,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "printWidth": 80,
+    "plugins": [
+      "prettier-plugin-tailwindcss"
+    ],
+    "tailwindStylesheet": "app/globals.css",
+    "tailwindFunctions": [
+      "cn",
+      "cva"
+    ]
   }
 }
